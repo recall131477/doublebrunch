@@ -17,6 +17,7 @@ const routes = [
         name: '關於我們',
         component: () => import('../views/frontend/AboutView.vue'),
       },
+<<<<<<< HEAD
       {
         path: 'products',
         name: '前台產品列表',
@@ -59,6 +60,9 @@ const routes = [
     path: '/admin',
     name: 'back',
     component: () => import('../views/backend/BackView.vue'),
+=======
+    ],
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
   },
 ];
 

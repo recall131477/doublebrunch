@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" width="98" height="26" viewBox="0 0 98 26">
   <text id="午分之食" transform="translate(49 20)" fill="#fff" font-size="20" font-family="'creamfont-2\.0-Regular', 'creamfont-2\.0'" letter-spacing="0.3em"><tspan x="-49" y="0">午分之食</tspan></text>
+=======
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="100" viewBox="0 0 240 100">
+  <g id="Group_258" data-name="Group 258" transform="translate(-20 -20)">
+    <rect id="Rectangle_74" data-name="Rectangle 74" width="240" height="100" transform="translate(20 20)" fill="#8ca06e"/>
+    <text id="午分之食" transform="translate(140 77)" fill="#fff" font-size="20" font-family="'creamfont-2\.0-Regular', 'creamfont-2\.0'" letter-spacing="0.3em"><tspan x="-49" y="0">午分之食</tspan></text>
+  </g>
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
 </svg>

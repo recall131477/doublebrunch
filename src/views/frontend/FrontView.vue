@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="fixed top-0 left-0 z-999 w-full h-full p-5 pointer-events-none">
     <div class="absolute top-0 right-0 w-full h-5 bg-secondary"></div>
     <div class="absolute top-0 right-0 w-5 h-full bg-secondary"></div>
@@ -26,3 +27,7 @@ export default {
   },
 };
 </script>
+=======
+  <router-view></router-view>
+</template>
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428

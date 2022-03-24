@@ -3,6 +3,7 @@
     class="fixed top-5 left-5 w-[calc(100%-2.5rem)] z-999 flex bg-secondary border-primary border-2 h-[100px]"
   >
     <div class="w-[240px]">
+<<<<<<< HEAD
       <h1 class="border-primary border-r-2 h-full">
         <router-link to="/" class="relative block bg-primary h-full">
           <img
@@ -12,12 +13,18 @@
           />
         </router-link>
       </h1>
+=======
+      <router-link to="/" class="block">
+        <img src="@/assets/images/logo.svg" alt="logo圖片" />
+      </router-link>
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
     </div>
     <div class="flex flex-1">
       <router-link
         to="cart"
         class="relative border-primary border-r-2 w-[100px]"
       >
+<<<<<<< HEAD
         <div
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
@@ -27,6 +34,13 @@
             >2</span
           >
         </div>
+=======
+        <img
+          src="@/assets/images/icon-cart.svg"
+          alt="icon-購物"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        />
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
       </router-link>
       <div class="flex-1">
         <div class="flex items-center h-full px-10">
@@ -34,6 +48,7 @@
           <input
             type="text"
             placeholder="早安，今天我想來點..."
+<<<<<<< HEAD
             class="text-primary bg-secondary w-full h-full ml-5"
           />
         </div>
@@ -43,6 +58,13 @@
         class="relative border-primary border-l-2 w-[100px]"
         @click="toggleMenu"
       >
+=======
+            class="bg-secondary w-full ml-5"
+          />
+        </div>
+      </div>
+      <div class="relative border-primary border-l-2 w-[100px] cursor-pointer">
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
         <div
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5"
         >
@@ -57,7 +79,11 @@
             class="absolute bottom-0 right-0 bg-primary w-[5px] h-[5px]"
           ></span>
         </div>
+<<<<<<< HEAD
       </a>
+=======
+      </div>
+>>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
     </div>
   </header>
 </template>
