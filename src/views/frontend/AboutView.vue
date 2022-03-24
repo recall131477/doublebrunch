@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <section>
     <div class="relative h-[calc(100vh-140px)] border-primary border-b-2">
       <div class="flex h-[calc(100%-80px)]">
@@ -99,23 +98,3 @@
     </ul>
   </section>
 </template>
-=======
-  <div>關於我們</div>
-  <Swiper :modules="modules" :slides-per-view="3" :space-between="50">
-    <SwiperSlide>Slide 1</SwiperSlide>
-    <SwiperSlide>Slide 2</SwiperSlide>
-    <SwiperSlide>Slide 3</SwiperSlide>
-  </Swiper>
-</template>
-
-<script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-};
-</script>
->>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428

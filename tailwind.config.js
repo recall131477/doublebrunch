@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const plugin = require('tailwindcss/plugin');
-
-=======
->>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
 module.exports = {
   content: [
     "./index.html",
@@ -41,11 +36,7 @@ module.exports = {
       }
     },
   },
-<<<<<<< HEAD
   plugins: [
     require('@tailwindcss/line-clamp'),
   ],
-=======
-  plugins: [],
->>>>>>> 45f295924f1a78f7dcaf0d113b47012ce78a5428
 }
