@@ -1,0 +1,52 @@
+//hide-text
+@mixin hide-text {
+	text-indent: 101%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+// float clearfix
+@mixin row($max-width:100%) {
+    max-width: $max-width;
+    margin: {
+      left:auto;
+      right: auto;
+    }
+    &:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+}
+
+// bg img
+@mixin bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+// position
+@mixin positionA ($top: auto, $left:auto, $bottom:auto, $right:auto) {
+    position: absolute;
+    // 如果是 auto 就不要做
+    // 如果不是 auto 就要做
+    @if $top != auto {
+        top:$top;    
+    }
+    @if $left != auto {    
+        left:$left;    
+    }
+    @if $bottom != auto {
+        bottom:$bottom; 
+    }
+    @if $right != auto {
+        right:$right;   
+    }
+}
+
+
+
+
+
+
