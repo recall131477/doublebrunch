@@ -1,0 +1,19 @@
+body{
+  font-family: 'Noto Sans TC', sans-serif;
+  overflow-x: hidden;
+  background-color: $secondary;
+}
+
+input:focus,button:focus,textarea:focus,select:focus{
+  outline: none;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+select {
+  -webkit-appearance: none;
+  border-radius: 0;
+}

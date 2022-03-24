@@ -1,0 +1,18 @@
+// 色系
+$primary: #8CA06E;
+$secondary: #EEE6DE;
+$warning: #F68F35;
+$black: #000000;
+$white: #ffffff;
+
+
+// 灰階，寫法nth($grayscale,第幾個顏色、css第一個位子為1，js才是0)
+// 此專案無灰階
+
+// RWD斷點
+$mq-breakpoints: (
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+);

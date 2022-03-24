@@ -1,0 +1,14 @@
+// plugin
+@import 'swiper/scss';
+
+// config
+@import 'config/variables';
+@import 'config/reboot';
+
+// layout
+@import 'layout/header';
+
+// pages
+@import 'pages/home';
+@import 'pages/cart';
+@import 'pages/checkout';

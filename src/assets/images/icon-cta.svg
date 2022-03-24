@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-icon-cta">
+      <rect width="20" height="20"/>
+    </clipPath>
+  </defs>
+  <g id="icon-cta" clip-path="url(#clip-icon-cta)">
+    <g id="Group_249" data-name="Group 249" transform="translate(-174.5 -828.5)">
+      <line id="Line_107" data-name="Line 107" y1="16" x2="16" transform="translate(176 831)" fill="none" stroke="#8ca06e" stroke-width="2"/>
+      <path id="Path_7" data-name="Path 7" d="M1835.9,816.491h10v10" transform="translate(-1654 14.509)" fill="none" stroke="#8ca06e" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
