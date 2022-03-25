@@ -136,10 +136,10 @@
       <div class="text-right mt-5">
         <p class="text-20px text-primary opacity-50 mb-2">總計金額 : $420</p>
         <p class="text-24px text-primary mb-5">折扣後金額 : $320</p>
-        <a
-          href="javascript:;"
+        <router-link
+          to="/complete"
           class="inline-block text-white bg-primary px-12 py-[18px]"
-          >確認結帳</a
+          >確認結帳</router-link
         >
       </div>
     </div>

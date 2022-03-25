@@ -136,16 +136,16 @@
       <div class="text-right mt-5">
         <p class="text-20px text-primary opacity-50 mb-2">總計金額 : $420</p>
         <p class="text-24px text-primary mb-5">折扣後金額 : $320</p>
-        <a
-          href="javascript:;"
+        <router-link
+          to="/"
           class="inline-block text-primary border-primary border-2 px-12 py-4"
           >前往首頁
-        </a>
-        <a
-          href="javascript:;"
+        </router-link>
+        <router-link
+          to="/products"
           class="inline-block text-white bg-primary px-12 py-[18px] ml-5"
           >繼續購物
-        </a>
+        </router-link>
       </div>
     </div>
   </section>

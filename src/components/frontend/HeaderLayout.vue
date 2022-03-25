@@ -14,16 +14,18 @@
       </h1>
     </div>
     <div class="flex flex-1">
-      <router-link
-        to="cart"
-        class="relative border-primary border-r-2 w-[100px]"
+      <button
+        type="button"
+        class="relative flex justify-center items-center border-primary border-r-2 w-[100px]"
       >
-        <img
-          src="@/assets/images/icon-cart.svg"
-          alt="icon-購物"
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        />
-      </router-link>
+        <div class="relative">
+          <img src="@/assets/images/icon-heart.svg" alt="我的最愛" />
+          <span
+            class="absolute top-[-6px] right-[-12px] flex justify-center items-center text-12px text-white bg-primary w-[18px] h-[18px] rounded-full"
+            >2
+            </span>
+        </div>
+      </button>
       <div class="flex-1">
         <div class="flex items-center h-full px-10">
           <img src="@/assets/images/icon-search.svg" alt="icon-放大鏡" />
@@ -34,14 +36,12 @@
           />
         </div>
       </div>
-      <a
-        href="#"
-        class="relative border-primary border-l-2 w-[100px]"
+      <button
+        type="button"
+        class="relative flex justify-center items-center border-primary border-l-2 w-[100px]"
         @click="toggleMenu"
       >
-        <div
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5"
-        >
+        <div class="relative w-5 h-5">
           <span class="absolute top-0 left-0 bg-primary w-[5px] h-[5px]"></span>
           <span
             class="absolute top-0 right-0 bg-primary w-[5px] h-[5px]"
@@ -53,7 +53,7 @@
             class="absolute bottom-0 right-0 bg-primary w-[5px] h-[5px]"
           ></span>
         </div>
-      </a>
+      </button>
     </div>
   </header>
 </template>

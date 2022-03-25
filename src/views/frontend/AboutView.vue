@@ -9,7 +9,7 @@
             </h4>
           </div>
         </div>
-        <div class="relative flex-1">
+        <div class="relative w-[calc(100%-240px)]">
           <div class="border-primary border-l-2 h-full">
             <h2 class="absolute bottom-[60px] left-[60px] text-80px text-white">
               關於午分之食
@@ -30,9 +30,9 @@
     </div>
   </section>
   <section>
-    <ul>
+    <ul class="space-y-20">
       <li class="border-primary border-b-2">
-        <div class="grid grid-cols-5 h-[200px]">
+        <div class="grid grid-cols-5 min-h-[200px]">
           <div class="col-span-2">
             <div class="border-primary border-r-2 h-full">
               <h2
@@ -44,7 +44,7 @@
           </div>
           <div class="col-span-3">
             <div class="flex items-center h-full px-5">
-              <p class="text-primary">
+              <p class="text-primary leading-loose">
                 「午分之食」構思來自「五分之十」。<br />
                 五分之十以數學角度計算結果為2，猶如「Double」加倍的意思並藉此當作出發點。<br />
                 對於食材的選用、食材的運用、對待客人都秉持加倍的心態對待，讓午分之食為你美好一天的開始注入元氣。
@@ -53,11 +53,11 @@
           </div>
         </div>
       </li>
-      <li class="border-primary border-b-2">
-        <div class="grid grid-cols-5 grid-flow-row-dense h-[200px]">
+      <li class="border-primary border-y-2">
+        <div class="grid grid-cols-5 min-h-[200px]">
           <div class="col-span-3">
             <div class="flex justify-end items-center h-full px-5">
-              <p class="text-primary text-right">
+              <p class="text-primary text-right leading-loose">
                 不論是早上忙碌趕著上班、放假想睡到自然醒、下午想來點悠閒時光，<br />
                 我們提供多種不同餐點因應不同時段用餐的人，給你多樣味覺上的享受。
               </p>
@@ -74,8 +74,8 @@
           </div>
         </div>
       </li>
-      <li class="border-primary border-b-2">
-        <div class="grid grid-cols-5 h-[200px]">
+      <li class="border-primary border-y-2">
+        <div class="grid grid-cols-5 min-h-[200px]">
           <div class="col-span-2">
             <div class="border-primary border-r-2 h-full">
               <h2
@@ -87,7 +87,7 @@
           </div>
           <div class="col-span-3">
             <div class="flex items-center h-full px-5">
-              <p class="text-primary">
+              <p class="text-primary leading-loose">
                 加倍用心、吃得安心。<br />
                 加倍美味、征服你胃。
               </p>
