@@ -34,7 +34,11 @@
           />
         </div>
       </div>
-      <div class="relative border-primary border-l-2 w-[100px] cursor-pointer">
+      <a
+        href="#"
+        class="relative border-primary border-l-2 w-[100px]"
+        @click="toggleMenu"
+      >
         <div
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5"
         >
@@ -49,7 +53,19 @@
             class="absolute bottom-0 right-0 bg-primary w-[5px] h-[5px]"
           ></span>
         </div>
-      </div>
+      </a>
     </div>
   </header>
 </template>
+
+<script>
+import emitter from '@/methods/emitter';
+
+export default {
+  methods: {
+    toggleMenu() {
+      emitter.emit('toggle-menu');
+    },
+  },
+};
+</script>

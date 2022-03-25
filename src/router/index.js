@@ -52,6 +52,16 @@ const routes = [
         name: '完成購物',
         component: () => import('../views/frontend/CompleteView.vue'),
       },
+      {
+        path: 'articles',
+        name: '部落格',
+        component: () => import('../views/frontend/ArticlesView.vue'),
+      },
+      {
+        path: 'article',
+        name: '文章內文',
+        component: () => import('../views/frontend/ArticleView.vue'),
+      },
     ],
   },
   // 後台
