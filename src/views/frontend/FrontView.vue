@@ -20,6 +20,7 @@
   </router-link>
   <div class="p-5">
     <HeaderLayout></HeaderLayout>
+    <FavoriteModal></FavoriteModal>
     <NavBar></NavBar>
     <main class="mt-[100px]">
       <router-view></router-view>
@@ -29,15 +30,17 @@
 </template>
 
 <script>
-import HeaderLayout from '@/components/frontend/HeaderLayout.vue';
-import FooterLayout from '@/components/frontend/FooterLayout.vue';
+import HeaderLayout from '@/components/frontend/layout/HeaderLayout.vue';
+import FooterLayout from '@/components/frontend/layout/FooterLayout.vue';
 import NavBar from '@/components/frontend/NavBar.vue';
+import FavoriteModal from '@/components/frontend/modal/FavoriteModal.vue';
 
 export default {
   components: {
     HeaderLayout,
     FooterLayout,
     NavBar,
+    FavoriteModal,
   },
 };
 </script>

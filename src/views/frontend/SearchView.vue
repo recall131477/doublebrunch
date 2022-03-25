@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="border-primary border-b-2 px-5 pt-[30px] pb-5">
+    <div class="border-primary border-b-2 pt-[30px] px-5 pb-5">
       <div class="relative border-primary border-2 mb-2.5">
         <input type="text" class="text-primary bg-secondary w-full p-5" />
         <a
