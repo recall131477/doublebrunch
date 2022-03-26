@@ -31,10 +31,6 @@ module.exports = {
         'lg': '992px',
         'xl': '1200px',
       },
-      zIndex: {
-        '999': '999',
-        '1000': '1000',
-      }
     },
   },
   plugins: [

@@ -23,7 +23,7 @@ const routes = [
         component: () => import('../views/frontend/ProductsView.vue'),
       },
       {
-        path: 'product',
+        path: 'product/:id',
         name: '前台產品細節',
         component: () => import('../views/frontend/ProductView.vue'),
       },
@@ -43,12 +43,12 @@ const routes = [
         component: () => import('../views/frontend/CheckoutView.vue'),
       },
       {
-        path: 'checkorder',
+        path: 'checkorder/:id',
         name: '確認訂單',
         component: () => import('../views/frontend/CheckorderView.vue'),
       },
       {
-        path: 'complete',
+        path: 'complete/:id',
         name: '完成購物',
         component: () => import('../views/frontend/CompleteView.vue'),
       },
@@ -58,7 +58,7 @@ const routes = [
         component: () => import('../views/frontend/ArticlesView.vue'),
       },
       {
-        path: 'article',
+        path: 'article/:id',
         name: '文章內文',
         component: () => import('../views/frontend/ArticleView.vue'),
       },

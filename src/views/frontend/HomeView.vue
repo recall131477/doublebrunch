@@ -18,9 +18,7 @@
             <div class="w-[240px]">
               <div class="border-primary border-b-2 h-[calc(100%-5rem)]">
                 <div class="flex flex-col justify-center items-center h-full">
-                  <h2
-                    class="writing-mode-ver-lr text-48px text-primary mb-5"
-                  >
+                  <h2 class="writing-mode-ver-lr text-48px text-primary mb-5">
                     煎蛋吐司
                   </h2>
                   <span class="text-32px text-primary">$40</span>
@@ -55,9 +53,7 @@
             <div class="w-[240px]">
               <div class="border-primary border-b-2 h-[calc(100%-5rem)]">
                 <div class="flex flex-col justify-center items-center h-full">
-                  <h2
-                    class="writing-mode-ver-lr text-48px text-primary mb-5"
-                  >
+                  <h2 class="writing-mode-ver-lr text-48px text-primary mb-5">
                     薯泥香雞
                   </h2>
                   <span class="text-32px text-primary">$40</span>
@@ -185,7 +181,8 @@
                       />
                     </button>
                     <div class="flex-1">
-                      <button type="button"
+                      <button
+                        type="button"
                         class="flex justify-center items-center border-primary border-l-2 w-full h-full"
                       >
                         <img
@@ -223,87 +220,29 @@
         <div class="border-primary border-r-2">
           <div class="border-primary border-b-2 h-20"></div>
           <div class="p-5">
-            <Swiper :slides-per-view="4" :space-between="20">
-              <SwiperSlide>
-                <div class="border-primary border-2">
-                  <div class="relative pt-[75%]">
+            <Swiper :slides-per-view="2" :space-between="20">
+              <SwiperSlide v-for="article in articles" :key="article.id">
+                <div class="flex border-primary border-2">
+                  <router-link
+                    :to="`/article/${article.id}`"
+                    class="group overflow-hidden"
+                    v-if="article.isPublic"
+                  >
                     <img
-                      src="@/assets/images/bg-test.png"
-                      alt="測試圖片"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
+                      :src="article.imageUrl"
+                      :alt="article.title"
+                      class="duration-300 w-[240px] h-[240px] object-cover group-hover:scale-110"
                     />
-                  </div>
-                  <div class="p-5">
-                    <span class="text-14px text-primary opacity-50 mb-1"
-                      >2022/3/22</span
-                    >
-                    <h4 class="text-20px text-primary mb-3">怎麼吃最健康</h4>
-                    <p class="text-primary line-clamp-2">
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div class="border-primary border-2">
-                  <div class="relative pt-[75%]">
-                    <img
-                      src="@/assets/images/bg-test.png"
-                      alt="測試圖片"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
-                    />
-                  </div>
-                  <div class="p-5">
-                    <span class="text-14px text-primary opacity-50 mb-1"
-                      >2022/3/22</span
-                    >
-                    <h4 class="text-20px text-primary mb-3">怎麼吃最健康</h4>
-                    <p class="text-primary line-clamp-2">
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div class="border-primary border-2">
-                  <div class="relative pt-[75%]">
-                    <img
-                      src="@/assets/images/bg-test.png"
-                      alt="測試圖片"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
-                    />
-                  </div>
-                  <div class="p-5">
-                    <span class="text-14px text-primary opacity-50 mb-1"
-                      >2022/3/22</span
-                    >
-                    <h4 class="text-20px text-primary mb-3">怎麼吃最健康</h4>
-                    <p class="text-primary line-clamp-2">
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div class="border-primary border-2">
-                  <div class="relative pt-[75%]">
-                    <img
-                      src="@/assets/images/bg-test.png"
-                      alt="測試圖片"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
-                    />
-                  </div>
-                  <div class="p-5">
-                    <span class="text-14px text-primary opacity-50 mb-1"
-                      >2022/3/22</span
-                    >
-                    <h4 class="text-20px text-primary mb-3">怎麼吃最健康</h4>
-                    <p class="text-primary line-clamp-2">
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                  </router-link>
+                  <div class="flex-1 px-5 py-10">
+                    <span class="block text-primary opacity-50 mb-1">{{
+                      $filters.date(article.create_at)
+                    }}</span>
+                    <h4 class="text-20px text-primary mb-5">
+                      {{ article.title }}
+                    </h4>
+                    <p class="text-primary">
+                      {{ article.description }}
                     </p>
                   </div>
                 </div>
@@ -359,6 +298,11 @@ import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 export default {
+  data() {
+    return {
+      articles: [],
+    };
+  },
   components: {
     Swiper,
     SwiperSlide,
@@ -367,6 +311,24 @@ export default {
     return {
       modules: [Autoplay],
     };
+  },
+  methods: {
+    // 取得所有文章資料
+    getArticles(page = 1) {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/articles?page=${page}`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.articles = res.data.articles;
+          this.pagination = res.data.pagination;
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
+    },
+  },
+  mounted() {
+    this.getArticles();
   },
 };
 </script>

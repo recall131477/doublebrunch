@@ -1,7 +1,7 @@
 <template>
-  <section class="favorite">
+  <div class="favorite">
     <div
-      class="fixed top-[120px] left-[260px] z-10 bg-secondary border-primary border-x-2 border-b-2 w-[400px] p-5"
+      class="hidden fixed top-[120px] left-[260px] z-10 bg-secondary border-primary border-x-2 border-b-2 w-[400px] p-5"
     >
       <ul>
         <li
@@ -20,7 +20,7 @@
           </div>
           <button
             type="button"
-            class="text-primary border-primary border-2 h-[45px] px-4"
+            class="text-primary border-primary border-2 px-4 py-3"
           >
             加入購物車
           </button>
@@ -41,7 +41,7 @@
           </div>
           <button
             type="button"
-            class="text-primary border-primary border-2 h-[45px] px-4"
+            class="text-primary border-primary border-2 px-4 py-3"
           >
             加入購物車
           </button>
@@ -62,12 +62,12 @@
           </div>
           <button
             type="button"
-            class="text-primary border-primary border-2 h-[45px] px-4"
+            class="text-primary border-primary border-2 px-4 py-3"
           >
             加入購物車
           </button>
         </li>
       </ul>
     </div>
-  </section>
+  </div>
 </template>

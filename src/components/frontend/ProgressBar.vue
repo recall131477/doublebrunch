@@ -3,45 +3,71 @@
     <div class="border-primary border-b-2 py-5">
       <ul class="flex justify-center">
         <li class="flex">
-          <div class="text-center">
-            <span class="block text-12px text-primary">Step.1</span>
-            <span class="block text-primary">購物車</span>
+          <div
+            class="text-primary/50 text-center"
+            :class="{ '!text-primary': step === '1' }"
+          >
+            <span class="block text-12px">Step.1</span>
+            <span class="block">購物車</span>
           </div>
           <img
             src="@/assets/images/icon-progress-arrow.svg"
             alt="icon-progress-arrow"
-            class="mx-[30px]"
+            class="opacity-50 mx-[30px]"
+            :class="{ '!opacity-100': step === '1' }"
           />
         </li>
         <li class="flex">
-          <div class="text-center">
-            <span class="block text-12px text-primary">Step.2</span>
-            <span class="block text-primary">訂單資訊</span>
+          <div
+            class="text-primary/50 text-center"
+            :class="{ '!text-primary': step === '2' }"
+          >
+            <span class="block text-12px">Step.2</span>
+            <span class="block">訂單資訊</span>
           </div>
           <img
             src="@/assets/images/icon-progress-arrow.svg"
             alt="icon-progress-arrow"
-            class="mx-[30px]"
+            class="opacity-50 mx-[30px]"
+            :class="{ '!opacity-100': step === '2' }"
           />
         </li>
         <li class="flex">
-          <div class="text-center">
-            <span class="block text-12px text-primary">Step.3</span>
-            <span class="block text-primary">確認訂單</span>
+          <div
+            class="text-primary/50 text-center"
+            :class="{ '!text-primary': step === '3' }"
+          >
+            <span class="block text-12px">Step.3</span>
+            <span class="block">確認訂單</span>
           </div>
           <img
             src="@/assets/images/icon-progress-arrow.svg"
             alt="icon-progress-arrow"
-            class="mx-[30px]"
+            class="opacity-50 mx-[30px]"
+            :class="{ '!opacity-100': step === '3' }"
           />
         </li>
         <li>
-          <div class="text-center">
-            <span class="block text-12px text-primary">Step.4</span>
-            <span class="block text-primary">完成訂單</span>
+          <div
+            class="text-primary/50 text-center"
+            :class="{ '!text-primary': step === '4' }"
+          >
+            <span class="block text-12px">Step.4</span>
+            <span class="block">完成訂單</span>
           </div>
         </li>
       </ul>
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  props: {
+    step: {
+      type: String,
+      default: '',
+    },
+  },
+};
+</script>
