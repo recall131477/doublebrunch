@@ -21,14 +21,14 @@
               v-model="form.user.name"
             >
             </VField>
-            <div class="test1 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-remind.svg"
                 alt="icon-checked"
                 class="bg-primary rounded-full"
               />
             </div>
-            <div class="test2 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-checked.svg"
                 alt="icon-checked"
@@ -59,14 +59,14 @@
               }"
               v-model="form.user.email"
             ></VField>
-            <div class="test1 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-remind.svg"
                 alt="icon-checked"
                 class="bg-primary rounded-full"
               />
             </div>
-            <div class="test2 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-checked.svg"
                 alt="icon-checked"
@@ -95,14 +95,14 @@
               }"
               v-model="form.user.tel"
             ></VField>
-            <div class="test1 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-remind.svg"
                 alt="icon-checked"
                 class="bg-primary rounded-full"
               />
             </div>
-            <div class="test2 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-checked.svg"
                 alt="icon-checked"
@@ -133,14 +133,14 @@
               }"
               v-model="form.user.address"
             ></VField>
-            <div class="test1 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-remind.svg"
                 alt="icon-checked"
                 class="bg-primary rounded-full"
               />
             </div>
-            <div class="test2 absolute top-1/2 right-5 -translate-y-1/2">
+            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
               <img
                 src="@/assets/images/icon-checked.svg"
                 alt="icon-checked"
@@ -231,7 +231,10 @@
           >
             總計金額 : ${{ $filters.currency(cart.total) }}
           </p>
-          <p class="text-24px text-primary mb-5">
+          <p
+            class="text-24px text-primary mb-5"
+            v-if="cart.total !== cart.final_total"
+          >
             折扣後金額 : ${{ $filters.currency(Math.round(cart.final_total)) }}
           </p>
           <button
@@ -248,6 +251,7 @@
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 
 export default {
@@ -309,7 +313,7 @@ export default {
             name: '確認訂單', // params 只能用 name 不能用 path
             params: { id: res.data.orderId },
           });
-          console.log(123);
+          emitter.emit('get-cart');
         })
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');

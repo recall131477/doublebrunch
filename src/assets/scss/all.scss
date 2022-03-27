@@ -7,9 +7,12 @@
 
 // layout
 @import 'layout/header';
-@import 'layout/favorite';
 
 // pages
 @import 'pages/home';
 @import 'pages/cart';
 @import 'pages/checkout';
+
+// components
+@import 'components/favorite';
+@import 'components/loading';

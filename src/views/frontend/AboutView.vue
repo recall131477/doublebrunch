@@ -15,8 +15,8 @@
               關於午分之食
             </h2>
             <img
-              src="@/assets/images/test.jpg"
-              alt=""
+              src="@/assets/images/bg-about.jpg"
+              alt="關於我們"
               class="w-full h-full object-cover"
             />
           </div>

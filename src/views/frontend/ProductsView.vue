@@ -44,7 +44,9 @@
             </router-link>
             <div class="flex justify-between border-primary border-t-2 p-5">
               <h4 class="text-20px text-primary">{{ product.title }}</h4>
-              <span class="text-20px text-primary">${{ $filters.currency(product.price) }}</span>
+              <span class="text-20px text-primary"
+                >${{ $filters.currency(product.price) }}</span
+              >
             </div>
           </div>
           <div class="flex border-primary border-x-2 border-b-2">
@@ -84,7 +86,11 @@
         </li>
       </ul>
     </div>
-    <Pagination :pages="pagination" @change-pages="getProducts" v-if="pagination.total_pages > 1"></Pagination>
+    <Pagination
+      :pages="pagination"
+      @change-pages="getProducts"
+      v-if="pagination.total_pages > 1"
+    ></Pagination>
   </section>
 </template>
 

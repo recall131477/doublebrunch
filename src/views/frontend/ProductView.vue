@@ -13,8 +13,11 @@
           <div class="p-[60px]">
             <span class="text-primary opacity-50">{{ product.category }}</span>
             <h2 class="text-40px text-primary mb-5">{{ product.title }}</h2>
-            <p class="text-primary mb-[30px]">
+            <p class="text-primary mb-5">
               {{ product.description }}
+            </p>
+            <p class="text-12px text-primary mb-[30px]">
+              {{ product.content }}
             </p>
             <div class="mb-10">
               <span

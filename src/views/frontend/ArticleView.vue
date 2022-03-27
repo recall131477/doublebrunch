@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="relative h-[calc(100vh-140px)]">
-      <div class="grid grid-cols-5 h-full">
-        <div class="col-span-3">
+      <div class="flex h-full">
+        <div class="w-3/5">
           <div class="p-10">
             <span class="block text-primary opacity-50 mb-1">{{
               $filters.date(article.create_at)
@@ -30,7 +30,7 @@
             >
           </div>
         </div>
-        <div class="col-span-2">
+        <div class="w-2/5">
           <img
             :src="article.imageUrl"
             :alt="article.title"

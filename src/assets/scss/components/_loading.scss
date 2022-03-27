@@ -1,0 +1,78 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $black;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.loading__main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    height: 5px;
+    background-color: $primary;
+    opacity: 0.5;
+    border-radius: 50%;
+    animation: shadow 0.7s linear infinite;
+  }
+  &:after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    background-color: $primary;
+    animation: square 0.7s linear infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+  }
+}
+
+@keyframes square {
+  17% {
+    border-bottom-right-radius: 3px;
+  }
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+
+@keyframes shadow {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1);
+  }
+}

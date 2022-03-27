@@ -8,7 +8,7 @@
         </button>
       </div>
       <p class="text-primary mb-5">
-        共有 <span class="text-24px">4</span> 筆搜尋結果
+        共有 <span class="text-24px">{{ articles.length }}</span> 筆搜尋結果
       </p>
       <ul class="grid grid-cols-2 gap-5">
         <li v-for="article in articles" :key="article.id">

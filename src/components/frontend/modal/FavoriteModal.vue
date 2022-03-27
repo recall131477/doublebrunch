@@ -71,3 +71,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import emitter from '@/methods/emitter';
+
+export default {
+  data() {
+    return {
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
+    };
+  },
+  watch: {
+    // 因為是陣列，需要做深層監聽
+    favorite: {
+      handler() {
+        // localStorage 自訂欄位
+        localStorage.setItem('favorite', JSON.stringify(this.favorite));
+        emitter.emit('get-favorite');
+      },
+      deep: true,
+    },
+  },
+};
+</script>

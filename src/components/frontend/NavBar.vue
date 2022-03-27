@@ -49,8 +49,8 @@
       </div>
       <div class="w-1/2">
         <img
-          src="@/assets/images/bg-test.png"
-          alt="測試圖片"
+          src="@/assets/images/bg-menu.jpg"
+          alt="菜單圖片"
           class="w-full h-full object-cover"
         />
       </div>

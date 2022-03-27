@@ -1,5 +1,6 @@
 <template>
   <section>
+    <LoadingComponent :isLoading="isLoading"></LoadingComponent>
     <div class="relative h-[calc(100vh-140px)] border-primary border-b-2">
       <Swiper
         class="h-full"
@@ -150,27 +151,27 @@
           <div class="border-primary border-b-2 h-20"></div>
           <div class="p-5">
             <Swiper :slides-per-view="4" :space-between="20">
-              <SwiperSlide>
+              <SwiperSlide v-for="item in discountProducts" :key="item.id">
                 <div class="relative border-primary border-2">
                   <div class="absolute top-0 left-5 z-20">
-                    <img src="@/assets/images/icon-tag.svg" alt="icon-標籤" />
+                    <img src="@/assets/images/icon-tag.svg" alt="標籤" />
                     <span
                       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
-                      >漢堡</span
+                      >{{ item.category }}</span
                     >
                   </div>
                   <div class="relative pt-[100%]">
                     <img
-                      src="@/assets/images/bg-test.png"
-                      alt="測試圖片"
+                      :src="item.imageUrl"
+                      :alt="item.title"
                       class="absolute top-0 left-0 w-full h-full object-cover"
                     />
                   </div>
                   <div
                     class="flex justify-between border-primary border-b-2 p-5"
                   >
-                    <h4 class="text-20px text-primary">薯泥香雞</h4>
-                    <span class="text-20px text-primary">$60</span>
+                    <h4 class="text-20px text-primary">{{ item.title }}</h4>
+                    <span class="text-20px text-primary">${{ $filters.currency(item.price) }}</span>
                   </div>
                   <div class="flex">
                     <button type="button" class="relative w-[60px] h-[60px]">
@@ -205,11 +206,11 @@
           <h3
             class="flex justify-center items-center text-24px text-primary h-full"
           >
-            食分推薦
+            食分好康
           </h3>
         </div>
         <div class="h-[calc(100%-5rem)] p-5">
-          <p class="text-primary h-full">享受美食的饗宴!</p>
+          <p class="text-primary h-full">優惠中，買起來!</p>
         </div>
       </div>
     </div>
@@ -294,16 +295,21 @@
 </template>
 
 <script>
+import LoadingComponent from '@/components/LoadingComponent.vue';
 import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 export default {
   data() {
     return {
+      products: [],
+      discountProducts: [],
       articles: [],
+      isLoading: false,
     };
   },
   components: {
+    LoadingComponent,
     Swiper,
     SwiperSlide,
   },
@@ -313,6 +319,26 @@ export default {
     };
   },
   methods: {
+    // 取得特價產品資料
+    getProducts() {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.products = res.data.products;
+          const { products } = res.data;
+          const result = new Set();
+          products.forEach((item) => {
+            if (item.origin_price !== item.price) {
+              result.add(item);
+            }
+          });
+          this.discountProducts = result;
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
+    },
     // 取得所有文章資料
     getArticles(page = 1) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/articles?page=${page}`;
@@ -328,7 +354,11 @@ export default {
     },
   },
   mounted() {
+    this.getProducts();
     this.getArticles();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
   },
 };
 </script>
