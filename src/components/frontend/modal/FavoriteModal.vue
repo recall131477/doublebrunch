@@ -1,73 +1,37 @@
 <template>
   <div class="favorite">
     <div
-      class="hidden fixed top-[120px] left-[260px] z-10 bg-secondary border-primary border-x-2 border-b-2 w-[400px] p-5"
+      class="duration-300 fixed top-[120px] left-[260px] z-10 bg-secondary border-primary border-x-2 border-b-2 w-[400px] overflow-hidden p-5"
+      :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
     >
-      <ul>
-        <li
-          class="flex justify-between items-center border-primary border-t-2 pt-5 mb-5"
-        >
-          <div class="flex items-center">
-            <img
-              src="@/assets/images/bg-test.png"
-              alt="測試圖片"
-              class="w-20 h-20 object-cover"
-            />
-            <div class="text-primary ml-2.5">
-              <span class="block">薯泥香雞</span>
-              <span class="block">$60</span>
-            </div>
-          </div>
-          <button
-            type="button"
-            class="text-primary border-primary border-2 px-4 py-3"
+      <div class="overflow-y-auto max-h-[400px]">
+        <ul>
+          <li
+            class="flex justify-between items-center border-primary border-t-2 pt-5 mb-5"
+            v-for="product in favorite"
+            :key="product.id"
           >
-            加入購物車
-          </button>
-        </li>
-        <li
-          class="flex justify-between items-center border-primary border-t-2 pt-5 mb-5"
-        >
-          <div class="flex items-center">
-            <img
-              src="@/assets/images/bg-test.png"
-              alt="測試圖片"
-              class="w-20 h-20 object-cover"
-            />
-            <div class="text-primary ml-2.5">
-              <span class="block">薯泥香雞</span>
-              <span class="block">$60</span>
+            <div class="flex items-center">
+              <img
+                :src="product.imageUrl"
+                :alt="product.title"
+                class="w-20 h-20 object-cover"
+              />
+              <div class="text-primary ml-2.5">
+                <span class="block">{{ product.title }}</span>
+                <span class="block">${{ product.price }}</span>
+              </div>
             </div>
-          </div>
-          <button
-            type="button"
-            class="text-primary border-primary border-2 px-4 py-3"
-          >
-            加入購物車
-          </button>
-        </li>
-        <li
-          class="flex justify-between items-center border-primary border-t-2 pt-5 mb-5"
-        >
-          <div class="flex items-center">
-            <img
-              src="@/assets/images/bg-test.png"
-              alt="測試圖片"
-              class="w-20 h-20 object-cover"
-            />
-            <div class="text-primary ml-2.5">
-              <span class="block">薯泥香雞</span>
-              <span class="block">$60</span>
-            </div>
-          </div>
-          <button
-            type="button"
-            class="text-primary border-primary border-2 px-4 py-3"
-          >
-            加入購物車
-          </button>
-        </li>
-      </ul>
+            <button
+              type="button"
+              class="text-primary border-primary border-2 px-4 py-3"
+              @click="addToCart(product.id)"
+            >
+              加入購物車
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -76,20 +40,45 @@
 import emitter from '@/methods/emitter';
 
 export default {
+  props: {
+    favorite: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   data() {
     return {
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
+      isOpen: false,
     };
   },
   watch: {
-    // 因為是陣列，需要做深層監聽
-    favorite: {
+    $route: {
+      // 網址變更時觸發
       handler() {
-        // localStorage 自訂欄位
-        localStorage.setItem('favorite', JSON.stringify(this.favorite));
-        emitter.emit('get-favorite');
+        this.isOpen = false;
       },
-      deep: true,
+    },
+  },
+  methods: {
+    addToCart(id, qty = 1) {
+      const data = {
+        product_id: id,
+        qty,
+      };
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      const status = '加入購物車';
+      this.$http
+        .post(url, { data })
+        .then((res) => {
+          this.$messageState(res, status);
+          this.isLoadingItem = '';
+          emitter.emit('get-cart');
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
     },
   },
 };

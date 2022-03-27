@@ -269,6 +269,9 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
+    test() {
+      console.log(123);
+    },
     // 領取優惠券
     useCoupon() {
       this.couponCode = 'double777';

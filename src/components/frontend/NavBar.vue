@@ -67,6 +67,14 @@ export default {
       isOpen: false,
     };
   },
+  watch: {
+    $route: {
+      // 網址變更時觸發
+      handler() {
+        this.isOpen = false;
+      },
+    },
+  },
   methods: {
     toggleMenu() {
       this.isOpen = !this.isOpen;
@@ -76,14 +84,6 @@ export default {
     emitter.on('toggle-menu', () => {
       this.toggleMenu();
     });
-  },
-  watch: {
-    $route: {
-      // 網址變更時觸發
-      handler() {
-        this.isOpen = false;
-      },
-    },
   },
 };
 </script>

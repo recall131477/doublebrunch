@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="relative h-[calc(100vh-140px)]">
+    <div class="relative min-h-[calc(100vh-140px)]">
       <div class="flex h-full">
         <div class="w-3/5">
           <div class="p-10">

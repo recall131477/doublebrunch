@@ -17,6 +17,8 @@
       <button
         type="button"
         class="relative flex justify-center items-center border-primary border-r-2 w-[100px]"
+        :disabled="!favorite.length"
+        @click="openFavoriteModal"
       >
         <div class="relative">
           <img src="@/assets/images/icon-heart.svg" alt="我的最愛" />
@@ -58,10 +60,12 @@
         </div>
       </button>
     </div>
+    <FavoriteModal ref="favoriteModal" :favorite="favorite"></FavoriteModal>
   </header>
 </template>
 
 <script>
+import FavoriteModal from '@/components/frontend/modal/FavoriteModal.vue';
 import emitter from '@/methods/emitter';
 
 export default {
@@ -70,6 +74,9 @@ export default {
       favorite: [],
       keyword: '',
     };
+  },
+  components: {
+    FavoriteModal,
   },
   methods: {
     toggleMenu() {
@@ -85,6 +92,9 @@ export default {
         query: { keyword: this.keyword },
       });
       this.keyword = '';
+    },
+    openFavoriteModal() {
+      this.$refs.favoriteModal.isOpen = !this.$refs.favoriteModal.isOpen;
     },
   },
   mounted() {

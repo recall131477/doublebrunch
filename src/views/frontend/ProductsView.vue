@@ -53,13 +53,13 @@
             <button
               type="button"
               class="relative w-[60px] h-[60px]"
-              @click="toggleFavorite(product.id)"
+              @click="toggleFavorite(product)"
             >
               <img
                 src="@/assets/images/icon-heart-fill.svg"
                 alt="愛心"
                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                v-if="favorite.includes(product.id)"
+                v-if="isFavorite(product)"
               />
               <img
                 src="@/assets/images/icon-heart.svg"
@@ -164,16 +164,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 加入我的最愛
-    toggleFavorite(id) {
-      // 查資料，有沒有這一個 id 如果有 1，沒有 -1
-      const favoriteIndex = this.favorite.findIndex((item) => item === id);
-      if (favoriteIndex === -1) {
-        this.favorite.push(id);
-      } else {
-        this.favorite.splice(favoriteIndex, 1);
-      }
-    },
     // 加入購物車
     addToCart(id, qty = 1) {
       const data = {
@@ -192,6 +182,22 @@ export default {
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');
         });
+    },
+    // 加入我的最愛
+    toggleFavorite(product) {
+      // 查資料，有沒有這一個 id 如果有 1，沒有 -1
+      const favoriteIndex = this.favorite.findIndex(
+        (item) => item.id === product.id,
+      );
+      if (favoriteIndex === -1) {
+        this.favorite.push(product);
+      } else {
+        this.favorite.splice(favoriteIndex, 1);
+      }
+    },
+    // 比對我的最愛產品 id 是否存在
+    isFavorite(item) {
+      return this.favorite.some((element) => element.id === item.id);
     },
   },
   mounted() {

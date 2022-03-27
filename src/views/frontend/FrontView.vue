@@ -21,7 +21,6 @@
   </router-link>
   <div class="p-5">
     <HeaderLayout></HeaderLayout>
-    <FavoriteModal></FavoriteModal>
     <NavBar></NavBar>
     <main class="mt-[100px]">
       <router-view></router-view>
@@ -35,7 +34,6 @@ import emitter from '@/methods/emitter';
 import HeaderLayout from '@/components/frontend/layout/HeaderLayout.vue';
 import FooterLayout from '@/components/frontend/layout/FooterLayout.vue';
 import NavBar from '@/components/frontend/NavBar.vue';
-import FavoriteModal from '@/components/frontend/modal/FavoriteModal.vue';
 
 export default {
   data() {
@@ -49,7 +47,6 @@ export default {
     HeaderLayout,
     FooterLayout,
     NavBar,
-    FavoriteModal,
   },
   methods: {
     // 取得購物車資料
