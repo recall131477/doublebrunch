@@ -305,7 +305,7 @@ export default {
       products: [],
       discountProducts: [],
       articles: [],
-      isLoading: false,
+      isLoading: true,
     };
   },
   components: {
