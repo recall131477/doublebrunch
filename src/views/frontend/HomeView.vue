@@ -303,8 +303,13 @@
           </div>
           <div class="article p-[15px] md:p-5">
             <Swiper
+              :modules="modules"
               :slides-per-view="1"
               :space-between="20"
+              :navigation="{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }"
               :breakpoints="{
                 '1200': {
                   slidesPerView: 2,
@@ -343,6 +348,18 @@
                   </router-link>
                 </div>
               </SwiperSlide>
+              <div class="swiper-button-prev">
+                <img
+                  src="@/assets/images/icon-arrow-left.svg"
+                  alt="icon-arrow-left"
+                />
+              </div>
+              <div class="swiper-button-next">
+                <img
+                  src="@/assets/images/icon-arrow-right.svg"
+                  alt="icon-arrow-right"
+                />
+              </div>
             </Swiper>
           </div>
         </div>
