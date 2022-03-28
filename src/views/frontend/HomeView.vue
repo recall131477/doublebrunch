@@ -297,7 +297,7 @@ export default {
       monthMainProducts: [],
       articles: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
-      isLoading: true,
+      isLoading: false,
     };
   },
   components: {
