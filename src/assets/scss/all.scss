@@ -1,9 +1,11 @@
 // plugin
 @import 'swiper/scss';
+@import 'swiper/scss/navigation';
 
 // config
 @import 'config/variables';
 @import 'config/reboot';
+@import 'config/sass-mq';
 
 // layout
 @import 'layout/header';
@@ -16,3 +18,4 @@
 // components
 @import 'components/favorite';
 @import 'components/loading';
+@import 'components/swiper';

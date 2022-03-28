@@ -1,5 +1,7 @@
 .writing-mode-ver-lr {
-  writing-mode: vertical-lr;
+  @include mq(md) {
+    writing-mode: vertical-lr;
+  }
 }
 
 .subscribe {

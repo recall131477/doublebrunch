@@ -1,86 +1,90 @@
 <template>
   <section>
-    <div class="relative h-[calc(100vh-140px)] border-primary border-b-2">
-      <div class="flex h-full">
-        <div class="w-1/2">
+    <div
+      class="flex flex-wrap border-primary border-b-2 lg:h-[calc(100vh-140px)]"
+    >
+      <div class="w-full h-full lg:w-1/2">
+        <div class="relative pt-[100%] h-full lg:pt-0">
           <img
             :src="product.imageUrl"
             :alt="product.title"
-            class="w-full h-full object-cover"
+            class="absolute top-0 left-0 w-full h-full object-cover lg:relative"
           />
         </div>
-        <div class="w-1/2">
-          <div class="p-[60px]">
-            <span class="text-primary opacity-50">{{ product.category }}</span>
-            <h2 class="text-40px text-primary mb-5">{{ product.title }}</h2>
-            <p class="text-primary mb-5">
-              {{ product.description }}
-            </p>
-            <p class="text-12px text-primary mb-[30px]">
-              {{ product.content }}
-            </p>
-            <div class="mb-10">
-              <span
-                class="block mb-1"
-                :class="{
-                  'text-24px text-primary/50 line-through':
-                    product.origin_price !== product.price,
-                  'text-32px text-primary':
-                    product.origin_price === product.price,
-                }"
-                >原價 ${{ $filters.currency(product.origin_price) }}</span
+      </div>
+      <div class="w-full h-full lg:w-1/2">
+        <div class="p-[15px] md:p-10 lg:p-[60px]">
+          <span class="text-primary opacity-50">{{ product.category }}</span>
+          <h2 class="text-24px text-primary mb-[15px] md:text-32px md:mb-5 lg:text-40px">
+            {{ product.title }}
+          </h2>
+          <p class="text-primary mb-2">
+            {{ product.description }}
+          </p>
+          <p class="text-12px text-primary mb-[15px] md:text-14px md:mb-[30px]">
+            {{ product.content }}
+          </p>
+          <div class="mb-[15px] md:mb-10">
+            <span
+              class="block"
+              :class="{
+                'text-primary/50 line-through md:text-24px':
+                  product.origin_price !== product.price,
+                'text-24px text-primary md:text-32px':
+                  product.origin_price === product.price,
+              }"
+              >原價 ${{ $filters.currency(product.origin_price) }}</span
+            >
+            <span
+              class="block text-24px text-primary mt-1 md:text-32px"
+              v-if="product.origin_price !== product.price"
+              >特價 ${{ $filters.currency(product.price) }}</span
+            >
+          </div>
+          <div class="border-primary border-2">
+            <div class="flex border-primary border-b-2">
+              <button
+                type="button"
+                class="relative w-[60px] h-[60px]"
+                :disabled="qty === 1"
+                :class="{ 'cursor-not-allowed opacity-30': qty === 1 }"
+                @click="changeProductQty('reduce')"
               >
-              <span
-                class="block text-32px text-primary"
-                v-if="product.origin_price !== product.price"
-                >特價 ${{ $filters.currency(product.price) }}</span
+                <span
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-4 h-[2px]"
+                ></span>
+              </button>
+              <!-- onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" 讓 input 不能輸入 '-','+','.' -->
+              <input
+                type="text"
+                class="text-primary text-center bg-secondary border-primary border-x-2 flex-1 w-full h-[60px]"
+                onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')"
+                v-model.number="qty"
+              />
+              <button
+                type="button"
+                class="relative w-[60px] h-[60px]"
+                :disabled="qty === 30"
+                :class="{ 'cursor-not-allowed opacity-30': qty === 30 }"
+                @click="changeProductQty('add')"
               >
+                <span
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-4 h-[2px]"
+                ></span>
+                <span
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 bg-primary w-4 h-[2px]"
+                ></span>
+              </button>
             </div>
-            <div class="border-primary border-2">
-              <div class="flex border-primary border-b-2">
-                <button
-                  type="button"
-                  class="relative w-[60px] h-[60px]"
-                  :disabled="qty === 1"
-                  :class="{ 'cursor-not-allowed opacity-30': qty === 1 }"
-                  @click="changeProductQty('reduce')"
-                >
-                  <span
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-4 h-[2px]"
-                  ></span>
-                </button>
-                <!-- onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" 讓 input 不能輸入 '-','+','.' -->
-                <input
-                  type="text"
-                  class="text-primary text-center bg-secondary border-primary border-x-2 flex-1 w-full h-[60px]"
-                  onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')"
-                  v-model.number="qty"
-                />
-                <button
-                  type="button"
-                  class="relative w-[60px] h-[60px]"
-                  :disabled="qty === 30"
-                  :class="{ 'cursor-not-allowed opacity-30': qty === 30 }"
-                  @click="changeProductQty('add')"
-                >
-                  <span
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-4 h-[2px]"
-                  ></span>
-                  <span
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 bg-primary w-4 h-[2px]"
-                  ></span>
-                </button>
-              </div>
-              <div class="h-[60px]">
-                <button
-                  type="button"
-                  class="flex justify-center items-center w-full h-full"
-                  @click="addToCart(product.id)"
-                >
-                  <img src="@/assets/images/icon-cart.svg" alt="icon-購物" />
-                  <span class="text-primary ml-3">加入購物車</span>
-                </button>
-              </div>
+            <div class="h-[60px]">
+              <button
+                type="button"
+                class="flex justify-center items-center w-full h-full"
+                @click="addToCart(product.id)"
+              >
+                <img src="@/assets/images/icon-cart.svg" alt="icon-購物" />
+                <span class="text-primary ml-3">加入購物車</span>
+              </button>
             </div>
           </div>
         </div>
@@ -89,12 +93,20 @@
   </section>
   <section>
     <div class="flex border-primary border-b-2">
-      <div class="w-[calc(100%-240px)]">
+      <div class="w-full md:w-[calc(100%-240px)]">
         <div class="border-primary border-r-2">
-          <div class="border-primary border-b-2 h-20"></div>
-          <ul class="pl-10 pr-5 py-[30px]">
-            <li class="mb-10">
-              <h3 class="text-24px text-primary mb-5">餐點注意事項</h3>
+          <div class="border-primary border-b-2 h-[60px] md:h-20">
+            <h3
+              class="flex items-center text-20px text-primary h-full p-[15px] md:hidden"
+            >
+              注意事項
+            </h3>
+          </div>
+          <ul class="p-[15px] md:pl-10 md:pr-5 md:py-[30px]">
+            <li class="mb-5 md:mb-10">
+              <h3 class="text-20px text-primary mb-[15px] md:text-24px md:mb-5">
+                餐點注意事項
+              </h3>
               <p class="text-primary leading-loose">
                 餐點皆為現點現做，為保食物品質，請儘早食用，隔餐勿食。<br />
                 因冰品及甜點皆是手工製作，若當下未立即食用，請將其冷藏、冷凍，並於兩天內食用完畢。<br />
@@ -102,7 +114,9 @@
               </p>
             </li>
             <li>
-              <h3 class="text-24px text-primary mb-5">退款須知</h3>
+              <h3 class="text-20px text-primary mb-[15px] md:text-24px md:mb-5">
+                退款須知
+              </h3>
               <p class="text-primary leading-loose">
                 依《消費者保護法》及《食品安全衛生管理法》之規定，如遇餐點包裝瑕疵、餐點品項不符……等狀況，請立即聯絡本店，如情形屬實，皆可選擇重新製作或退款。
               </p>
@@ -110,7 +124,7 @@
           </ul>
         </div>
       </div>
-      <div class="w-[240px]">
+      <div class="hidden md:block md:w-[240px]">
         <div class="border-primary border-b-2 h-20">
           <h3
             class="flex justify-center items-center text-24px text-primary h-full"
@@ -123,11 +137,31 @@
   </section>
   <section>
     <div class="flex flex-row-reverse">
-      <div class="w-[calc(100%-240px)]">
+      <div class="w-full md:w-[calc(100%-240px)]">
         <div class="border-primary border-l-2">
-          <div class="border-primary border-b-2 h-20"></div>
-          <div class="p-5">
-            <Swiper :slides-per-view="4" :space-between="20">
+          <div class="border-primary border-b-2 h-[60px] md:h-20">
+            <h3
+              class="flex items-center text-20px text-primary h-full p-[15px] md:hidden"
+            >
+              相關餐點
+            </h3>
+          </div>
+          <div class="p-[15px] md:p-5">
+            <Swiper
+              :slides-per-view="1"
+              :space-between="20"
+              :breakpoints="{
+                '992': {
+                  slidesPerView: 2,
+                },
+                '1200': {
+                  slidesPerView: 3,
+                },
+                '1440': {
+                  slidesPerView: 4,
+                },
+              }"
+            >
               <SwiperSlide v-for="product in filterProducts" :key="product.id">
                 <div class="relative border-primary border-2">
                   <div class="absolute top-0 left-5 z-20">
@@ -197,7 +231,7 @@
           </div>
         </div>
       </div>
-      <div class="w-[240px]">
+      <div class="hidden md:block md:w-[240px]">
         <div class="border-primary border-b-2 h-20">
           <h3
             class="flex justify-center items-center text-24px text-primary h-full"

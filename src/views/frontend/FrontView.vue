@@ -8,7 +8,7 @@
   </div>
   <router-link
     to="/cart"
-    class="fixed bottom-0 right-0 z-[9999] flex justify-center items-center w-20 h-20 bg-secondary border-primary border-2"
+    class="fixed bottom-0 right-0 z-[9999] flex justify-center items-center w-[60px] h-[60px] bg-secondary border-primary border-2 md:w-20 md:h-20"
   >
     <div class="relative">
       <img src="@/assets/images/icon-cart.svg" alt="購物車" />
@@ -22,7 +22,7 @@
   <div class="p-5">
     <HeaderLayout></HeaderLayout>
     <NavBar></NavBar>
-    <main class="mt-[100px]">
+    <main class="mt-[60px] md:mt-20 lg:mt-[100px]">
       <router-view></router-view>
     </main>
     <FooterLayout></FooterLayout>

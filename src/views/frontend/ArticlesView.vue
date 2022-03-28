@@ -2,7 +2,10 @@
   <section>
     <div class="pt-[30px] px-5 pb-5">
       <div class="relative border-primary border-2 mb-2.5">
-        <input type="text" class="text-primary bg-secondary w-full p-5" />
+        <input
+          type="text"
+          class="text-primary bg-secondary w-full h-[60px] px-5"
+        />
         <button type="button" class="absolute top-1/2 right-5 -translate-y-1/2">
           <img src="@/assets/images/icon-search.svg" alt="放大鏡" />
         </button>
@@ -10,25 +13,37 @@
       <p class="text-primary mb-5">
         共有 <span class="text-24px">{{ articles.length }}</span> 筆搜尋結果
       </p>
-      <ul class="grid grid-cols-2 gap-5">
+      <ul class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <li v-for="article in articles" :key="article.id">
-          <div class="flex border-primary border-2">
-            <router-link :to="`/article/${article.id}`" class="group overflow-hidden" v-if="article.isPublic">
-              <img
-                :src="article.imageUrl"
-                :alt="article.title"
-                class="duration-300 w-[240px] h-[240px] object-cover group-hover:scale-110"
-              />
+          <div class="flex border-primary border-2 h-full">
+            <router-link
+              :to="`/article/${article.id}`"
+              class="flex flex-wrap group w-full h-full"
+              v-if="article.isPublic"
+            >
+              <div
+                class="relative pt-[63%] w-full overflow-hidden md:w-[240px] md:pt-0"
+              >
+                <img
+                  :src="article.imageUrl"
+                  :alt="article.title"
+                  class="duration-300 absolute top-0 left-0 w-full h-full object-cover group-hover:scale-110"
+                />
+              </div>
+              <div
+                class="w-full pt-5 px-[15px] pb-[30px] md:w-[calc(100%-240px)] md:min-h-[240px] md:px-5 md:py-10"
+              >
+                <span class="block text-primary opacity-50 mb-1">{{
+                  $filters.date(article.create_at)
+                }}</span>
+                <h4 class="text-20px text-primary mb-2.5 md:mb-5">
+                  {{ article.title }}
+                </h4>
+                <p class="text-primary">
+                  {{ article.description }}
+                </p>
+              </div>
             </router-link>
-            <div class="flex-1 px-5 py-10">
-              <span class="block text-primary opacity-50 mb-1">{{
-                $filters.date(article.create_at)
-              }}</span>
-              <h4 class="text-20px text-primary mb-5">{{ article.title }}</h4>
-              <p class="text-primary">
-                {{ article.description }}
-              </p>
-            </div>
           </div>
         </li>
       </ul>

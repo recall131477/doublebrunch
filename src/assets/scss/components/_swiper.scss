@@ -1,0 +1,22 @@
+.article {
+  .swiper-slide {
+    height: auto;
+  }
+}
+
+.swiper-button-prev,.swiper-button-next {
+  width: 60px;
+  height: 60px;
+  background-color: $secondary;
+  border: 2px solid $primary;
+  &::after {
+    content: '';
+  }
+}
+
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 1;
+  img {
+    opacity: 0.5;
+  }
+}

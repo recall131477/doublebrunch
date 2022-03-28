@@ -1,6 +1,6 @@
 <template>
   <footer class="border-primary border-t-2">
-    <div class="text-center border-primary border-b-2 py-[30px]">
+    <div class="text-center border-primary border-b-2 py-5 md:py-[30px]">
       <div class="inline-block bg-primary px-5 py-2.5 mb-5">
         <img src="@/assets/images/logo.svg" alt="logo" />
       </div>
@@ -36,9 +36,16 @@
         </a>
       </div>
     </div>
-    <div class="text-primary text-center py-5">
-      <p>本網站僅供個人作品使用，不提供任何商業用途 | 登入後台</p>
-      <p>午分之食 © 2022 COPYRIGHT | made by 肉鬆</p>
+    <div class="text-primary text-center p-5">
+      <p class="mb-2 md:hidden">
+        本網站僅供個人作品使用，<br />不提供任何商業用途<br />
+        <router-link to="/login">登入後台</router-link>
+      </p>
+      <p class="hidden mb-2 md:block">
+        本網站僅供個人作品使用，不提供任何商業用途 |
+        <router-link to="/login">登入後台</router-link>
+      </p>
+      <p class="text-14px">午分之食 © 2022 COPYRIGHT | made by 肉鬆</p>
     </div>
   </footer>
 </template>

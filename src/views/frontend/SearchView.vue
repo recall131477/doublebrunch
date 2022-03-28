@@ -5,7 +5,7 @@
         <input
           type="text"
           id="keyword"
-          class="text-primary bg-secondary w-full p-5"
+          class="text-primary bg-secondary w-full h-[60px] px-5"
           v-model="keyword"
         />
         <button type="button" class="absolute top-1/2 right-5 -translate-y-1/2">
@@ -16,7 +16,7 @@
         共有
         <span class="text-24px">{{ filterProducts.length }}</span> 筆搜尋結果
       </p>
-      <ul class="grid grid-cols-5 gap-5">
+      <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <li v-for="product in filterProducts" :key="product.id">
           <div class="relative border-primary border-2">
             <div class="absolute top-0 left-5 z-20">

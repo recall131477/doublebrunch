@@ -1,7 +1,7 @@
 <template>
   <div class="favorite">
     <div
-      class="duration-300 fixed top-[120px] left-[260px] z-10 bg-secondary border-primary border-x-2 border-b-2 w-[400px] overflow-hidden p-5"
+      class="duration-300 fixed top-[82px] left-[260px] z-10 bg-secondary border-primary border-2 w-[400px] overflow-hidden p-5 md:top-[102px] lg:top-[122px]"
       :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
     >
       <div class="overflow-y-auto max-h-[400px]">
