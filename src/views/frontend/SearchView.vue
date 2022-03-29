@@ -8,9 +8,7 @@
           class="text-primary bg-secondary w-full h-[60px] px-5"
           v-model="keyword"
         />
-        <button type="button" class="absolute top-1/2 right-5 -translate-y-1/2">
-          <img src="@/assets/images/icon-search.svg" alt="放大鏡" />
-        </button>
+        <img src="@/assets/images/icon-search.svg" alt="放大鏡" class="absolute top-1/2 right-5 -translate-y-1/2"/>
       </div>
       <p class="text-primary mb-5">
         共有
@@ -64,7 +62,7 @@
                 >
                   <img
                     src="@/assets/images/icon-cart.svg"
-                    alt="icon-購物"
+                    alt="購物"
                     class="w-4"
                   />
                   <span class="text-primary ml-3">加入購物車</span>

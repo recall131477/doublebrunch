@@ -5,16 +5,15 @@
         <input
           type="text"
           class="text-primary bg-secondary w-full h-[60px] px-5"
+          v-model="keyword"
         />
-        <button type="button" class="absolute top-1/2 right-5 -translate-y-1/2">
-          <img src="@/assets/images/icon-search.svg" alt="放大鏡" />
-        </button>
+        <img src="@/assets/images/icon-search.svg" alt="放大鏡" class="absolute top-1/2 right-5 -translate-y-1/2"/>
       </div>
       <p class="text-primary mb-5">
-        共有 <span class="text-24px">{{ articles.length }}</span> 筆搜尋結果
+        共有 <span class="text-24px">{{ filterArticles.length }}</span> 筆搜尋結果
       </p>
       <ul class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <li v-for="article in articles" :key="article.id">
+        <li v-for="article in filterArticles" :key="article.id">
           <div class="flex border-primary border-2 h-full">
             <router-link
               :to="`/article/${article.id}`"
@@ -48,17 +47,34 @@
         </li>
       </ul>
     </div>
+    <Pagination
+      :pages="pagination"
+      @change-pages="getArticles"
+      v-if="pagination.total_pages > 1"
+    ></Pagination>
   </section>
 </template>
 
 <script>
+import Pagination from '@/components/frontend/PaginationComponent.vue';
+
 export default {
   data() {
     return {
       articles: [],
-      isLoading: false,
+      keyword: '',
       pagination: {},
     };
+  },
+  components: {
+    Pagination,
+  },
+  computed: {
+    filterArticles() {
+      return this.keyword === ''
+        ? this.articles
+        : this.articles.filter((item) => item.title.match(this.keyword) || item.description.match(this.keyword));
+    },
   },
   methods: {
     // 取得所有文章資料

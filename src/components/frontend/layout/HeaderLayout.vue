@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-5 left-5 w-[calc(100%-2.5rem)] z-[999] flex bg-secondary border-primary border-2"
+    class="fixed top-[15px] left-[15px] w-[calc(100%-1.875rem)] z-[999] flex bg-secondary border-primary border-2 md:top-5 md:left-5 md:w-[calc(100%-2.5rem)]"
   >
     <div class="w-[100px] md:w-[240px]">
       <h1 class="border-primary border-r-2 h-full">
@@ -25,12 +25,33 @@
     <div class="w-[calc(100%-100px)] flex md:w-[calc(100%-240px)]">
       <button
         type="button"
-        class="relative flex justify-center items-center border-primary border-r-2 w-[60px] h-[60px] md:w-20 md:h-20 lg:w-[100px] lg:h-[100px]"
+        class="relative flex justify-center items-center border-primary border-r-2 w-[60px] h-[60px] group md:w-20 md:h-20 lg:w-[100px] lg:h-[100px]"
         :disabled="!favorite.length"
         @click="openFavoriteModal"
       >
         <div class="relative">
-          <img src="@/assets/images/icon-heart.svg" alt="我的最愛" />
+          <svg
+            class="duration-300 stroke-primary fill-transparent group-hover:fill-primary"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+          >
+            <defs>
+              <clipPath id="clip-icon-favorite">
+                <rect width="20" height="20" />
+              </clipPath>
+            </defs>
+            <g id="icon-favorite" clip-path="url(#clip-icon-favorite)">
+              <path
+                id="heart-solid"
+                d="M14.435,32.924a4.273,4.273,0,0,0-5.831.425l-.616.634-.616-.634a4.273,4.273,0,0,0-5.831-.425,4.487,4.487,0,0,0-.309,6.5l6.047,6.244a.98.98,0,0,0,1.416,0l6.047-6.244a4.484,4.484,0,0,0-.306-6.5Z"
+                transform="translate(2.012 -28.967)"
+                stroke-width="2"
+              />
+            </g>
+          </svg>
           <span
             class="absolute top-[-6px] right-[-12px] flex justify-center items-center text-12px text-white bg-primary w-[18px] h-[18px] rounded-full"
             v-if="favorite.length > 0"
@@ -82,7 +103,11 @@
         </div>
       </button>
     </div>
-    <FavoriteModal ref="favoriteModal" :favorite="favorite"></FavoriteModal>
+    <FavoriteModal
+      ref="favoriteModal"
+      :favorite="favorite"
+      @update-favorite="getFavorite"
+    ></FavoriteModal>
   </header>
 </template>
 

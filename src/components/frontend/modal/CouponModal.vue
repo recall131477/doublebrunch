@@ -1,20 +1,20 @@
 <template>
   <div
-    class="duration-300 fixed inset-5 z-[1000]"
+    class="duration-300 fixed overflow-y-auto inset-[15px] z-[1000] md:inset-5"
     :class="{
-      'translate-y-0 visible': isOpen,
-      '-translate-y-[100%] invisible': !isOpen,
+      'opacity-100 visible': isOpen,
+      'opacity-0 invisible': !isOpen,
     }"
   >
     <div
-      class="absolute top-0 left-0 w-full h-full bg-primary bg-opacity-50"
+      class="fixed top-0 left-0 w-full h-full bg-primary bg-opacity-50"
       @click="closeModal"
     ></div>
     <div
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1000px] px-5"
+      class="relative flex justify-center items-center w-full h-[calc(100%-30px)] max-w-[1000px] pointer-events-none  px-[15px] mx-auto my-[15px] md:px-5"
     >
-      <div class="flex flex-wrap bg-secondary h-[480px]">
-        <div class="w-1/2">
+      <div class="flex flex-wrap flex-col-reverse bg-secondary w-full pointer-events-auto md:flex-row xl:h-[480px]">
+        <div class="w-full md:w-1/2">
           <div class="flex flex-wrap self-start">
             <div
               class="w-1/3"
@@ -26,21 +26,23 @@
             </div>
           </div>
         </div>
-        <div class="w-1/2">
-          <div
-            class="h-full"
-            style="
-              background-image: url('https://storage.googleapis.com/vue-course-api.appspot.com/rousong/1648289491156.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=H4ChFkCDnTEHdngmjN0bTbqmL59EdY0YbXylNRcsXmMC%2BwpSvsvA%2BMDGsXTNidnbnK9q6IS9YOHwSV5ueHR%2B%2B04hMb2X5xClljGEo8WMMh6Tc8SW52KgL21%2BPugEOoynUHsCWjWEpvblK3pt8pomTJu8TZ2fI1LCIFciIJUe4%2FHHk5WgkDrsD09cAq16XsI4p%2F%2FxsTQnxCatO%2F%2B9hU7eywGracAt3lzfHrgf%2Ffm8z6RNGxrN5dMlcB2UuTUHiBUOSWqSXMMCzeAGbjTQHp1CIjM85Tagh8pc36k%2FPwE4CiwlQX0%2FUunpzdMPQcsl9%2FijrkDPWMBiJPxSxVzc%2F4T2AA%3D%3D');
-            "
-          >
-            <div class="flex flex-wrap">
-              <div
-                class="w-1/3"
-                v-for="(puzzle, index) in puzzleEnd"
-                :key="puzzle.url"
-                @click="resetPuzzle(puzzle, index)"
-              >
-                <img :src="puzzle.url" alt="拼圖塊" />
+        <div class="w-full md:w-1/2">
+          <div class="relative pt-[100%]">
+            <img
+              src="https://storage.googleapis.com/vue-course-api.appspot.com/rousong/1648289491156.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=H4ChFkCDnTEHdngmjN0bTbqmL59EdY0YbXylNRcsXmMC%2BwpSvsvA%2BMDGsXTNidnbnK9q6IS9YOHwSV5ueHR%2B%2B04hMb2X5xClljGEo8WMMh6Tc8SW52KgL21%2BPugEOoynUHsCWjWEpvblK3pt8pomTJu8TZ2fI1LCIFciIJUe4%2FHHk5WgkDrsD09cAq16XsI4p%2F%2FxsTQnxCatO%2F%2B9hU7eywGracAt3lzfHrgf%2Ffm8z6RNGxrN5dMlcB2UuTUHiBUOSWqSXMMCzeAGbjTQHp1CIjM85Tagh8pc36k%2FPwE4CiwlQX0%2FUunpzdMPQcsl9%2FijrkDPWMBiJPxSxVzc%2F4T2AA%3D%3D"
+              alt="拼圖背景"
+              class="absolute top-0 left-0 w-full h-full object-cover"
+            />
+            <div class="absolute top-0 left-0 w-full h-full object-cover">
+              <div class="flex flex-wrap">
+                <div
+                  class="w-1/3"
+                  v-for="(puzzle, index) in puzzleEnd"
+                  :key="puzzle.url"
+                  @click="resetPuzzle(puzzle, index)"
+                >
+                  <img :src="puzzle.url" alt="拼圖塊" />
+                </div>
               </div>
             </div>
           </div>

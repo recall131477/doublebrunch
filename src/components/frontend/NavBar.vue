@@ -1,6 +1,6 @@
 <template>
   <div
-    class="duration-500 fixed top-20 bottom-5 left-5 w-[calc(100%-2.5rem)] overflow-hidden z-50 md:top[100px] lg:top-[120px]"
+    class="duration-500 fixed top-[75px] bottom-[15px] left-[15px] z-50 w-[calc(100%-1.875rem)] overflow-hidden md:top-[100px] md:bottom-5 md:left-5 md:w-[calc(100%-2.5rem)] lg:top-[120px]"
     :class="{ 'translate-y-0': isOpen, '-translate-y-[100%]': !isOpen }"
   >
     <div

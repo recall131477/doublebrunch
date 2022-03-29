@@ -13,9 +13,12 @@
 // pages
 @import 'pages/home';
 @import 'pages/cart';
+@import 'pages/checkorder';
 @import 'pages/checkout';
+@import 'pages/complete';
 
 // components
 @import 'components/favorite';
 @import 'components/loading';
+@import 'components/scrollbar';
 @import 'components/swiper';

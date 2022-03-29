@@ -1,9 +1,19 @@
 <template>
-  <div class="fixed top-0 left-0 z-[999] w-full h-full p-5 pointer-events-none">
-    <div class="absolute top-0 left-0 w-full h-5 bg-secondary"></div>
-    <div class="absolute top-0 left-0 w-5 h-full bg-secondary"></div>
-    <div class="absolute bottom-0 right-0 w-full h-5 bg-secondary"></div>
-    <div class="absolute bottom-0 right-0 w-5 h-full bg-secondary"></div>
+  <div
+    class="fixed top-0 left-0 z-[999] w-full h-full p-[15px] pointer-events-none md:p-5"
+  >
+    <div
+      class="absolute top-0 left-0 w-full h-[15px] bg-secondary md:h-5"
+    ></div>
+    <div
+      class="absolute top-0 left-0 w-[15px] h-full bg-secondary md:w-5"
+    ></div>
+    <div
+      class="absolute bottom-0 right-0 w-full h-[15px] bg-secondary md:h-5"
+    ></div>
+    <div
+      class="absolute bottom-0 right-0 w-[15px] h-full bg-secondary md:w-5"
+    ></div>
     <div class="w-full h-full border-primary border-2"></div>
   </div>
   <router-link
@@ -11,7 +21,7 @@
     class="fixed bottom-0 right-0 z-[9999] flex justify-center items-center w-[60px] h-[60px] bg-secondary border-primary border-2 md:w-20 md:h-20"
   >
     <div class="relative">
-      <img src="@/assets/images/icon-cart.svg" alt="購物車" />
+      <img src="@/assets/images/icon-cart.svg" alt="購物" />
       <span
         class="absolute top-[-6px] right-[-12px] flex justify-center items-center text-12px text-white bg-primary w-[18px] h-[18px] rounded-full"
         v-if="cart.carts.length > 0"
@@ -19,7 +29,7 @@
       </span>
     </div>
   </router-link>
-  <div class="p-5">
+  <div class="p-[15px] md:p-5">
     <HeaderLayout></HeaderLayout>
     <NavBar></NavBar>
     <main class="mt-[60px] md:mt-20 lg:mt-[100px]">

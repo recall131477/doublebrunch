@@ -75,6 +75,28 @@ const routes = [
     path: '/admin',
     name: 'back',
     component: () => import('../views/backend/BackView.vue'),
+    children: [
+      {
+        path: 'products',
+        name: '後台產品',
+        component: () => import('../views/backend/ProductsView.vue'),
+      },
+      {
+        path: 'order',
+        name: '後台訂單',
+        component: () => import('../views/backend/OrderView.vue'),
+      },
+      {
+        path: 'coupon',
+        name: '後台優惠券',
+        component: () => import('../views/backend/CouponView.vue'),
+      },
+      {
+        path: 'articles',
+        name: '後台貼文',
+        component: () => import('../views/backend/ArticlesView.vue'),
+      },
+    ],
   },
 ];
 

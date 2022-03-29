@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="relative h-[calc(100vh-100px)] border-primary border-b-2 md:h-[calc(100vh-120px)] lg:h-[calc(100vh-140px)]"
+      class="relative h-[calc(100vh-90px)] border-primary border-b-2 md:h-[calc(100vh-120px)] lg:h-[calc(100vh-140px)]"
     >
       <div class="flex h-[calc(100%-60px)] md:h-[calc(100%-80px)]">
         <div class="hidden w-[240px] md:block">
@@ -19,7 +19,7 @@
               關於午分之食
             </h2>
             <img
-              src="@/assets/images/bg-about.jpg"
+              src="@/assets/images/bg-about.png"
               alt="關於我們"
               class="w-full h-full object-cover"
             />

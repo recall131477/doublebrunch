@@ -1,10 +1,12 @@
 <template>
   <ProgressBar step="2"></ProgressBar>
   <section class="checkout">
-    <h2 class="text-20px text-white bg-primary p-5">填寫資訊</h2>
+    <h2 class="text-20px text-white bg-primary p-[15px] md:p-5">填寫資訊</h2>
     <VForm ref="form" v-slot="{ errors }" @submit="createOrder">
-      <div class="grid grid-cols-2 gap-5 pt-5 px-5 pb-10">
-        <div class="col-span-1">
+      <div
+        class="grid grid-cols-2 gap-5 pt-[15px] px-[15px] pb-[30px] md:pt-5 md:px-5 md:pb-10"
+      >
+        <div class="col-span-2 md:col-span-1">
           <label for="name" class="block text-primary w-full mb-1">姓名</label>
           <div class="relative">
             <VField
@@ -41,7 +43,7 @@
             class="block text-14px text-warning mt-1"
           ></ErrorMessage>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
           <label for="email" class="block text-primary w-full mb-1"
             >E-mail</label
           >
@@ -79,7 +81,7 @@
             class="block text-14px text-warning mt-1"
           ></ErrorMessage>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
           <label for="tel" class="block text-primary w-full mb-1">電話</label>
           <div class="relative">
             <VField
@@ -115,7 +117,7 @@
             class="block text-14px text-warning mt-1"
           ></ErrorMessage>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2 md:col-span-1">
           <label for="address" class="block text-primary w-full mb-1"
             >地址</label
           >
@@ -166,7 +168,10 @@
           ></textarea>
         </div>
       </div>
-      <div class="flex justify-between bg-primary p-5" @click="toggleOrderInfo">
+      <div
+        class="flex justify-between bg-primary p-[15px] md:p-5"
+        @click="toggleOrderInfo"
+      >
         <h2 class="text-20px text-white">訂單資訊</h2>
         <img
           src="@/assets/images/icon-arrow-down.svg"
@@ -174,29 +179,29 @@
           :class="{ 'rotate-180': isOpen }"
         />
       </div>
-      <div class="p-5" v-show="isOpen">
+      <div class="px-[15px] py-5 md:p-5" v-show="isOpen">
         <ul>
-          <li class="flex border-primary border-b-2 pb-2.5">
-            <div class="w-1/4">
+          <li class="hidden border-primary border-b-2 pb-2.5 md:flex">
+            <div class="w-2/5 lg:w-1/4">
               <span class="text-primary">商品資訊</span>
             </div>
-            <div class="w-1/4">
+            <div class="w-1/5 lg:w-1/4">
               <span class="text-primary">單件價格</span>
             </div>
-            <div class="w-1/4">
+            <div class="w-1/5 lg:w-1/4">
               <span class="text-primary">數量</span>
             </div>
-            <div class="w-1/4">
+            <div class="w-1/5 lg:w-1/4">
               <span class="text-primary">小計</span>
             </div>
           </li>
           <li
-            class="relative flex items-center border-primary border-b-2 py-5"
+            class="relative flex flex-wrap items-center border-primary border-b-2 py-[15px] md:py-5"
             v-for="item in cart.carts"
             :key="item.id"
           >
-            <div class="w-1/4">
-              <div class="flex items-center">
+            <div class="w-full md:w-2/5 lg:w-1/4">
+              <div class="flex items-center mb-2.5 md:mb-0">
                 <img
                   :src="item.product.imageUrl"
                   :alt="item.title"
@@ -205,15 +210,20 @@
                 <span class="text-primary">{{ item.product.title }}</span>
               </div>
             </div>
-            <div class="w-1/4">
+            <div class="w-full md:w-1/5 lg:w-1/4">
+              <span class="text-primary md:hidden">單件價格：</span>
               <span class="text-primary"
                 >${{ $filters.currency(item.product.price) }}</span
               >
             </div>
-            <div class="w-1/4">
-              <span class="text-primary">{{ item.qty }}</span>
+            <div class="w-full md:w-1/5 lg:w-1/4">
+              <div class="my-2.5 md:my-0">
+                <span class="text-primary md:hidden">數量：</span>
+                <span class="text-primary">{{ item.qty }}</span>
+              </div>
             </div>
-            <div class="w-1/4">
+            <div class="w-full md:w-1/5 lg:w-1/4">
+              <span class="text-primary md:hidden">小計：</span>
               <span class="text-primary"
                 >${{ $filters.currency(item.total) }}</span
               >

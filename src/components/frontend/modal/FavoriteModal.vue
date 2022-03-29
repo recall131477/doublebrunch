@@ -1,37 +1,49 @@
 <template>
-  <div class="favorite">
-    <div
-      class="duration-300 fixed top-[82px] left-[260px] z-10 bg-secondary border-primary border-2 w-[400px] overflow-hidden p-5 md:top-[102px] lg:top-[122px]"
-      :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
-    >
-      <div class="overflow-y-auto max-h-[400px]">
-        <ul>
-          <li
-            class="flex justify-between items-center border-primary border-t-2 pt-5 mb-5"
-            v-for="product in favorite"
-            :key="product.id"
-          >
-            <div class="flex items-center">
-              <img
-                :src="product.imageUrl"
-                :alt="product.title"
-                class="w-20 h-20 object-cover"
-              />
-              <div class="text-primary ml-2.5">
-                <span class="block">{{ product.title }}</span>
-                <span class="block">${{ product.price }}</span>
-              </div>
+  <div
+    class="duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 overflow-hidden p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
+    :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
+  >
+    <div class="favorite overflow-y-auto max-h-[400px]">
+      <ul>
+        <li
+          class="border-primary border-t-2 pt-5 mb-5"
+          v-for="product in favorite"
+          :key="product.id"
+        >
+          <div class="relative flex items-center mb-5">
+            <img
+              :src="product.imageUrl"
+              :alt="product.title"
+              class="w-20 h-20 object-cover"
+            />
+            <div class="flex-1 text-primary ml-2.5">
+              <span class="block mb-2">{{ product.title }}</span>
+              <span class="block">${{ product.price }}</span>
             </div>
             <button
               type="button"
-              class="text-primary border-primary border-2 px-4 py-3"
-              @click="addToCart(product.id)"
+              class="duration-300 absolute top-0 right-0 w-6 h-6 hover:rotate-90"
+              @click="deleteFavorite(product)"
             >
-              加入購物車
+              <span
+                class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary -rotate-45 w-4 h-[2px]"
+              >
+              </span>
+              <span
+                class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary rotate-45 w-4 h-[2px]"
+              >
+              </span>
             </button>
-          </li>
-        </ul>
-      </div>
+          </div>
+          <button
+            type="button"
+            class="text-primary border-primary border-2 px-4 py-3"
+            @click="addToCart(product.id)"
+          >
+            加入購物車
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -51,6 +63,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      tempFavorite: [],
     };
   },
   watch: {
@@ -59,6 +72,9 @@ export default {
       handler() {
         this.isOpen = false;
       },
+    },
+    favorite() {
+      this.tempFavorite = JSON.parse(JSON.stringify(this.favorite));
     },
   },
   methods: {
@@ -73,12 +89,20 @@ export default {
         .post(url, { data })
         .then((res) => {
           this.$messageState(res, status);
-          this.isLoadingItem = '';
           emitter.emit('get-cart');
+          // 我的最愛產品直接新增購物車頁面
+          emitter.emit('add-cart');
         })
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');
         });
+    },
+    // 刪除我的最愛
+    deleteFavorite(item) {
+      const index = this.tempFavorite.findIndex((obj) => obj.id === item.id);
+      this.tempFavorite.splice(index, 1);
+      localStorage.setItem('favorite', JSON.stringify(this.tempFavorite));
+      this.$emit('update-favorite');
     },
   },
 };

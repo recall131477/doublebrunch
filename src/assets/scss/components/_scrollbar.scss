@@ -1,0 +1,11 @@
+.favorite::-webkit-scrollbar {
+  width: 0;
+}
+
+.favorite::-webkit-scrollbar-thumb {
+  background-color:  rgba($primary,0.5);
+}
+  
+.favorite::-webkit-scrollbar-track {
+  background-color: rgba($primary,0.5);
+}

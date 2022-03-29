@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-5 right-5 z-[1000]">
+  <div class="fixed top-[15px] right-[15px] z-[1000] md:top-5 md:right-5">
     <div
       v-for="(msg, index) in messages"
       :key="index"
