@@ -1,3 +1,3 @@
 <template>
-  <h2 class="text-primary">訂單頁面</h2>
+  <h2 class="text-primary">test訂單頁面</h2>
 </template>
