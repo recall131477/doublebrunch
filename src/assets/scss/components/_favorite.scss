@@ -4,5 +4,8 @@
       border-top: none;
       padding-top: 0;
     }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

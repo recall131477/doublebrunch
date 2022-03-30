@@ -11,13 +11,15 @@
 @import 'layout/header';
 
 // pages
-@import 'pages/home';
 @import 'pages/cart';
 @import 'pages/checkorder';
 @import 'pages/checkout';
 @import 'pages/complete';
+@import 'pages/home';
+@import 'pages/products';
 
 // components
+@import 'components/btn';
 @import 'components/favorite';
 @import 'components/loading';
 @import 'components/scrollbar';

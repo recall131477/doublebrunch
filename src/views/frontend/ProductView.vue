@@ -90,11 +90,100 @@
             <div class="h-[60px]">
               <button
                 type="button"
-                class="flex justify-center items-center w-full h-full"
+                class="btn duration-300 flex justify-center items-center w-full h-full group"
                 @click="addToCart(product.id, qty)"
               >
-                <img src="@/assets/images/icon-cart.svg" alt="購物" />
-                <span class="text-primary ml-3">加入購物車</span>
+                <svg
+                  class="stroke-primary w-4 h-4 group-hover:stroke-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_79"
+                        data-name="Rectangle 79"
+                        width="10"
+                        height="9"
+                        transform="translate(305 60)"
+                        fill="#fff"
+                        stroke="#707070"
+                        stroke-width="1"
+                      />
+                    </clipPath>
+                    <clipPath id="clip-icon-cart">
+                      <rect width="20" height="20" />
+                    </clipPath>
+                  </defs>
+                  <g id="icon-cart" clip-path="url(#clip-icon-cart)">
+                    <g
+                      id="Group_247"
+                      data-name="Group 247"
+                      transform="translate(9)"
+                    >
+                      <path
+                        id="Rectangle_206"
+                        data-name="Rectangle 206"
+                        d="M3,0H13a3,3,0,0,1,3,3v8a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V3A3,3,0,0,1,3,0Z"
+                        transform="translate(-7 6)"
+                        fill="none"
+                        stroke-width="2"
+                      />
+                      <g
+                        id="Group_246"
+                        data-name="Group 246"
+                        transform="translate(-309 -61)"
+                      >
+                        <g
+                          id="Mask_Group_16"
+                          data-name="Mask Group 16"
+                          transform="translate(0 2)"
+                          clip-path="url(#clip-path)"
+                        >
+                          <g
+                            id="Rectangle_80"
+                            data-name="Rectangle 80"
+                            transform="translate(305 60)"
+                            fill="none"
+                            stroke-width="2"
+                          >
+                            <rect width="10" height="14" rx="5" stroke="none" />
+                            <rect
+                              x="1"
+                              y="1"
+                              width="8"
+                              height="12"
+                              rx="4"
+                              fill="none"
+                            />
+                          </g>
+                        </g>
+                        <circle
+                          id="Ellipse_8"
+                          data-name="Ellipse 8"
+                          cx="1"
+                          cy="1"
+                          r="1"
+                          transform="translate(305 70)"
+                          fill="#8ca06e"
+                        />
+                        <circle
+                          id="Ellipse_9"
+                          data-name="Ellipse 9"
+                          cx="1"
+                          cy="1"
+                          r="1"
+                          transform="translate(313 70)"
+                          fill="#8ca06e"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <span class="ml-3">加入購物車</span>
               </button>
             </div>
           </div>
@@ -244,7 +333,7 @@
                     <div class="flex-1">
                       <button
                         type="button"
-                        class="duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group hover:bg-primary"
+                        class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                         @click="addToCart(product.id)"
                       >
                         <svg
@@ -342,9 +431,7 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-primary ml-3 group-hover:text-white"
-                          >加入購物車</span
-                        >
+                        <span class="ml-3">加入購物車</span>
                       </button>
                     </div>
                   </div>

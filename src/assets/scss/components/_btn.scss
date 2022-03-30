@@ -1,0 +1,31 @@
+.btn {
+  position: relative;
+  overflow: hidden;
+  color: #8ca06e;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    background-color: rgba(#8ca06e,0.5);
+    height: 100%;
+    transform: skewX(-45deg);
+    width: 0;
+    z-index: -1;
+    transition: width 0.3s ease-in-out;
+  }
+  &::before {
+    top: 0;
+    left: -20%;
+  }
+  &::after {
+    bottom: 0;
+    right: -20%;
+  }
+  &:hover {
+    box-shadow: inset 1px 1px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    &::before,&::after {
+      width: 150%;
+    }
+  }
+}

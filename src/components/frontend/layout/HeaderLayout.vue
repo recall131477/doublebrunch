@@ -32,6 +32,7 @@
         <div class="relative">
           <svg
             class="duration-300 stroke-primary fill-transparent group-hover:fill-primary"
+            :class="{ 'fill-primary': isOpen && favorite.length > 0 }"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             width="20"
@@ -120,6 +121,7 @@ export default {
     return {
       favorite: [],
       keyword: '',
+      isOpen: false,
     };
   },
   components: {
@@ -142,6 +144,7 @@ export default {
     },
     openFavoriteModal() {
       this.$refs.favoriteModal.isOpen = !this.$refs.favoriteModal.isOpen;
+      this.isOpen = !this.isOpen;
     },
   },
   mounted() {

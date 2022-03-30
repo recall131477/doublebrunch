@@ -266,7 +266,7 @@
                     <div class="flex-1">
                       <button
                         type="button"
-                        class="duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group hover:bg-primary"
+                        class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                         @click="addToCart(product.id)"
                       >
                         <svg
@@ -364,26 +364,67 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-primary ml-3 group-hover:text-white"
-                          >加入購物車</span
-                        >
+                        <span class="ml-3">加入購物車</span>
                       </button>
                     </div>
                   </div>
                 </div>
               </SwiperSlide>
             </Swiper>
-            <div class="swiper-button-prev">
-              <img
-                src="@/assets/images/icon-arrow-left.svg"
-                alt="icon-arrow-left"
-              />
+            <div class="swiper-button-prev group">
+              <svg
+                class="stroke-primary group-hover:stroke-white"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+              >
+                <defs>
+                  <clipPath id="clip-icon-arrow-left">
+                    <rect width="20" height="20" />
+                  </clipPath>
+                </defs>
+                <g id="icon-arrow-left" clip-path="url(#clip-icon-arrow-left)">
+                  <path
+                    id="Path_14"
+                    data-name="Path 14"
+                    d="M1078.147,822.453l-8,8,8,8"
+                    transform="translate(-1064.147 -820.453)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
             </div>
-            <div class="swiper-button-next">
-              <img
-                src="@/assets/images/icon-arrow-right.svg"
-                alt="icon-arrow-right"
-              />
+            <div class="swiper-button-next group">
+              <svg
+                class="stroke-primary group-hover:stroke-white"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+              >
+                <defs>
+                  <clipPath id="clip-icon-arrow-right">
+                    <rect width="20" height="20" />
+                  </clipPath>
+                </defs>
+                <g
+                  id="icon-arrow-right"
+                  clip-path="url(#clip-icon-arrow-right)"
+                >
+                  <path
+                    id="Path_15"
+                    data-name="Path 15"
+                    d="M1078.147,822.453l-8,8,8,8"
+                    transform="translate(1084.147 840.453) rotate(180)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -461,17 +502,60 @@
                 </div>
               </SwiperSlide>
             </Swiper>
-            <div class="swiper-button-prev">
-              <img
-                src="@/assets/images/icon-arrow-left.svg"
-                alt="icon-arrow-left"
-              />
+            <div class="swiper-button-prev group">
+              <svg
+                class="stroke-primary group-hover:stroke-white"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+              >
+                <defs>
+                  <clipPath id="clip-icon-arrow-left">
+                    <rect width="20" height="20" />
+                  </clipPath>
+                </defs>
+                <g id="icon-arrow-left" clip-path="url(#clip-icon-arrow-left)">
+                  <path
+                    id="Path_14"
+                    data-name="Path 14"
+                    d="M1078.147,822.453l-8,8,8,8"
+                    transform="translate(-1064.147 -820.453)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
             </div>
-            <div class="swiper-button-next">
-              <img
-                src="@/assets/images/icon-arrow-right.svg"
-                alt="icon-arrow-right"
-              />
+            <div class="swiper-button-next group">
+              <svg
+                class="stroke-primary group-hover:stroke-white"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+              >
+                <defs>
+                  <clipPath id="clip-icon-arrow-right">
+                    <rect width="20" height="20" />
+                  </clipPath>
+                </defs>
+                <g
+                  id="icon-arrow-right"
+                  clip-path="url(#clip-icon-arrow-right)"
+                >
+                  <path
+                    id="Path_15"
+                    data-name="Path 15"
+                    d="M1078.147,822.453l-8,8,8,8"
+                    transform="translate(1084.147 840.453) rotate(180)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </g>
+              </svg>
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 .favorite::-webkit-scrollbar {
-  width: 0;
+  width: 0.5rem;
 }
 
 .favorite::-webkit-scrollbar-thumb {
-  background-color:  rgba($primary,0.5);
+  background-color: $primary;
 }
   
 .favorite::-webkit-scrollbar-track {

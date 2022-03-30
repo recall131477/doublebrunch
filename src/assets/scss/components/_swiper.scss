@@ -22,6 +22,7 @@
   height: 40px;
   background-color: $secondary;
   border: 2px solid $primary;
+  transition: background-color .3s;
   @include mq(md) {
     width: 60px;
     height: 60px;
@@ -29,11 +30,14 @@
   &::after {
     content: '';
   }
+  &:hover {
+    background-color: $primary;
+  }
 }
 
 .swiper-button-prev.swiper-button-disabled,.swiper-button-next.swiper-button-disabled {
   opacity: 1;
-  img {
+  svg {
     opacity: 0.5;
   }
 }

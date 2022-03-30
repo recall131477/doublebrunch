@@ -49,22 +49,22 @@
       </div>
     </div>
     <ul
-      class="hidden flex-wrap justify-center border-primary border-b-2 py-5 md:flex"
+      class="category hidden flex-wrap justify-center border-primary border-b-2 py-5 md:flex"
     >
-      <li>
+      <li class="md:px-[15px] md:py-2 lg:p-[15px]">
         <button
           type="button"
-          class="text-14px text-primary opacity-50 md:px-[15px] md:py-2 lg:p-[15px]"
+          class="text-14px text-primary opacity-50"
           :class="{ 'opacity-100': category === 'all' }"
           @click="changeCategory('all')"
         >
           全部餐點
         </button>
       </li>
-      <li v-for="item in categories" :key="item">
+      <li class="md:px-[15px] md:py-2 lg:p-[15px]" v-for="item in categories" :key="item">
         <button
           type="button"
-          class="text-14px text-primary opacity-50 md:px-[15px] md:py-2 lg:p-[15px]"
+          class="text-14px text-primary opacity-50"
           :class="{ 'opacity-100': category === item }"
           @click="changeCategory(item)"
         >
@@ -142,7 +142,7 @@
             <div class="flex-1">
               <button
                 type="button"
-                class="duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group hover:bg-primary"
+                class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                 @click="addToCart(product.id)"
               >
                 <svg
@@ -235,9 +235,7 @@
                     </g>
                   </g>
                 </svg>
-                <span class="text-primary ml-3 group-hover:text-white"
-                  >加入購物車</span
-                >
+                <span class="ml-3">加入購物車</span>
               </button>
             </div>
           </div>

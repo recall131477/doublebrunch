@@ -23,19 +23,23 @@
               v-model="form.user.name"
             >
             </VField>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-remind.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="error hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-remind.svg"
+                  alt="icon-checked"
+                  class="bg-warning rounded-full"
+                />
+              </div>
             </div>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-checked.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="success hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-checked.svg"
+                  alt="icon-checked"
+                  class="bg-primary rounded-full"
+                />
+              </div>
             </div>
           </div>
           <ErrorMessage
@@ -56,24 +60,29 @@
               rules="email|required"
               class="text-primary bg-secondary border-primary/50 border-2 w-full h-[60px] px-5"
               :class="{
-                '!border-warning': errors['email'],
+                '!border-warning error': errors['email'],
                 '!border-primary': form.user.email,
               }"
               v-model="form.user.email"
-            ></VField>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-remind.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            >
+            </VField>
+            <div class="error hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-remind.svg"
+                  alt="icon-checked"
+                  class="bg-warning rounded-full"
+                />
+              </div>
             </div>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-checked.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="success hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-checked.svg"
+                  alt="icon-checked"
+                  class="bg-primary rounded-full"
+                />
+              </div>
             </div>
           </div>
           <ErrorMessage
@@ -97,19 +106,23 @@
               }"
               v-model="form.user.tel"
             ></VField>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-remind.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="error hidden">
+              <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-remind.svg"
+                  alt="icon-checked"
+                  class="bg-warning rounded-full"
+                />
+              </div>
             </div>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-checked.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="success hidden">
+              <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-checked.svg"
+                  alt="icon-checked"
+                  class="bg-primary rounded-full"
+                />
+              </div>
             </div>
           </div>
           <ErrorMessage
@@ -135,19 +148,23 @@
               }"
               v-model="form.user.address"
             ></VField>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-remind.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="error hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-remind.svg"
+                  alt="icon-checked"
+                  class="bg-warning rounded-full"
+                />
+              </div>
             </div>
-            <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-              <img
-                src="@/assets/images/icon-checked.svg"
-                alt="icon-checked"
-                class="bg-primary rounded-full"
-              />
+            <div class="success hidden">
+              <div class="absolute top-1/2 right-5 -translate-y-1/2">
+                <img
+                  src="@/assets/images/icon-checked.svg"
+                  alt="icon-checked"
+                  class="bg-primary rounded-full"
+                />
+              </div>
             </div>
           </div>
           <ErrorMessage

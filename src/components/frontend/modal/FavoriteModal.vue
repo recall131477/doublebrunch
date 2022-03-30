@@ -1,54 +1,52 @@
 <template>
   <div
-    class="duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 overflow-hidden p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
+    class="favorite duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 max-h-[400px] overflow-y-auto p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
     :class="{
       'opacity-0 invisible': !isOpen || favorite.length === 0,
       'opacity-100 visible': isOpen,
     }"
   >
-    <div class="favorite overflow-y-auto max-h-[400px]">
-      <ul class="overflow-hidden">
-        <li
-          class="border-primary border-t-2 pt-5"
-          :class="{ 'mb-5': favorite.length > 1 }"
-          v-for="product in favorite"
-          :key="product.id"
-        >
-          <div class="relative flex items-center mb-5">
-            <img
-              :src="product.imageUrl"
-              :alt="product.title"
-              class="w-20 h-20 object-cover"
-            />
-            <div class="flex-1 text-primary ml-2.5">
-              <span class="block mb-2">{{ product.title }}</span>
-              <span class="block">${{ product.price }}</span>
-            </div>
-            <button
-              type="button"
-              class="duration-300 absolute top-0 right-0 w-6 h-6 hover:rotate-90"
-              @click="deleteFavorite(product)"
-            >
-              <span
-                class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary -rotate-45 w-4 h-[2px]"
-              >
-              </span>
-              <span
-                class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary rotate-45 w-4 h-[2px]"
-              >
-              </span>
-            </button>
+    <ul class="overflow-hidden">
+      <li
+        class="border-primary border-t-2 pt-5"
+        :class="{ 'mb-5': favorite.length > 1 }"
+        v-for="product in favorite"
+        :key="product.id"
+      >
+        <div class="relative flex items-center mb-5">
+          <img
+            :src="product.imageUrl"
+            :alt="product.title"
+            class="w-20 h-20 object-cover"
+          />
+          <div class="flex-1 text-primary ml-2.5">
+            <span class="block mb-2">{{ product.title }}</span>
+            <span class="block">${{ product.price }}</span>
           </div>
           <button
             type="button"
-            class="text-primary border-primary border-2 px-4 py-3"
-            @click="addToCart(product.id)"
+            class="duration-300 absolute top-0 right-0 w-6 h-6 hover:rotate-90"
+            @click="deleteFavorite(product)"
           >
-            加入購物車
+            <span
+              class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary -rotate-45 w-4 h-[2px]"
+            >
+            </span>
+            <span
+              class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary rotate-45 w-4 h-[2px]"
+            >
+            </span>
           </button>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <button
+          type="button"
+          class="text-primary border-primary border-2 px-4 py-3"
+          @click="addToCart(product.id)"
+        >
+          加入購物車
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 

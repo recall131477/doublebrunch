@@ -1,0 +1,27 @@
+.category {
+  button {
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.3s, opacity 0.3s;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $primary;
+      transform: scaleX(0);
+      transform-origin: 100% 0;
+      transition: transform 0.3s ease;
+    }
+    &:hover {
+      transform: translateY(-10%);
+      opacity: 1;
+      &::before {
+        transform: scaleX(1);
+        transform-origin: 0 0;
+      }
+    }
+  }
+}
