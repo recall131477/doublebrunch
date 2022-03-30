@@ -1,12 +1,16 @@
 <template>
   <div
     class="duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 overflow-hidden p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
-    :class="{ 'opacity-0 invisible': !isOpen, 'opacity-100 visible': isOpen }"
+    :class="{
+      'opacity-0 invisible': !isOpen || favorite.length === 0,
+      'opacity-100 visible': isOpen,
+    }"
   >
     <div class="favorite overflow-y-auto max-h-[400px]">
-      <ul>
+      <ul class="overflow-hidden">
         <li
-          class="border-primary border-t-2 pt-5 mb-5"
+          class="border-primary border-t-2 pt-5"
+          :class="{ 'mb-5': favorite.length > 1 }"
           v-for="product in favorite"
           :key="product.id"
         >
@@ -103,6 +107,7 @@ export default {
       this.tempFavorite.splice(index, 1);
       localStorage.setItem('favorite', JSON.stringify(this.tempFavorite));
       this.$emit('update-favorite');
+      emitter.emit('update-favorite');
     },
   },
 };

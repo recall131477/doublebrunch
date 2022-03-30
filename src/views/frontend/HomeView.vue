@@ -630,6 +630,9 @@ export default {
     },
   },
   mounted() {
+    emitter.on('update-favorite', () => {
+      this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
+    });
     Promise.all([this.getProducts(), this.getArticles()]);
     setTimeout(() => {
       this.isLoading = false;

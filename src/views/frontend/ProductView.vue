@@ -476,6 +476,9 @@ export default {
   mounted() {
     this.getProduct();
     this.getProducts();
+    emitter.on('update-favorite', () => {
+      this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
+    });
   },
 };
 </script>
