@@ -1,5 +1,5 @@
 body{
-  font-family: 'creamfont', sans-serif;
+  font-family: 'creamfont',sans-serif;
   overflow-x: hidden;
   background-color: $secondary;
 }
@@ -16,4 +16,14 @@ input {
 select {
   -webkit-appearance: none;
   border-radius: 0;
+}
+
+.jf-loading body { /*載入中不顯示*/
+  opacity: 0;
+  visibility: hidden;
+}
+
+.jf-active body { /*如果處理成功，直接顯示*/
+  opacity: 1;
+  visibility: visible;
 }
