@@ -18,28 +18,30 @@
               class="text-primary bg-secondary border-primary/50 border-2 w-full h-[60px] px-5"
               :class="{
                 '!border-warning': errors['姓名'],
-                '!border-primary': form.user.name,
+                '!border-primary': form.user.name && !errors['姓名'],
               }"
               v-model="form.user.name"
             >
             </VField>
-            <div class="error hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-remind.svg"
-                  alt="icon-checked"
-                  class="bg-warning rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="errors['姓名']"
+            >
+              <img
+                src="@/assets/images/icon-remind.svg"
+                alt="icon-checked"
+                class="bg-warning rounded-full"
+              />
             </div>
-            <div class="success hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-checked.svg"
-                  alt="icon-checked"
-                  class="bg-primary rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="form.user.name && !errors['姓名']"
+            >
+              <img
+                src="@/assets/images/icon-checked.svg"
+                alt="icon-checked"
+                class="bg-primary rounded-full"
+              />
             </div>
           </div>
           <ErrorMessage
@@ -60,29 +62,31 @@
               rules="email|required"
               class="text-primary bg-secondary border-primary/50 border-2 w-full h-[60px] px-5"
               :class="{
-                '!border-warning error': errors['email'],
-                '!border-primary': form.user.email,
+                '!border-warning': errors['email'],
+                '!border-primary': form.user.email && !errors['email'],
               }"
               v-model="form.user.email"
             >
             </VField>
-            <div class="error hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-remind.svg"
-                  alt="icon-checked"
-                  class="bg-warning rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="errors['email']"
+            >
+              <img
+                src="@/assets/images/icon-remind.svg"
+                alt="icon-checked"
+                class="bg-warning rounded-full"
+              />
             </div>
-            <div class="success hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-checked.svg"
-                  alt="icon-checked"
-                  class="bg-primary rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="form.user.email && !errors['email']"
+            >
+              <img
+                src="@/assets/images/icon-checked.svg"
+                alt="icon-checked"
+                class="bg-primary rounded-full"
+              />
             </div>
           </div>
           <ErrorMessage
@@ -102,27 +106,29 @@
               class="text-primary bg-secondary border-primary/50 border-2 w-full h-[60px] px-5"
               :class="{
                 '!border-warning': errors['電話'],
-                '!border-primary': form.user.tel,
+                '!border-primary': form.user.tel && !errors['電話'],
               }"
               v-model="form.user.tel"
             ></VField>
-            <div class="error hidden">
-              <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-remind.svg"
-                  alt="icon-checked"
-                  class="bg-warning rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="errors['電話']"
+            >
+              <img
+                src="@/assets/images/icon-remind.svg"
+                alt="icon-checked"
+                class="bg-warning rounded-full"
+              />
             </div>
-            <div class="success hidden">
-              <div class="hidden absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-checked.svg"
-                  alt="icon-checked"
-                  class="bg-primary rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="form.user.tel && !errors['電話']"
+            >
+              <img
+                src="@/assets/images/icon-checked.svg"
+                alt="icon-checked"
+                class="bg-primary rounded-full"
+              />
             </div>
           </div>
           <ErrorMessage
@@ -144,27 +150,29 @@
               class="text-primary bg-secondary border-primary/50 border-2 w-full h-[60px] px-5"
               :class="{
                 '!border-warning': errors['地址'],
-                '!border-primary': form.user.address,
+                '!border-primary': form.user.address && !errors['地址'],
               }"
               v-model="form.user.address"
             ></VField>
-            <div class="error hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-remind.svg"
-                  alt="icon-checked"
-                  class="bg-warning rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="errors['地址']"
+            >
+              <img
+                src="@/assets/images/icon-remind.svg"
+                alt="icon-checked"
+                class="bg-warning rounded-full"
+              />
             </div>
-            <div class="success hidden">
-              <div class="absolute top-1/2 right-5 -translate-y-1/2">
-                <img
-                  src="@/assets/images/icon-checked.svg"
-                  alt="icon-checked"
-                  class="bg-primary rounded-full"
-                />
-              </div>
+            <div
+              class="absolute top-1/2 right-5 -translate-y-1/2"
+              v-if="form.user.address && !errors['地址']"
+            >
+              <img
+                src="@/assets/images/icon-checked.svg"
+                alt="icon-checked"
+                class="bg-primary rounded-full"
+              />
             </div>
           </div>
           <ErrorMessage
@@ -196,8 +204,8 @@
           :class="{ 'rotate-180': isOpen }"
         />
       </div>
-      <div class="px-[15px] py-5 md:p-5" v-show="isOpen">
-        <ul>
+      <div class="px-[15px] py-5 md:p-5">
+        <ul v-show="isOpen">
           <li class="hidden border-primary border-b-2 pb-2.5 md:flex">
             <div class="w-2/5 lg:w-1/4">
               <span class="text-primary">商品資訊</span>
@@ -266,8 +274,12 @@
           </p>
           <button
             type="submit"
-            class="text-white bg-primary px-12 py-[18px]"
-            :disabled="Object.keys(errors).length > 0"
+            class="btn-light text-white bg-primary px-12 py-[18px]"
+            :class="{
+              'cursor-not-allowed opacity-50':
+                Object.keys(errors).length > 0 || !checkFormData,
+            }"
+            :disabled="Object.keys(errors).length > 0 || !checkFormData"
           >
             送出訂單
           </button>
@@ -303,8 +315,14 @@ export default {
   components: {
     ProgressBar,
   },
+  //
+  computed: {
+    checkFormData() {
+      const formData = ['name', 'email', 'tel', 'address'];
+      return formData.every((item) => this.form.user[item] !== '');
+    },
+  },
   methods: {
-    // 取得購物車資料
     getCart() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http
@@ -321,11 +339,9 @@ export default {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '請輸入正確的電話號碼';
     },
-    // 切換訂單資訊
     toggleOrderInfo() {
       this.isOpen = !this.isOpen;
     },
-    // 建立表單
     createOrder() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
@@ -337,7 +353,7 @@ export default {
           this.$refs.form.resetForm(); // 清空 form 表單內容，套件用法
           this.form.message = '';
           this.$router.push({
-            name: '確認訂單', // params 只能用 name 不能用 path
+            name: 'checkorder', // params 只能用 name 不能用 path
             params: { id: res.data.orderId },
           });
           emitter.emit('get-cart');

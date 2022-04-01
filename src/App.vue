@@ -20,6 +20,12 @@ export default {
       routerRefresh: this.routerRefresh,
     };
   },
+  watch: {
+    $route(to) {
+      const nowTitle = to.meta.title || '';
+      document.title = `${nowTitle} 午分之食`;
+    },
+  },
   methods: {
     routerRefresh() {
       this.routerAlive = false;

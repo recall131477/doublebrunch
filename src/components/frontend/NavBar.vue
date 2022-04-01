@@ -1,6 +1,6 @@
 <template>
-  <div
-    class="duration-500 fixed top-[75px] bottom-[15px] left-[15px] z-50 w-[calc(100%-1.875rem)] overflow-hidden md:top-[100px] md:bottom-5 md:left-5 md:w-[calc(100%-2.5rem)] lg:top-[120px]"
+  <nav
+    class="nav duration-500 fixed top-[75px] bottom-[15px] left-[15px] z-50 w-[calc(100%-1.875rem)] overflow-hidden md:top-[100px] md:bottom-5 md:left-5 md:w-[calc(100%-2.5rem)] lg:top-[120px]"
     :class="{ 'translate-y-0': isOpen, '-translate-y-[100%]': !isOpen }"
   >
     <div
@@ -15,7 +15,12 @@
               class="flex items-center h-full border-primary border-b-2 p-5 md:p-10"
             >
               <span class="text-primary w-[60px]">Menu</span>
-              <h2 class="text-24px text-primary md:text-32px">美味餐點</h2>
+              <h2
+                class="relative z-10 text-24px text-primary md:text-32px"
+                :class="{ 'is-active': $route.path === '/products' }"
+              >
+                美味餐點
+              </h2>
             </router-link>
           </li>
           <li class="h-1/4">
@@ -24,7 +29,12 @@
               class="flex items-center h-full border-primary border-b-2 p-5 md:p-10"
             >
               <span class="text-primary w-[60px]">About</span>
-              <h2 class="text-24px text-primary md:text-32px">關於午分之食</h2>
+              <h2
+                class="relative z-10 text-24px text-primary md:text-32px"
+                :class="{ 'is-active': $route.path === '/about' }"
+              >
+                關於午分之食
+              </h2>
             </router-link>
           </li>
           <li class="h-1/4">
@@ -33,7 +43,12 @@
               class="flex items-center h-full border-primary border-b-2 p-5 md:p-10"
             >
               <span class="text-primary w-[60px]">News</span>
-              <h2 class="text-24px text-primary md:text-32px">最新消息</h2>
+              <h2
+                class="relative z-10 text-24px text-primary md:text-32px"
+                :class="{ 'is-active': $route.path === '/articles' }"
+              >
+                最新消息
+              </h2>
             </router-link>
           </li>
           <li class="h-1/4">
@@ -42,7 +57,12 @@
               class="flex items-center h-full border-primary border-b-2 p-5 md:p-10"
             >
               <span class="text-primary w-[60px]">Cart</span>
-              <h2 class="text-24px text-primary md:text-32px">購物車</h2>
+              <h2
+                class="relative z-10 text-24px text-primary md:text-32px"
+                :class="{ 'is-active': $route.path === '/cart' }"
+              >
+                購物車
+              </h2>
             </router-link>
           </li>
         </ul>
@@ -55,7 +75,7 @@
         />
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -65,11 +85,11 @@ export default {
   data() {
     return {
       isOpen: false,
+      isPage: '',
     };
   },
   watch: {
     $route: {
-      // 網址變更時觸發
       handler() {
         this.isOpen = false;
       },

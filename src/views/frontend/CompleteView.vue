@@ -124,8 +124,8 @@
         :class="{ 'rotate-180': isOpen }"
       />
     </div>
-    <div class="px-[15px] py-5 md:p-5" v-show="isOpen">
-      <ul>
+    <div class="px-[15px] py-5 md:p-5">
+      <ul v-show="isOpen">
         <li class="hidden border-primary border-b-2 pb-2.5 md:flex">
           <div class="w-2/5 lg:w-1/4">
             <span class="text-primary">商品資訊</span>
@@ -183,14 +183,14 @@
           <div class="w-1/2 pl-[15px] md:w-auto">
             <router-link
               to="/"
-              class="flex justify-center items-center text-primary border-primary border-2 h-[60px] md:w-40"
+              class="btn flex justify-center items-center text-primary border-primary border-2 h-[60px] md:w-40"
               >前往首頁
             </router-link>
           </div>
           <div class="w-1/2 pl-[15px] md:w-auto">
             <router-link
               to="/products"
-              class="flex justify-center items-center text-white bg-primary h-[60px] md:w-40"
+              class="btn-light flex justify-center items-center text-white bg-primary h-[60px] md:w-40"
               >繼續購物
             </router-link>
           </div>
@@ -216,9 +216,8 @@ export default {
     ProgressBar,
   },
   methods: {
-    // 取得訂單資料
     getOrder() {
-      const { id } = this.$route.params; // 解構式取出 id
+      const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${id}`;
       this.$http
         .get(url)
@@ -231,7 +230,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 切換訂單資訊
     toggleOrderInfo() {
       this.isOpen = !this.isOpen;
     },

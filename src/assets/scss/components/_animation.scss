@@ -1,0 +1,30 @@
+@keyframes line {
+  0% {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 700;
+    stroke-width: 4px;
+  }
+  75% {
+      stroke-dasharray: 900;
+      stroke-width: 1px;
+  }
+  100% {
+      stroke-dasharray: 900;
+      stroke-width: 1px;
+  }
+}
+
+@keyframes pulse {
+  0% { 
+    box-shadow: 0 0 0 0 $primary;
+  }
+}
+
+@keyframes light {
+  0% {
+    background-position: -200px; 
+  }
+  100% { 
+    background-position: 0px;
+  }
+}

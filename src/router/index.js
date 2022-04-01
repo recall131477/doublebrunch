@@ -9,57 +9,81 @@ const routes = [
     children: [
       {
         path: '/',
-        name: '首頁',
+        name: 'home',
         component: () => import('../views/frontend/HomeView.vue'),
       },
       {
         path: 'about',
-        name: '關於我們',
+        name: 'about',
         component: () => import('../views/frontend/AboutView.vue'),
+        meta: {
+          title: '關於',
+        },
       },
       {
         path: 'products',
-        name: '前台產品列表',
+        name: 'products',
         component: () => import('../views/frontend/ProductsView.vue'),
+        meta: {
+          title: '美味餐點',
+        },
       },
       {
         path: 'product/:id',
-        name: '前台產品細節',
+        name: 'product',
         component: () => import('../views/frontend/ProductView.vue'),
       },
       {
         path: 'search',
-        name: '搜尋產品列表',
+        name: 'search',
         component: () => import('../views/frontend/SearchView.vue'),
+        meta: {
+          title: '搜尋',
+        },
       },
       {
         path: 'cart',
-        name: '購物車',
+        name: 'cart',
         component: () => import('../views/frontend/CartView.vue'),
+        meta: {
+          title: '購物車',
+        },
       },
       {
         path: 'checkout',
-        name: '填寫資訊',
+        name: 'checkout',
         component: () => import('../views/frontend/CheckoutView.vue'),
+        meta: {
+          title: '訂單資訊',
+        },
       },
       {
         path: 'checkorder/:id',
-        name: '確認訂單',
+        name: 'checkorder',
         component: () => import('../views/frontend/CheckorderView.vue'),
+        meta: {
+          title: '確認訂單',
+        },
       },
       {
         path: 'complete/:id',
-        name: '完成購物',
+        name: 'complete',
         component: () => import('../views/frontend/CompleteView.vue'),
+        meta: {
+          title: '完成訂單',
+        },
       },
       {
         path: 'articles',
-        name: '部落格',
+        name: 'articles',
         component: () => import('../views/frontend/ArticlesView.vue'),
+        meta: {
+          title: '最新消息',
+        },
       },
       {
         path: 'article/:id',
-        name: '文章內文',
+        name: 'article',
         component: () => import('../views/frontend/ArticleView.vue'),
       },
     ],
@@ -67,7 +91,7 @@ const routes = [
   // 登入
   {
     path: '/login',
-    name: '登入',
+    name: 'login',
     component: () => import('../views/frontend/LoginView.vue'),
   },
   // 後台
@@ -78,25 +102,31 @@ const routes = [
     children: [
       {
         path: 'products',
-        name: '後台產品',
+        name: 'backProducts',
         component: () => import('../views/backend/ProductsView.vue'),
       },
       {
         path: 'order',
-        name: '後台訂單',
+        name: 'backOrder',
         component: () => import('../views/backend/OrderView.vue'),
       },
       {
         path: 'coupon',
-        name: '後台優惠券',
+        name: 'backCoupon',
         component: () => import('../views/backend/CouponView.vue'),
       },
       {
         path: 'articles',
-        name: '後台貼文',
+        name: 'backArticles',
         component: () => import('../views/backend/ArticlesView.vue'),
       },
     ],
+  },
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('../views/NotFound.vue'),
   },
 ];
 

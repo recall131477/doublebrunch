@@ -12,7 +12,7 @@
       </p>
       <router-link
         to="/products"
-        class="inline-block text-white bg-primary px-7 py-2 md:px-12 md:py-[18px]"
+        class="btn-pulse inline-block text-white bg-primary px-7 py-2 md:px-12 md:py-[18px]"
         >前往購物</router-link
       >
     </div>
@@ -129,7 +129,7 @@
             <div class="w-1/2">
               <button
                 type="button"
-                class="flex justify-center items-center text-primary border-primary border-r-2 w-full h-[60px]"
+                class="btn flex justify-center items-center text-primary border-primary border-r-2 w-full h-[60px]"
                 @click="deleteAllCarts"
               >
                 清空購物車
@@ -138,9 +138,26 @@
             <div class="w-1/2">
               <router-link
                 to="/products"
-                class="flex justify-center items-center text-primary border-primary border-r-2 h-[60px]"
+                class="btn flex justify-center items-center text-primary border-primary border-r-2 h-[60px] group"
               >
-                <img src="@/assets/images/icon-cart.svg" alt="購物" />
+                <svg width="20" height="20" viewBox="0 0 20 20" class="duration-300 stroke-primary group-hover:stroke-white">
+                  <rect
+                    width="16"
+                    height="12"
+                    rx="3"
+                    transform="translate(2 6)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M13,9V5A4,4,0,0,0,5,5V9"
+                    transform="translate(1 1)"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
                 <span class="ml-3">繼續購物</span>
               </router-link>
             </div>
@@ -165,7 +182,7 @@
             </button>
             <button
               type="button"
-              class="text-white bg-primary h-[60px] px-5"
+              class="btn-light text-white bg-primary h-[60px] px-5"
               v-else
               @click="openCouponModal"
             >
@@ -189,7 +206,7 @@
         </p>
         <router-link
           to="/checkout"
-          class="inline-block text-white bg-primary px-12 py-[18px]"
+          class="btn-light inline-block text-white bg-primary px-12 py-[18px]"
           >前往結帳</router-link
         >
       </div>
@@ -219,7 +236,6 @@ export default {
     CouponModal,
   },
   methods: {
-    // 取得購物車資料
     getCart() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http
@@ -237,9 +253,7 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 更新購物車
     updateCartItem(item, calculate) {
-      // 判斷點擊 '-' 、 '+' 還是 input
       let newQty = item.qty;
       if (calculate === 'reduce') {
         newQty -= 1;
@@ -248,7 +262,6 @@ export default {
       } else {
         newQty = calculate;
       }
-      // 若輸入數字大於30，數量直接等於30
       if (newQty > 30) {
         newQty = 30;
       }
@@ -268,7 +281,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 刪除購物車特定產品
     deleteCartItem(id) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`;
       const status = '刪除商品';
@@ -283,7 +295,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 刪除購物車全部產品
     deleteAllCarts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`;
       const status = '刪除全部商品';
@@ -298,7 +309,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 領取優惠券
     useCoupon() {
       this.couponCode = 'double777';
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`;

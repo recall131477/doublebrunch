@@ -26,13 +26,12 @@
       <button
         type="button"
         class="relative flex justify-center items-center border-primary border-r-2 w-[60px] h-[60px] group md:w-20 md:h-20 lg:w-[100px] lg:h-[100px]"
-        :disabled="!favorite.length"
         @click="openFavoriteModal"
       >
         <div class="relative">
           <svg
             class="duration-300 stroke-primary fill-transparent group-hover:fill-primary"
-            :class="{ 'fill-primary': isOpen && favorite.length > 0 }"
+            :class="{ 'fill-primary': isOpenFavorite }"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             width="20"
@@ -85,22 +84,16 @@
       </form>
       <button
         type="button"
-        class="relative flex justify-center items-center border-primary border-l-2 w-[60px] h-[60px] md:w-20 md:h-20 lg:w-[100px] lg:h-[100px]"
+        class="hamburger relative flex justify-center items-center border-primary border-l-2 w-[60px] h-[60px] md:w-20 md:h-20 lg:w-[100px] lg:h-[100px]"
         @click="toggleMenu"
       >
         <div class="relative w-5 h-5">
-          <span
-            class="absolute top-0 left-0 bg-primary w-1 h-1 md:w-[5px] md:h-[5px]"
-          ></span>
-          <span
-            class="absolute top-0 right-0 bg-primary w-1 h-1 md:w-[5px] md:h-[5px]"
-          ></span>
-          <span
-            class="absolute bottom-0 left-0 bg-primary w-1 h-1 md:w-[5px] md:h-[5px]"
-          ></span>
-          <span
-            class="absolute bottom-0 right-0 bg-primary w-1 h-1 md:w-[5px] md:h-[5px]"
-          ></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
+          <span :class="{ 'is-active': isOpenMenu }"></span>
         </div>
       </button>
     </div>
@@ -121,17 +114,26 @@ export default {
     return {
       favorite: [],
       keyword: '',
-      isOpen: false,
+      isOpenFavorite: false,
+      isOpenMenu: false,
     };
   },
   components: {
     FavoriteModal,
   },
+  watch: {
+    $route: {
+      handler() {
+        this.isOpenMenu = false;
+        this.isOpenFavorite = false;
+      },
+    },
+  },
   methods: {
     toggleMenu() {
       emitter.emit('toggle-menu');
+      this.isOpenMenu = !this.isOpenMenu;
     },
-    // 取得 localStorage 資料
     getFavorite() {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     },
@@ -144,7 +146,7 @@ export default {
     },
     openFavoriteModal() {
       this.$refs.favoriteModal.isOpen = !this.$refs.favoriteModal.isOpen;
-      this.isOpen = !this.isOpen;
+      this.isOpenFavorite = !this.isOpenFavorite;
     },
   },
   mounted() {

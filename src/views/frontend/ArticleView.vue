@@ -33,7 +33,7 @@
           ></div>
           <router-link
             to="/articles"
-            class="flex justify-center items-center text-primary border-primary border-2 w-[120px] h-10 md:w-40 md:h-[60px]"
+            class="btn flex justify-center items-center text-primary border-primary border-2 w-[120px] h-10 md:w-40 md:h-[60px]"
             >返回列表</router-link
           >
         </div>
@@ -61,17 +61,15 @@ export default {
   inject: ['routerRefresh'],
   watch: {
     $route: {
-      // 網址變更時觸發
       handler() {
         this.routerRefresh();
       },
     },
   },
   methods: {
-    // 取得特定文章資料
     getArticle() {
       this.isLoading = true;
-      const { id } = this.$route.params; // 解構式取出 id
+      const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http
         .get(url)

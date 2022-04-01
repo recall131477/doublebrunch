@@ -18,12 +18,37 @@
   </div>
   <router-link
     to="/cart"
-    class="fixed bottom-0 right-0 z-[9999] flex justify-center items-center w-[60px] h-[60px] bg-secondary border-primary border-2 md:w-20 md:h-20"
+    class="btn-line fixed bottom-0 right-0 z-[9999] flex justify-center items-center bg-secondary w-[60px] h-[60px] group md:w-20 md:h-20"
   >
+    <svg class="absolute top-0 left-0 w-full h-full">
+      <rect class="line" fill="transparent" />
+    </svg>
     <div class="relative">
-      <img src="@/assets/images/icon-cart.svg" alt="購物" />
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        class="stroke-primary group-hover:stroke-white"
+      >
+        <rect
+          width="16"
+          height="12"
+          rx="3"
+          transform="translate(2 6)"
+          fill="none"
+          stroke-width="2"
+        />
+        <path
+          d="M13,9V5A4,4,0,0,0,5,5V9"
+          transform="translate(1 1)"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
+      </svg>
       <span
-        class="absolute top-[-6px] right-[-12px] flex justify-center items-center text-12px text-white bg-primary w-[18px] h-[18px] rounded-full"
+        class="absolute top-[-6px] right-[-12px] flex justify-center items-center text-12px text-white bg-primary w-[18px] h-[18px] rounded-full group-hover:text-primary group-hover:bg-white"
         v-if="cart.carts.length > 0"
         >{{ cart.carts.length }}
       </span>
@@ -59,7 +84,6 @@ export default {
     NavBar,
   },
   methods: {
-    // 取得購物車資料
     getCart() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http

@@ -1,12 +1,19 @@
 <template>
   <div
-    class="favorite duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 max-h-[400px] overflow-y-auto p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
+    class="favorite duration-300 fixed top-[77px] left-[15px] right-[15px] z-10 bg-secondary border-primary border-2 max-h-[400px] overflow-y-auto opacity-0 invisible p-5 md:top-[102px] md:left-[260px] md:right-5 md:w-[400px] lg:top-[122px]"
     :class="{
-      'opacity-0 invisible': !isOpen || favorite.length === 0,
-      'opacity-100 visible': isOpen,
+      '!opacity-100 !visible': isOpen
     }"
   >
-    <ul class="overflow-hidden">
+    <div v-if="favorite.length === 0">
+      <p class="text-20px text-primary mb-2.5 md:text-24px md:mb-5">目前我的最愛沒有商品哦!</p>
+      <router-link
+        to="/products"
+        class="btn inline-block text-primary border-primary border-2 px-5 py-2.5"
+        >前往購物
+      </router-link>
+    </div>
+    <ul class="overflow-hidden" v-else>
       <li
         class="border-primary border-t-2 pt-5"
         :class="{ 'mb-5': favorite.length > 1 }"
@@ -40,7 +47,7 @@
         </div>
         <button
           type="button"
-          class="text-primary border-primary border-2 px-4 py-3"
+          class="btn text-primary border-primary border-2 px-4 py-3"
           @click="addToCart(product.id)"
         >
           加入購物車
@@ -70,7 +77,6 @@ export default {
   },
   watch: {
     $route: {
-      // 網址變更時觸發
       handler() {
         this.isOpen = false;
       },
@@ -99,7 +105,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 刪除我的最愛
     deleteFavorite(item) {
       const index = this.tempFavorite.findIndex((obj) => obj.id === item.id);
       this.tempFavorite.splice(index, 1);

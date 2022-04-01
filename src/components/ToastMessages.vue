@@ -3,16 +3,28 @@
     <div
       v-for="(msg, index) in messages"
       :key="index"
-      class="text-white bg-primary p-5 mb-5"
-      :class="`toast${index}`"
+      class="mb-5"
+      :class="`toastMessage${index}`"
     >
-      <div>
-        <span :class="`bg-${msg.style}`" class="inline-block rounded"></span>
-        <span>{{ msg.title }}</span>
+      <div class="relative flex justify-between items-center text-white bg-primary min-w-[300px] p-5">
+        <div>
+          <span :class="`bg-${msg.style}`" class="inline-block rounded"></span>
+          <span>{{ msg.title }}</span>
+        </div>
         <button
           type="button"
+          class="duration-300 relative w-6 h-6 hover:rotate-90"
           @click="clearToastMessage(index)"
-        ></button>
+        >
+          <span
+            class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white -rotate-45 w-4 h-[2px]"
+          >
+          </span>
+          <span
+            class="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rotate-45 w-4 h-[2px]"
+          >
+          </span>
+        </button>
       </div>
       <div v-if="msg.content">
         {{ msg.content }}

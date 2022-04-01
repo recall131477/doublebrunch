@@ -61,7 +61,11 @@
           全部餐點
         </button>
       </li>
-      <li class="md:px-[15px] md:py-2 lg:p-[15px]" v-for="item in categories" :key="item">
+      <li
+        class="md:px-[15px] md:py-2 lg:p-[15px]"
+        v-for="item in categories"
+        :key="item"
+      >
         <button
           type="button"
           class="text-14px text-primary opacity-50"
@@ -145,95 +149,23 @@
                 class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                 @click="addToCart(product.id)"
               >
-                <svg
-                  class="stroke-primary w-4 h-4 group-hover:stroke-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                >
-                  <defs>
-                    <clipPath id="clip-path">
-                      <rect
-                        id="Rectangle_79"
-                        data-name="Rectangle 79"
-                        width="10"
-                        height="9"
-                        transform="translate(305 60)"
-                        fill="#fff"
-                        stroke="#707070"
-                        stroke-width="1"
-                      />
-                    </clipPath>
-                    <clipPath id="clip-icon-cart">
-                      <rect width="20" height="20" />
-                    </clipPath>
-                  </defs>
-                  <g id="icon-cart" clip-path="url(#clip-icon-cart)">
-                    <g
-                      id="Group_247"
-                      data-name="Group 247"
-                      transform="translate(9)"
-                    >
-                      <path
-                        id="Rectangle_206"
-                        data-name="Rectangle 206"
-                        d="M3,0H13a3,3,0,0,1,3,3v8a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V3A3,3,0,0,1,3,0Z"
-                        transform="translate(-7 6)"
-                        fill="none"
-                        stroke-width="2"
-                      />
-                      <g
-                        id="Group_246"
-                        data-name="Group 246"
-                        transform="translate(-309 -61)"
-                      >
-                        <g
-                          id="Mask_Group_16"
-                          data-name="Mask Group 16"
-                          transform="translate(0 2)"
-                          clip-path="url(#clip-path)"
-                        >
-                          <g
-                            id="Rectangle_80"
-                            data-name="Rectangle 80"
-                            transform="translate(305 60)"
-                            fill="none"
-                            stroke-width="2"
-                          >
-                            <rect width="10" height="14" rx="5" stroke="none" />
-                            <rect
-                              x="1"
-                              y="1"
-                              width="8"
-                              height="12"
-                              rx="4"
-                              fill="none"
-                            />
-                          </g>
-                        </g>
-                        <circle
-                          id="Ellipse_8"
-                          data-name="Ellipse 8"
-                          cx="1"
-                          cy="1"
-                          r="1"
-                          transform="translate(305 70)"
-                          fill="#8ca06e"
-                        />
-                        <circle
-                          id="Ellipse_9"
-                          data-name="Ellipse 9"
-                          cx="1"
-                          cy="1"
-                          r="1"
-                          transform="translate(313 70)"
-                          fill="#8ca06e"
-                        />
-                      </g>
-                    </g>
-                  </g>
+                <svg width="20" height="20" viewBox="0 0 20 20" class="duration-300 stroke-primary group-hover:stroke-white">
+                  <rect
+                    width="16"
+                    height="12"
+                    rx="3"
+                    transform="translate(2 6)"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M13,9V5A4,4,0,0,0,5,5V9"
+                    transform="translate(1 1)"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
                 </svg>
                 <span class="ml-3">加入購物車</span>
               </button>
@@ -261,7 +193,7 @@ export default {
       pagination: {},
       category: 'all',
       categories: [],
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
     };
   },
   components: {
@@ -279,12 +211,10 @@ export default {
     },
   },
   methods: {
-    // 產品分類切換
     changeCategory(category) {
       this.category = category;
       this.getProducts();
     },
-    // 取得分類
     getCategories() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
@@ -301,7 +231,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 取得所有產品資料(有分頁)
     getProducts(page = 1) {
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       if (this.category !== 'all') {
@@ -320,7 +249,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 加入購物車
     addToCart(id, qty = 1) {
       const data = {
         product_id: id,
@@ -338,7 +266,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 加入我的最愛
     toggleFavorite(product) {
       // 查資料，有沒有這一個 id 如果有 1，沒有 -1
       const favoriteIndex = this.favorite.findIndex(

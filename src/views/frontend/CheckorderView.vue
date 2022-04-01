@@ -122,8 +122,8 @@
         :class="{ 'rotate-180': isOpen }"
       />
     </div>
-    <div class="px-[15px] py-5 md:p-5" v-show="isOpen">
-      <ul>
+    <div class="px-[15px] py-5 md:p-5">
+      <ul v-show="isOpen">
         <li class="hidden border-primary border-b-2 pb-2.5 md:flex">
           <div class="w-2/5 lg:w-1/4">
             <span class="text-primary">商品資訊</span>
@@ -179,7 +179,7 @@
         </p>
         <button
           type="button"
-          class="text-white bg-primary px-12 py-[18px]"
+          class="btn-light text-white bg-primary px-12 py-[18px]"
           @click="payOrder"
         >
           確認結帳
@@ -206,9 +206,8 @@ export default {
     ProgressBar,
   },
   methods: {
-    // 取得訂單資料
     getOrder() {
-      const { id } = this.$route.params; // 解構式取出 id
+      const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${id}`;
       this.$http
         .get(url)
@@ -221,13 +220,11 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 切換訂單資訊
     toggleOrderInfo() {
       this.isOpen = !this.isOpen;
     },
-    // 訂單付款
     payOrder() {
-      const { id } = this.$route.params; // 解構式取出 id
+      const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/pay/${id}`;
       const status = '付款';
       this.$http
@@ -235,7 +232,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$router.push({
-              name: '完成購物', // params 只能用 name 不能用 path
+              name: 'complete', // params 只能用 name 不能用 path
               params: { id: this.orderId },
             });
             this.$messageState(res, status);

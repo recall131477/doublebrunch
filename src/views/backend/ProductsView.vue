@@ -1,3 +1,3 @@
 <template>
-  <h2 class="text-primary">test產品頁面</h2>
+  <h2 class="text-primary">產品頁面</h2>
 </template>

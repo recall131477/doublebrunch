@@ -25,25 +25,25 @@
         </li>
       </ul>
       <div class="flex justify-center">
-        <a href="javascript:;">
+        <router-link to="/" target="_blank" class="duration-300 hover:scale-110">
           <img src="@/assets/images/icon-fb.svg" alt="fb" />
-        </a>
-        <a href="javascript:;" class="mx-4">
+        </router-link>
+        <router-link to="/" target="_blank" class="duration-300 mx-4 hover:scale-110">
           <img src="@/assets/images/icon-line.svg" alt="line" />
-        </a>
-        <a href="javascript:;">
+        </router-link>
+        <router-link to="/" target="_blank" class="duration-300 hover:scale-110">
           <img src="@/assets/images/icon-ig.svg" alt="ig" />
-        </a>
+        </router-link>
       </div>
     </div>
     <div class="text-primary text-center p-5">
       <p class="mb-2 md:hidden">
         本網站僅供個人作品使用，<br />不提供任何商業用途<br />
-        <router-link to="/admin/products">登入後台</router-link>
+        <router-link to="/admin/products" class="duration-300 hover:border-primary border-b-2">登入後台</router-link>
       </p>
       <p class="hidden mb-2 md:block">
         本網站僅供個人作品使用，不提供任何商業用途 |
-        <router-link to="/admin/products">登入後台</router-link>
+        <router-link to="/admin/products" class="duration-300 hover:border-primary border-b-2">登入後台</router-link>
       </p>
       <p class="text-14px">午分之食 © 2022 COPYRIGHT | made by 肉鬆</p>
     </div>

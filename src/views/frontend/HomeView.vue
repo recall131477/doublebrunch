@@ -41,50 +41,52 @@
               </div>
             </div>
           </div>
-          <router-link
-            to="/products"
-            class="flex justify-center items-center text-white bg-primary h-[60px] md:absolute md:bottom-0 md:left-0 md:text-primary md:bg-secondary md:w-[240px] md:h-20"
-            >立即點餐
-            <svg
-              class="stroke-white ml-5 md:stroke-primary"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-            >
-              <defs>
-                <clipPath id="clip-icon-cta">
-                  <rect width="20" height="20" />
-                </clipPath>
-              </defs>
-              <g id="icon-cta" clip-path="url(#clip-icon-cta)">
-                <g
-                  id="Group_249"
-                  data-name="Group 249"
-                  transform="translate(-174.5 -828.5)"
-                >
-                  <line
-                    id="Line_107"
-                    data-name="Line 107"
-                    y1="16"
-                    x2="16"
-                    transform="translate(176 831)"
-                    fill="none"
-                    stroke-width="2"
-                  />
-                  <path
-                    id="Path_7"
-                    data-name="Path 7"
-                    d="M1835.9,816.491h10v10"
-                    transform="translate(-1654 14.509)"
-                    fill="none"
-                    stroke-width="2"
-                  />
+          <div class="relative">
+            <router-link
+              to="/products"
+              class="btn-arrow duration-300 relative flex justify-center items-center text-white bg-primary h-[60px] group hover:text-white md:absolute md:bottom-0 md:left-0 md:z-10 md:text-primary md:bg-secondary md:w-[240px] md:h-20"
+              >立即點餐
+              <svg
+                class="duration-300 stroke-white ml-5 group-hover:stroke-white md:stroke-primary"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+              >
+                <defs>
+                  <clipPath id="clip-icon-cta">
+                    <rect width="20" height="20" />
+                  </clipPath>
+                </defs>
+                <g id="icon-cta" clip-path="url(#clip-icon-cta)">
+                  <g
+                    id="Group_249"
+                    data-name="Group 249"
+                    transform="translate(-174.5 -828.5)"
+                  >
+                    <line
+                      id="Line_107"
+                      data-name="Line 107"
+                      y1="16"
+                      x2="16"
+                      transform="translate(176 831)"
+                      fill="none"
+                      stroke-width="2"
+                    />
+                    <path
+                      id="Path_7"
+                      data-name="Path 7"
+                      d="M1835.9,816.491h10v10"
+                      transform="translate(-1654 14.509)"
+                      fill="none"
+                      stroke-width="2"
+                    />
+                  </g>
                 </g>
-              </g>
-            </svg>
-          </router-link>
+              </svg>
+            </router-link>
+          </div>
         </SwiperSlide>
       </Swiper>
     </div>
@@ -118,7 +120,7 @@
               <div class="w-full lg:w-1/3">
                 <div class="mt-[15px] lg:p-5 lg:mt-0">
                   <p class="text-primary leading-loose">
-                    所有麵包皆為手工製作，原料100%無添加任何天然化學物，<br />堅持著健康、低油、低糖、低熱量，給予純天然的優質麵包，<br />製作品質及過程皆有嚴格把關，讓顧客吃的健康、吃的心安。
+                    所有麵包皆為手工製作，原料100%無添加任何天然化學物，堅持著健康、低油、低糖、低熱量，給予純天然的優質麵包，製作品質及過程皆有嚴格把關，讓顧客吃的健康、吃的心安。
                   </p>
                 </div>
               </div>
@@ -127,7 +129,7 @@
               <div class="w-full lg:w-1/3">
                 <div class="mt-[15px] lg:p-5 lg:mt-0">
                   <p class="text-primary leading-loose">
-                    本店將食材安全性為優先考量，<br />使用在地優質的新鮮有機與友善耕作之蔬果，<br />秉持著「以人為本、從良心出發」，<br />不僅讓顧客吃的安心又健康，更是對用心栽種的有機小農最好的回饋。
+                    本店將食材安全性為優先考量，使用在地優質的新鮮有機與友善耕作之蔬果，秉持著「以人為本、從良心出發」，不僅讓顧客吃的安心又健康，更是對用心栽種的有機小農最好的回饋。
                   </p>
                 </div>
               </div>
@@ -220,9 +222,9 @@
                     class="flex justify-between border-primary border-b-2 p-5"
                   >
                     <h4 class="text-20px text-primary">{{ product.title }}</h4>
-                    <span class="text-20px text-primary">{{
-                      $filters.currency(product.price)
-                    }}</span>
+                    <span class="text-20px text-primary"
+                      >${{ $filters.currency(product.price) }}</span
+                    >
                   </div>
                   <div class="flex">
                     <button
@@ -270,99 +272,27 @@
                         @click="addToCart(product.id)"
                       >
                         <svg
-                          class="stroke-primary w-4 h-4 group-hover:stroke-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          xmlns:xlink="http://www.w3.org/1999/xlink"
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
+                          class="duration-300 stroke-primary group-hover:stroke-white"
                         >
-                          <defs>
-                            <clipPath id="clip-path">
-                              <rect
-                                id="Rectangle_79"
-                                data-name="Rectangle 79"
-                                width="10"
-                                height="9"
-                                transform="translate(305 60)"
-                                fill="#fff"
-                                stroke="#707070"
-                                stroke-width="1"
-                              />
-                            </clipPath>
-                            <clipPath id="clip-icon-cart">
-                              <rect width="20" height="20" />
-                            </clipPath>
-                          </defs>
-                          <g id="icon-cart" clip-path="url(#clip-icon-cart)">
-                            <g
-                              id="Group_247"
-                              data-name="Group 247"
-                              transform="translate(9)"
-                            >
-                              <path
-                                id="Rectangle_206"
-                                data-name="Rectangle 206"
-                                d="M3,0H13a3,3,0,0,1,3,3v8a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V3A3,3,0,0,1,3,0Z"
-                                transform="translate(-7 6)"
-                                fill="none"
-                                stroke-width="2"
-                              />
-                              <g
-                                id="Group_246"
-                                data-name="Group 246"
-                                transform="translate(-309 -61)"
-                              >
-                                <g
-                                  id="Mask_Group_16"
-                                  data-name="Mask Group 16"
-                                  transform="translate(0 2)"
-                                  clip-path="url(#clip-path)"
-                                >
-                                  <g
-                                    id="Rectangle_80"
-                                    data-name="Rectangle 80"
-                                    transform="translate(305 60)"
-                                    fill="none"
-                                    stroke-width="2"
-                                  >
-                                    <rect
-                                      width="10"
-                                      height="14"
-                                      rx="5"
-                                      stroke="none"
-                                    />
-                                    <rect
-                                      x="1"
-                                      y="1"
-                                      width="8"
-                                      height="12"
-                                      rx="4"
-                                      fill="none"
-                                    />
-                                  </g>
-                                </g>
-                                <circle
-                                  id="Ellipse_8"
-                                  data-name="Ellipse 8"
-                                  cx="1"
-                                  cy="1"
-                                  r="1"
-                                  transform="translate(305 70)"
-                                  fill="#8ca06e"
-                                />
-                                <circle
-                                  id="Ellipse_9"
-                                  data-name="Ellipse 9"
-                                  cx="1"
-                                  cy="1"
-                                  r="1"
-                                  transform="translate(313 70)"
-                                  fill="#8ca06e"
-                                />
-                              </g>
-                            </g>
-                          </g>
+                          <rect
+                            width="16"
+                            height="12"
+                            rx="3"
+                            transform="translate(2 6)"
+                            fill="none"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M13,9V5A4,4,0,0,0,5,5V9"
+                            transform="translate(1 1)"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
                         </svg>
                         <span class="ml-3">加入購物車</span>
                       </button>
@@ -585,7 +515,7 @@
           />
           <button
             type="button"
-            class="text-white bg-primary w-[120px] h-full md:w-40"
+            class="btn-light text-white bg-primary w-[120px] h-full md:w-40"
           >
             訂閱
           </button>
@@ -637,7 +567,6 @@ export default {
     },
   },
   methods: {
-    // 取得特價、本月主打產品資料
     getProducts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
@@ -664,7 +593,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 取得所有文章資料
     getArticles(page = 1) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/articles?page=${page}`;
       this.$http
@@ -677,7 +605,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 加入購物車
     addToCart(id, qty = 1) {
       const data = {
         product_id: id,
@@ -696,7 +623,6 @@ export default {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
-    // 加入我的最愛
     toggleFavorite(product) {
       // 查資料，有沒有這一個 id 如果有 1，沒有 -1
       const favoriteIndex = this.favorite.findIndex(

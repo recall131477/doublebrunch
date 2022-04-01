@@ -123,7 +123,6 @@ export default {
     },
   },
   methods: {
-    // 拼圖隨機
     randomPuzzle() {
       this.puzzleStart.sort(() => (Math.random() > 0.5 ? -1 : 1));
     },

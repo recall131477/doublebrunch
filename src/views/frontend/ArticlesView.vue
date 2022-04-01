@@ -77,7 +77,6 @@ export default {
     },
   },
   methods: {
-    // 取得所有文章資料
     getArticles(page = 1) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/articles?page=${page}`;
       this.$http
