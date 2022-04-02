@@ -31,14 +31,9 @@
             </div>
             <div class="w-full h-full md:w-[calc(100%-240px)]">
               <div
-                class="relative pt-[100%] h-full md:border-primary md:border-l-2 md:pt-0"
-              >
-                <img
-                  :src="product.imageUrl"
-                  :alt="product.title"
-                  class="absolute top-0 left-0 w-full h-full object-cover"
-                />
-              </div>
+                class="relative pt-[100%] h-full bg-cover bg-center md:border-primary md:border-l-2 md:pt-0"
+                :style="{ backgroundImage: `url(${product.imageUrl})` }"
+              ></div>
             </div>
           </div>
           <div class="relative">
@@ -275,7 +270,7 @@
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
-                          class="duration-300 stroke-primary group-hover:stroke-white"
+                          class="duration-300 duration-300 stroke-primary group-hover:stroke-white"
                         >
                           <rect
                             width="16"
@@ -303,7 +298,7 @@
             </Swiper>
             <div class="swiper-button-prev group">
               <svg
-                class="stroke-primary group-hover:stroke-white"
+                class="duration-300 stroke-primary group-hover:stroke-white"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="20"
@@ -329,7 +324,7 @@
             </div>
             <div class="swiper-button-next group">
               <svg
-                class="stroke-primary group-hover:stroke-white"
+                class="duration-300 stroke-primary group-hover:stroke-white"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="20"
@@ -434,7 +429,7 @@
             </Swiper>
             <div class="swiper-button-prev group">
               <svg
-                class="stroke-primary group-hover:stroke-white"
+                class="duration-300 stroke-primary group-hover:stroke-white"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="20"
@@ -460,7 +455,7 @@
             </div>
             <div class="swiper-button-next group">
               <svg
-                class="stroke-primary group-hover:stroke-white"
+                class="duration-300 stroke-primary group-hover:stroke-white"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 width="20"
@@ -546,7 +541,7 @@ export default {
       monthMainProducts: [],
       articles: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
-      isLoading: true,
+      isLoading: false,
       modules: [Navigation, Autoplay],
     };
   },
@@ -568,6 +563,7 @@ export default {
   },
   methods: {
     getProducts() {
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
@@ -588,6 +584,9 @@ export default {
             }
           });
           this.monthMainProducts = monthMainResult;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
         })
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');
@@ -640,13 +639,11 @@ export default {
     },
   },
   mounted() {
+    this.getProducts();
+    this.getArticles();
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     });
-    Promise.all([this.getProducts(), this.getArticles()]);
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1700);
   },
 };
 </script>

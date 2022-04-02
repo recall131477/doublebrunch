@@ -9,7 +9,7 @@
       <p class="text-20px text-primary mb-2.5 md:text-24px md:mb-5">目前我的最愛沒有商品哦!</p>
       <router-link
         to="/products"
-        class="btn inline-block text-primary border-primary border-2 px-5 py-2.5"
+        class="btn duration-300 inline-block text-primary border-primary border-2 px-5 py-2.5"
         >前往購物
       </router-link>
     </div>
@@ -47,7 +47,7 @@
         </div>
         <button
           type="button"
-          class="btn text-primary border-primary border-2 px-4 py-3"
+          class="btn duration-300 text-primary border-primary border-2 px-4 py-3"
           @click="addToCart(product.id)"
         >
           加入購物車

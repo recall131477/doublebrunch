@@ -276,7 +276,7 @@
             type="submit"
             class="btn-light text-white bg-primary px-12 py-[18px]"
             :class="{
-              'cursor-not-allowed opacity-50':
+              'pointer-events-none opacity-50':
                 Object.keys(errors).length > 0 || !checkFormData,
             }"
             :disabled="Object.keys(errors).length > 0 || !checkFormData"

@@ -37,59 +37,78 @@
       top: 0;
       left: 0;
       &.is-active {
-        top: -70%;
-        left: -70%;
+        top: -15%;
+        left: -15%;
         width: 3px;
         height: 3px;
         border-radius: 50%;
         transform: none;
+        @include mq(md) {
+          top: -30%;
+          left: -30%;
+        }
       }
     }
     &:nth-child(2) {
       top: 0;
       right: 0;
       &.is-active {
-        top: -70%;
-        right: -70%;
+        top: -15%;
+        right: -15%;
         width: 3px;
         height: 3px;
         border-radius: 50%;
         transform: none;
+        @include mq(md) {
+          top: -30%;
+          right: -30%;
+        }
       }
     }
     &:nth-child(3) {
       bottom: 0;
       left: 0;
       &.is-active {
-        bottom: -70%;
-        left: -70%;
+        bottom: -15%;
+        left: -15%;
         width: 3px;
         height: 3px;
         border-radius: 50%;
         transform: none;
+        @include mq(md) {
+          bottom: -30%;
+          left: -30%;
+        }
       }
     }
     &:nth-child(4) {
       bottom: 0;
       right: 0;
       &.is-active {
-        bottom: -70%;
-        right: -70%;
+        bottom: -15%;
+        right: -15%;
         width: 3px;
         height: 3px;
         border-radius: 50%;
         transform: none;
+        @include mq(md) {
+          bottom: -30%;
+          right: -30%;
+        }
       }
     }
     &:nth-child(5),&:nth-child(6) {
       top: 50%;
       left: 50%;
       transform: translate(-50%,-50%) scale(0);
-      width: 50px;
+      width: 25px;
       height: 2px;
       opacity: 0;
       visibility: hidden;
       transition: all .3s;
+      @include mq(md) {
+        width: 30px;
+      }
       &.is-active {
         &:nth-child(5) {
           transform: translate(-50%,-50%) rotate(45deg) scale(1);

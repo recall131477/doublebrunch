@@ -84,7 +84,7 @@
               <div class="flex-1">
                 <button
                   type="button"
-                  class="btn flex justify-center items-center border-primary border-l-2 w-full h-full group"
+                  class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                   @click="addToCart(product.id)"
                 >
                   <svg

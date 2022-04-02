@@ -183,14 +183,14 @@
           <div class="w-1/2 pl-[15px] md:w-auto">
             <router-link
               to="/"
-              class="btn flex justify-center items-center text-primary border-primary border-2 h-[60px] md:w-40"
+              class="btn duration-300 flex justify-center items-center text-primary border-primary border-2 h-[60px] md:w-40"
               >前往首頁
             </router-link>
           </div>
           <div class="w-1/2 pl-[15px] md:w-auto">
             <router-link
               to="/products"
-              class="btn-light flex justify-center items-center text-white bg-primary h-[60px] md:w-40"
+              class="btn-light duration-300 flex justify-center items-center text-white bg-primary h-[60px] md:w-40"
               >繼續購物
             </router-link>
           </div>

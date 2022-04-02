@@ -22,7 +22,6 @@
     right: -20%;
   }
   &:hover {
-    box-shadow: inset 1px 1px 20px rgba(0, 0, 0, 0.2);
     color: #fff;
     &::before,
     &::after {
@@ -92,7 +91,7 @@
 }
 
 .btn-light {
-  background: linear-gradient(135deg, $primary 0%,$primary 40%,#ffffff 50%,$primary 60%,$primary 100%);
+  background: linear-gradient(135deg, $primary 0%,$primary 40%,$secondary 50%,$primary 60%,$primary 100%);
   background-repeat: no-repeat;  
   background-position: 0px;
   background-size: 300%;  
