@@ -9,6 +9,7 @@
 
 // layout
 @import 'layout/header';
+@import 'layout/favorite';
 
 // pages
 @import 'pages/cart';
@@ -21,7 +22,6 @@
 // components
 @import 'components/animation';
 @import 'components/btn';
-@import 'components/favorite';
 @import 'components/hamburger';
 @import 'components/loading';
 @import 'components/nav';

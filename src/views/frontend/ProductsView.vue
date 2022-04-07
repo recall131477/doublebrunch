@@ -184,7 +184,7 @@
 
 <script>
 import emitter from '@/methods/emitter';
-import Pagination from '@/components/frontend/PaginationComponent.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   data() {

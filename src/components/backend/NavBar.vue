@@ -1,27 +1,92 @@
 <template>
-  <div class="flex items-center p-5">
-    <h1 class="text-48px text-primary">午分之食後台</h1>
-    <ul class="flex">
-      <li>
-        <router-link to="/" class="text-primary p-5">回到前台</router-link>
-      </li>
-      <li>
-        <router-link to="/admin/products" class="text-primary p-5">產品列表</router-link>
-      </li>
-      <li>
-        <router-link to="/admin/order" class="text-primary p-5">訂單</router-link>
-      </li>
-      <li>
-        <router-link to="/admin/coupon" class="text-primary p-5">優惠券</router-link>
-      </li>
-      <li>
-        <router-link to="/admin/articles" class="text-primary p-5">貼文</router-link>
-      </li>
-      <li>
-        <router-link to="/login" class="text-primary p-5" @click="signOut">登出</router-link>
-      </li>
-    </ul>
-  </div>
+  <header class="flex border-primary border-2">
+    <router-link to="/" class="relative bg-primary w-[240px] h-[100px]">
+      <img
+        src="@/assets/images/logo.svg"
+        alt="logo"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
+    </router-link>
+    <div class="flex w-[calc(100%-240px)]">
+      <ul class="flex justify-end items-center flex-1 px-[60px]">
+        <li>
+          <router-link
+            to="/admin/products"
+            class="duration-300 relative flex items-center h-[100px] text-primary/50 px-5 group hover:text-primary/100"
+            :class="{
+              '!text-primary': $route.path === '/admin/products',
+            }"
+            >產品列表
+            <div
+              class="duration-300 absolute bottom-0 left-0 w-full bg-primary h-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              :class="{
+                '!opacity-100 !visible': $route.path === '/admin/products',
+              }"
+            ></div>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            to="/admin/order"
+            class="duration-300 relative flex items-center h-[100px] text-primary/50 px-5 group hover:text-primary/100"
+            :class="{
+              '!text-primary': $route.path === '/admin/order',
+            }"
+            >訂單
+            <div
+              class="duration-300 absolute bottom-0 left-0 w-full bg-primary h-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              :class="{
+                '!opacity-100 !visible': $route.path === '/admin/order',
+              }"
+            ></div
+          ></router-link>
+        </li>
+        <li>
+          <router-link
+            to="/admin/coupon"
+            class="duration-300 relative flex items-center h-[100px] text-primary/50 px-5 group hover:text-primary/100"
+            :class="{
+              '!text-primary': $route.path === '/admin/coupon',
+            }"
+            >優惠券
+            <div
+              class="duration-300 absolute bottom-0 left-0 w-full bg-primary h-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              :class="{
+                '!opacity-100 !visible': $route.path === '/admin/coupon',
+              }"
+            ></div
+          ></router-link>
+        </li>
+        <li>
+          <router-link
+            to="/admin/articles"
+            class="duration-300 relative flex items-center h-[100px] text-primary/50 px-5 group hover:text-primary/100"
+            :class="{
+              '!text-primary': $route.path === '/admin/articles',
+            }"
+            >貼文
+            <div
+              class="duration-300 absolute bottom-0 left-0 w-full bg-primary h-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              :class="{
+                '!opacity-100 !visible': $route.path === '/admin/articles',
+              }"
+            ></div>
+          </router-link>
+        </li>
+      </ul>
+      <router-link
+        to="/login"
+        class="relative w-[100px] h-[100px] border-primary border-l-2 group"
+        @click="signOut"
+      >
+        <img
+          src="@/assets/images/icon-admin.svg"
+          alt="登入/登出"
+          class="duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-110"
+        />
+      </router-link>
+    </div>
+  </header>
 </template>
 
 <script>
