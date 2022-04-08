@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
       class="relative h-[calc(100vh-90px)] border-primary border-b-2 md:h-[calc(100vh-120px)] lg:h-[calc(100vh-140px)]"
@@ -61,7 +62,9 @@
         </div>
       </li>
       <li class="border-primary border-y-2">
-        <div class="flex flex-wrap flex-col-reverse p-[15px] md:flex-row md:min-h-[200px] md:p-0">
+        <div
+          class="flex flex-wrap flex-col-reverse p-[15px] md:flex-row md:min-h-[200px] md:p-0"
+        >
           <div class="w-full md:w-3/5">
             <div class="flex items-center h-full md:justify-end md:px-5">
               <p class="text-primary leading-loose md:text-right">
@@ -105,3 +108,23 @@
     </ul>
   </section>
 </template>
+
+<script>
+import LoadingComponent from '@/components/LoadingComponent.vue';
+
+export default {
+  data() {
+    return {
+      isLoading: true,
+    };
+  },
+  components: {
+    LoadingComponent,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
+  },
+};
+</script>

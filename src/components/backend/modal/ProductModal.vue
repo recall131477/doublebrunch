@@ -8,21 +8,16 @@
       @click="closeModal"
     ></div>
     <div
-      class="relative flex justify-center items-center w-full min-h-[calc(100%-2.5rem)] max-w-[960px] mx-auto my-5"
+      class="relative flex justify-center items-center w-full min-h-[calc(100%-2.5rem)] max-w-[960px] pointer-events-none mx-auto my-5"
     >
-      <div class="w-full">
+      <div class="w-full pointer-events-auto">
         <h2
           class="text-white bg-primary text-center py-5"
           v-if="status === 'add'"
         >
           新增產品
         </h2>
-        <h2
-          class="text-white bg-primary text-center py-5"
-          v-if="status === 'edit'"
-        >
-          修改產品
-        </h2>
+        <h2 class="text-white bg-primary text-center py-5" v-else>編輯產品</h2>
         <div class="bg-secondary">
           <div class="grid grid-cols-3 gap-5 p-5">
             <div class="col-span-1">
@@ -185,13 +180,13 @@
               <div class="flex items-center">
                 <input
                   type="checkbox"
-                  id="test"
+                  id="is_enabled"
                   class="btn-check mr-2"
-                  v-model="tempProduct.is_enabled"
                   :true-value="1"
                   :false-value="0"
+                  v-model="tempProduct.is_enabled"
                 />
-                <label for="test" class="text-primary">是否啟用</label>
+                <label for="is_enabled" class="text-primary">是否啟用</label>
               </div>
             </div>
           </div>
@@ -208,7 +203,7 @@
               class="duration-300 text-primary border-primary border-2 px-12 py-2.5 ml-2.5 hover:text-white hover:bg-primary"
               @click="updateProduct(tempProduct.id)"
             >
-              確認
+              {{ status === 'add' ? '新增' : '修改' }}
             </button>
           </div>
         </div>
@@ -263,7 +258,6 @@ export default {
       this.$http[httpMethod](url, { data: this.tempProduct })
         .then((res) => {
           this.$messageState(res, status);
-          // this.currentPage = 當更新產品時，更新完畢重新渲染畫面時，停留在當前頁面
           this.$emit('update-product', this.currentPage);
           this.closeModal();
         })

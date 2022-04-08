@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
       class="flex flex-wrap flex-col-reverse lg:flex-row lg:h-[calc(100vh-140px)]"
@@ -14,7 +15,9 @@
             :key="index"
             >{{ tag }}</span
           >
-          <div class="flex justify-between items-center mt-1 mb-2.5 md:mt-0 md:mb-5">
+          <div
+            class="flex justify-between items-center mt-1 mb-2.5 md:mt-0 md:mb-5"
+          >
             <h2 class="text-24px text-primary md:text-32px lg:text-40px">
               {{ article.title }}
             </h2>
@@ -52,11 +55,18 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+import LoadingComponent from '@/components/LoadingComponent.vue';
+
 export default {
   data() {
     return {
       article: {},
+      isLoading: false,
     };
+  },
+  components: {
+    LoadingComponent,
   },
   inject: ['routerRefresh'],
   watch: {
@@ -78,7 +88,13 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

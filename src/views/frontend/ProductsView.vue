@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div class="border-primary border-b-2 p-5 md:hidden">
       <div class="relative">
@@ -143,13 +144,18 @@
                 </g>
               </svg>
             </button>
-            <div class="flex-1">
+            <div class="relative flex-1">
               <button
                 type="button"
                 class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
                 @click="addToCart(product.id)"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" class="duration-300 stroke-primary group-hover:stroke-white">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  class="duration-300 stroke-primary group-hover:stroke-white"
+                >
                   <rect
                     width="16"
                     height="12"
@@ -169,6 +175,34 @@
                 </svg>
                 <span class="ml-3">加入購物車</span>
               </button>
+              <div
+                class="absolute inset-0 flex justify-center items-center bg-primary"
+                v-show="isLoadingItem === product.id"
+              >
+                <div class="flex items-center">
+                  <svg
+                    class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span class="text-white">加入中...</span>
+                </div>
+              </div>
             </div>
           </div>
         </li>
@@ -183,8 +217,10 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
   data() {
@@ -194,10 +230,13 @@ export default {
       category: 'all',
       categories: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      isLoading: false,
+      isLoadingItem: '',
     };
   },
   components: {
     Pagination,
+    LoadingComponent,
   },
   watch: {
     // 因為是陣列，需要做深層監聽
@@ -228,10 +267,17 @@ export default {
           this.categories = result;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     getProducts(page = 1) {
+      this.isLoading = true;
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       if (this.category !== 'all') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${this.category}`;
@@ -244,26 +290,47 @@ export default {
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
+          this.isLoading = false;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     addToCart(id, qty = 1) {
+      this.isLoadingItem = id;
       const data = {
         product_id: id,
         qty,
       };
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      const status = '加入購物車';
+      const status = '已加入購物車';
       this.$http
         .post(url, { data })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           emitter.emit('get-cart');
+          this.isLoadingItem = '';
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     toggleFavorite(product) {
@@ -273,8 +340,22 @@ export default {
       );
       if (favoriteIndex === -1) {
         this.favorite.push(product);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '已加入我的最愛',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         this.favorite.splice(favoriteIndex, 1);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '已移除我的最愛',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
     // 比對我的最愛產品 id 是否存在

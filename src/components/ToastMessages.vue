@@ -6,9 +6,20 @@
       class="mb-5"
       :class="`toastMessage${index}`"
     >
-      <div class="relative flex justify-between items-center text-white bg-primary min-w-[300px] p-5">
-        <div>
-          <span :class="`bg-${msg.style}`" class="inline-block rounded"></span>
+      <div
+        class="relative flex justify-between items-center text-white min-w-[300px] p-5"
+        :class="{
+          'bg-primary': msg.style === 'success',
+          'bg-warning': msg.style === 'danger',
+        }"
+      >
+        <div
+          :class="{
+            'bg-primary': msg.style === 'success',
+            'bg-warning': msg.style === 'danger',
+          }"
+        >
+          <span class="inline-block rounded"></span>
           <span>{{ msg.title }}</span>
         </div>
         <button
@@ -25,9 +36,6 @@
           >
           </span>
         </button>
-      </div>
-      <div v-if="msg.content">
-        {{ msg.content }}
       </div>
     </div>
   </div>
@@ -46,7 +54,7 @@ export default {
     toastMessageShow() {
       setTimeout(() => {
         this.messages.shift();
-      }, 6000);
+      }, 5000);
     },
     clearToastMessage(index) {
       this.messages.splice(index, 1);

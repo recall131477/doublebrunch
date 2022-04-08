@@ -8,23 +8,23 @@
       @click="closeModal"
     ></div>
     <div
-      class="relative flex justify-center items-center w-full min-h-[calc(100%-2.5rem)] max-w-[960px] mx-auto my-5"
+      class="relative flex justify-center items-center w-full min-h-[calc(100%-2.5rem)] max-w-[960px] pointer-events-none mx-auto my-5"
     >
-      <div class="w-full">
+      <div class="w-full pointer-events-auto">
         <h2 class="text-white bg-warning text-center py-5">刪除</h2>
         <div class="bg-secondary">
           <div class="p-5">
-            <h3 class="text-20px text-primary" v-if="navbarItem === 'product'">
-              是否刪除{{ delProduct.title }}(刪除後將無法恢復)
+            <h3 class="text-20px text-primary" v-if="navItem === 'product'">
+              是否刪除商品：{{ delProduct.title }} (刪除後將無法恢復)
             </h3>
-            <h3 class="text-20px text-primary" v-if="navbarItem === 'order'">
-              是否刪除訂單(刪除後將無法恢復)
+            <h3 class="text-20px text-primary" v-if="navItem === 'order'">
+              是否刪除訂單編號：{{ delOrder.id }} (刪除後將無法恢復)
             </h3>
-            <h3 class="text-20px text-primary" v-if="navbarItem === 'coupon'">
-              是否刪除優惠券(刪除後將無法恢復)
+            <h3 class="text-20px text-primary" v-if="navItem === 'coupon'">
+              是否刪除優惠券：{{ delCoupon.title }} (刪除後將無法恢復)
             </h3>
-            <h3 class="text-20px text-primary" v-if="navbarItem === 'article'">
-              是否刪除文章(刪除後將無法恢復)
+            <h3 class="text-20px text-primary" v-if="navItem === 'article'">
+              是否刪除文章：{{ deleteArticle }} (刪除後將無法恢復)
             </h3>
           </div>
           <div class="text-right border-primary border-t-2 p-5">
@@ -38,7 +38,32 @@
             <button
               type="button"
               class="duration-300 text-primary border-primary border-2 px-12 py-2.5 ml-2.5 hover:text-white hover:bg-primary"
+              v-if="navItem === 'product'"
               @click="deleteProduct"
+            >
+              確認刪除
+            </button>
+            <button
+              type="button"
+              class="duration-300 text-primary border-primary border-2 px-12 py-2.5 ml-2.5 hover:text-white hover:bg-primary"
+              v-if="navItem === 'order'"
+              @click="deleteOrder"
+            >
+              確認刪除
+            </button>
+            <button
+              type="button"
+              class="duration-300 text-primary border-primary border-2 px-12 py-2.5 ml-2.5 hover:text-white hover:bg-primary"
+              v-if="navItem === 'coupon'"
+              @click="deleteCoupon"
+            >
+              確認刪除
+            </button>
+            <button
+              type="button"
+              class="duration-300 text-primary border-primary border-2 px-12 py-2.5 ml-2.5 hover:text-white hover:bg-primary"
+              v-if="navItem === 'article'"
+              @click="deleteArticle"
             >
               確認刪除
             </button>
@@ -58,11 +83,29 @@ export default {
         return {};
       },
     },
+    delOrder: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    delCoupon: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    delArticle: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
     currentPage: {
       type: Number,
       default: 1,
     },
-    navbarItem: {
+    navItem: {
       type: String,
       default: '',
     },
@@ -82,6 +125,51 @@ export default {
         .then((res) => {
           this.$messageState(res, status);
           this.$emit('update-product', this.currentPage);
+          this.closeModal();
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
+    },
+    deleteOrder() {
+      const status = '刪除商品';
+      const { id } = this.delOrder;
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
+      this.$http
+        .delete(url)
+        .then((res) => {
+          this.$messageState(res, status);
+          this.$emit('update-order', this.currentPage);
+          this.closeModal();
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
+    },
+    deleteCoupon() {
+      const status = '刪除優惠券';
+      const { id } = this.delCoupon;
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
+      this.$http
+        .delete(url)
+        .then((res) => {
+          this.$messageState(res, status);
+          this.$emit('update-coupon', this.currentPage);
+          this.closeModal();
+        })
+        .catch((err) => {
+          this.$messageState(err.response, '錯誤訊息');
+        });
+    },
+    deleteArticle() {
+      const status = '刪除文章';
+      const { id } = this.delArticle;
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
+      this.$http
+        .delete(url)
+        .then((res) => {
+          this.$messageState(res, status);
+          this.$emit('update-article', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {

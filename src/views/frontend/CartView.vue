@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <ProgressBar step="1"></ProgressBar>
   <section class="cart">
     <div
@@ -140,7 +141,12 @@
                 to="/products"
                 class="btn duration-300 flex justify-center items-center text-primary border-primary border-r-2 h-[60px] group"
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" class="duration-300 stroke-primary group-hover:stroke-white">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  class="duration-300 stroke-primary group-hover:stroke-white"
+                >
                   <rect
                     width="16"
                     height="12"
@@ -216,9 +222,11 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 import CouponModal from '@/components/frontend/modal/CouponModal.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
   data() {
@@ -229,11 +237,13 @@ export default {
       couponCode: '',
       isCoupon: false,
       status: '',
+      isLoading: true,
     };
   },
   components: {
     ProgressBar,
     CouponModal,
+    LoadingComponent,
   },
   methods: {
     getCart() {
@@ -250,7 +260,13 @@ export default {
           }
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     updateCartItem(item, calculate) {
@@ -270,43 +286,79 @@ export default {
         qty: newQty,
       };
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
-      const status = '更新商品';
+      const status = '已更新商品';
       this.$http
         .put(url, { data })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.getCart();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     deleteCartItem(id) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`;
-      const status = '刪除商品';
+      const status = '已刪除商品';
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           emitter.emit('get-cart');
           this.getCart();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     deleteAllCarts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`;
-      const status = '刪除全部商品';
+      const status = '已刪除全部商品';
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           emitter.emit('get-cart');
           this.getCart();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     useCoupon() {
@@ -324,7 +376,13 @@ export default {
           }
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openCouponModal() {
@@ -332,6 +390,9 @@ export default {
     },
   },
   mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
     this.getCart();
     // 我的最愛產品直接被新增購物車頁面
     emitter.on('add-cart', () => {

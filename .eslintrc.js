@@ -18,5 +18,6 @@ module.exports = {
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'max-len': 'off',
     'vuejs-accessibility/anchor-has-content': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

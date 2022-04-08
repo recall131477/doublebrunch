@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
       class="flex flex-wrap border-primary border-b-2 lg:h-[calc(100vh-140px)]"
@@ -87,7 +88,7 @@
                 ></span>
               </button>
             </div>
-            <div class="h-[60px]">
+            <div class="relative h-[60px]">
               <button
                 type="button"
                 class="btn duration-300 flex justify-center items-center w-full h-full group"
@@ -122,6 +123,34 @@
                 </svg>
                 <span class="ml-3">加入購物車</span>
               </button>
+              <div
+                class="absolute inset-0 flex justify-center items-center bg-primary"
+                v-show="isLoadingItem === product.id"
+              >
+                <div class="flex items-center">
+                  <svg
+                    class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span class="text-white">加入中...</span>
+                </div>
+              </div>
               <span class="block text-warning mt-2" v-if="qty > 30"
                 >數量不可超過30</span
               >
@@ -270,7 +299,7 @@
                         </g>
                       </svg>
                     </button>
-                    <div class="flex-1">
+                    <div class="relative flex-1">
                       <button
                         type="button"
                         class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
@@ -301,6 +330,34 @@
                         </svg>
                         <span class="ml-3">加入購物車</span>
                       </button>
+                      <div
+                        class="absolute inset-0 flex justify-center items-center bg-primary"
+                        v-show="isLoadingItem === product.id"
+                      >
+                        <div class="flex items-center">
+                          <svg
+                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          <span class="text-white">加入中...</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -323,8 +380,10 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
   data() {
@@ -333,11 +392,14 @@ export default {
       product: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
       qty: 1,
+      isLoading: false,
+      isLoadingItem: '',
     };
   },
   components: {
     Swiper,
     SwiperSlide,
+    LoadingComponent,
   },
   inject: ['routerRefresh'],
   watch: {
@@ -378,33 +440,48 @@ export default {
         });
     },
     getProduct() {
+      this.isLoading = true;
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http
         .get(url)
         .then((res) => {
           this.product = res.data.product;
+          this.isLoading = false;
         })
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');
         });
     },
     addToCart(id, qty = 1) {
+      this.isLoadingItem = id;
       const data = {
         product_id: id,
         qty,
       };
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-      const status = '加入購物車';
+      const status = '已加入購物車';
       this.$http
         .post(url, { data })
-        .then((res) => {
-          this.$messageState(res, status);
-          this.isLoadingItem = '';
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           emitter.emit('get-cart');
+          this.isLoadingItem = '';
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     toggleFavorite(product) {
@@ -414,8 +491,22 @@ export default {
       );
       if (favoriteIndex === -1) {
         this.favorite.push(product);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '已加入我的最愛',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         this.favorite.splice(favoriteIndex, 1);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '已移除我的最愛',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
     // 比對我的最愛產品 id 是否存在

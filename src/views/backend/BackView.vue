@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import NavBar from '@/components/backend/NavBar.vue';
 
 export default {
@@ -60,7 +61,13 @@ export default {
           });
       } else {
         const status = '請先登入';
-        this.$messageState(status);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: status,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.$router.push('/login');
       }
     },

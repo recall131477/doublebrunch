@@ -24,7 +24,7 @@
             </li>
           </ul>
         </li>
-        <li>{{ item.total }}</li>
+        <li>{{ $filters.currency(Math.round(item.total)) }}</li>
         <li>
           <div class="flex items-center">
             <input
@@ -47,6 +47,7 @@
             <button
               type="button"
               class="duration-300 border-primary border-2 w-full py-2.5 hover:text-white hover:bg-primary"
+              @click="openModal('edit', item)"
             >
               編輯
             </button>
@@ -55,6 +56,7 @@
             <button
               type="button"
               class="duration-300 text-warning border-warning border-2 w-full py-2.5 hover:text-white hover:bg-warning"
+              @click="openModal('delete', item)"
             >
               刪除
             </button>
@@ -63,13 +65,31 @@
       </ul>
     </li>
   </ul>
-  <Pagination :pages="pagination" @change-pages="getOrders"></Pagination>
-  <OrderModal></OrderModal>
+  <Pagination
+    :pages="pagination"
+    @change-pages="getOrders"
+    v-if="pagination.total_pages > 1"
+  ></Pagination>
+  <OrderModal
+    ref="orderModal"
+    :order="tempOrder"
+    :currentPage="pagination.current_page"
+    @update-paid="getOrders"
+  ></OrderModal>
+  <DeleteModal
+    ref="delOrderModal"
+    :delOrder="tempOrder"
+    :currentPage="pagination.current_page"
+    :navItem="navItem"
+    @update-order="getOrders"
+  ></DeleteModal>
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import OrderModal from '@/components/backend/modal/OrderModal.vue';
+import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
 
 export default {
   data() {
@@ -78,11 +98,13 @@ export default {
       status: '',
       pagination: {},
       tempOrder: {},
+      navItem: 'order',
     };
   },
   components: {
     Pagination,
     OrderModal,
+    DeleteModal,
   },
   methods: {
     getOrders(page = 1) {
@@ -96,6 +118,19 @@ export default {
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');
         });
+    },
+    updatePaid(item) {
+      emitter.emit('update-paid', item);
+    },
+    openModal(status, item) {
+      this.status = status;
+      if (status === 'edit') {
+        this.tempOrder = JSON.parse(JSON.stringify(item));
+        this.$refs.orderModal.openModal();
+      } else if (status === 'delete') {
+        this.tempOrder = JSON.parse(JSON.stringify(item));
+        this.$refs.delOrderModal.openModal();
+      }
     },
   },
   mounted() {

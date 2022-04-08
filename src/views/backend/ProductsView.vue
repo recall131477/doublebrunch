@@ -70,7 +70,11 @@
       </ul>
     </li>
   </ul>
-  <Pagination :pages="pagination" @change-pages="getProducts"></Pagination>
+  <Pagination
+    :pages="pagination"
+    @change-pages="getProducts"
+    v-if="pagination.total_pages > 1"
+  ></Pagination>
   <ProductModal
     ref="productModal"
     :product="tempProduct"
@@ -82,17 +86,17 @@
     ref="delProductModal"
     :delProduct="tempProduct"
     :currentPage="pagination.current_page"
-    :navbarItem="navbarItem"
+    :navItem="navItem"
     @update-product="getProducts"
   ></DeleteModal>
 </template>
 
 <script>
 import emitter from '@/methods/emitter';
-import LoadingComponent from '@/components/LoadingComponent.vue';
 import Pagination from '@/components/PaginationComponent.vue';
 import ProductModal from '@/components/backend/modal/ProductModal.vue';
 import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
   data() {
@@ -103,24 +107,26 @@ export default {
       },
       status: '',
       pagination: {},
-      navbarItem: 'product',
+      navItem: 'product',
       isLoading: false,
     };
   },
   components: {
     Pagination,
-    LoadingComponent,
     ProductModal,
     DeleteModal,
+    LoadingComponent,
   },
   methods: {
     getProducts(page = 1) {
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
+          this.isLoading = false;
         })
         .catch((err) => {
           this.$messageState(err.response, '錯誤訊息');

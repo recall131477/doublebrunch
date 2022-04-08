@@ -1,6 +1,10 @@
 <template>
   <div class="text-right h-[100px] p-5">
-    <button type="button" class="btn-light text-white bg-primary h-full w-40">
+    <button
+      type="button"
+      class="btn-light text-white bg-primary h-full w-40"
+      @click="openModal('add')"
+    >
       建立新的文章
     </button>
   </div>
@@ -30,6 +34,7 @@
               :id="`${article.id}`"
               class="btn-check mr-2"
               v-model="article.isPublic"
+              @change="updateArticle(article.id)"
             />
             <label :for="`${article.id}`">
               <span v-if="article.isPublic">已上架</span>
@@ -44,6 +49,7 @@
             <button
               type="button"
               class="duration-300 border-primary border-2 w-full py-2.5 hover:text-white hover:bg-primary"
+              @click="getArticle(article)"
             >
               編輯
             </button>
@@ -52,6 +58,7 @@
             <button
               type="button"
               class="duration-300 text-warning border-warning border-2 w-full py-2.5 hover:text-white hover:bg-warning"
+              @click="openModal('delete', article)"
             >
               刪除
             </button>
@@ -65,12 +72,21 @@
     @change-pages="getArticles"
     v-if="pagination.total_pages > 1"
   ></Pagination>
-  <ArticleModal></ArticleModal>
+  <ArticleModal
+    ref="articleModal"
+    :article="tempArticle"
+    :status="status"
+    :currentPage="pagination.current_page"
+    @update-article="getArticles"
+  ></ArticleModal>
+  <DeleteModal ref="delArticleModal"></DeleteModal>
 </template>
 
 <script>
+import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import ArticleModal from '@/components/backend/modal/ArticleModal.vue';
+import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
 
 export default {
   data() {
@@ -79,11 +95,13 @@ export default {
       tempArticle: {},
       status: '',
       pagination: {},
+      navItem: 'article',
     };
   },
   components: {
     Pagination,
     ArticleModal,
+    DeleteModal,
   },
   methods: {
     getArticles(page = 1) {
@@ -121,6 +139,42 @@ export default {
             '錯誤訊息',
           );
         });
+    },
+    updateArticle(id) {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          // ES lint 不能直接修改 res ，需額外設定變數
+          const result = res;
+          result.data.article.isPublic = !result.data.article.isPublic;
+          emitter.emit('update-article', result.data.article);
+        })
+        .catch((err) => {
+          this.$messageState(
+            err.response,
+            err.request,
+            err.message,
+            '錯誤訊息',
+          );
+        });
+    },
+    openModal(status, item) {
+      this.status = status;
+      if (status === 'add') {
+        this.tempArticle = {
+          isPublic: false,
+          create_at: new Date().getTime() / 1000,
+          tag: [],
+        };
+        this.$refs.articleModal.openModal();
+      } else if (status === 'edit') {
+        this.tempArticle = JSON.parse(JSON.stringify(item));
+        this.$refs.articleModal.openModal();
+      } else if (status === 'delete') {
+        this.tempArticle = JSON.parse(JSON.stringify(item));
+        this.$refs.delArticleModal.openModal();
+      }
     },
   },
   mounted() {

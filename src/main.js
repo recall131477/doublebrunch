@@ -20,6 +20,9 @@ import {
 } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 
+// 文字編輯器
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 // 自定義函式方法(訊息顯示狀態)
 import $messageState from '@/methods/messageState';
 
@@ -52,6 +55,7 @@ app.config.globalProperties.$messageState = $messageState;
 
 app.use(router);
 app.use(VueAxios, axios);
+app.use(CKEditor);
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
