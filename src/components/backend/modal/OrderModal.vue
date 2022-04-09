@@ -160,6 +160,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 
 export default {
@@ -192,16 +193,29 @@ export default {
       const paid = {
         is_paid: item.is_paid,
       };
-      const status = '更新付款狀態';
+      const status = '更新付款狀態成功';
       this.$http
         .put(url, { data: paid })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-paid', this.currentPage);
+          this.$emit('cancel-id');
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openModal() {

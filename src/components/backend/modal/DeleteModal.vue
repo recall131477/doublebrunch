@@ -24,7 +24,7 @@
               是否刪除優惠券：{{ delCoupon.title }} (刪除後將無法恢復)
             </h3>
             <h3 class="text-20px text-primary" v-if="navItem === 'article'">
-              是否刪除文章：{{ deleteArticle }} (刪除後將無法恢復)
+              是否刪除文章：{{ delArticle.title }} (刪除後將無法恢復)
             </h3>
           </div>
           <div class="text-right border-primary border-t-2 p-5">
@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   props: {
     delProduct: {
@@ -117,63 +119,111 @@ export default {
   },
   methods: {
     deleteProduct() {
-      const status = '刪除商品';
+      const status = '刪除商品成功';
       const { id } = this.delProduct;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-product', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     deleteOrder() {
-      const status = '刪除商品';
+      const status = '刪除訂單成功';
       const { id } = this.delOrder;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-order', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     deleteCoupon() {
-      const status = '刪除優惠券';
+      const status = '刪除優惠券成功';
       const { id } = this.delCoupon;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-coupon', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     deleteArticle() {
-      const status = '刪除文章';
+      const status = '刪除文章成功';
       const { id } = this.delArticle;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
       this.$http
         .delete(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-article', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openModal() {

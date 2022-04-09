@@ -11,9 +11,11 @@
       @click="closeModal"
     ></div>
     <div
-      class="relative flex justify-center items-center w-full h-[calc(100%-30px)] max-w-[1000px] pointer-events-none  px-[15px] mx-auto my-[15px] md:px-5"
+      class="relative flex justify-center items-center w-full h-[calc(100%-30px)] max-w-[1000px] pointer-events-none px-[15px] mx-auto my-[15px] md:px-5"
     >
-      <div class="flex flex-wrap flex-col-reverse bg-secondary w-full pointer-events-auto md:flex-row xl:h-[480px]">
+      <div
+        class="flex flex-wrap flex-col-reverse bg-secondary w-full pointer-events-auto md:flex-row xl:h-[480px]"
+      >
         <div class="w-full md:w-1/2">
           <div class="flex flex-wrap self-start">
             <div
@@ -54,6 +56,28 @@
 
 <script>
 export default {
+  watch: {
+    puzzleEnd: {
+      handler(newArr) {
+        this.winIdx = 0;
+        newArr.forEach((item, index) => {
+          if (item.idx === index) {
+            this.winIdx += 1;
+          }
+        });
+      },
+      deep: true,
+    },
+    winIdx: {
+      handler(newVal) {
+        if (newVal === 9) {
+          this.isWin = true;
+          this.$emit('get-coupon');
+          this.isOpen = false;
+        }
+      },
+    },
+  },
   data() {
     return {
       puzzleStart: [
@@ -99,28 +123,6 @@ export default {
       isWin: false,
       isOpen: false,
     };
-  },
-  watch: {
-    puzzleEnd: {
-      handler(newArr) {
-        this.winIdx = 0;
-        newArr.forEach((item, index) => {
-          if (item.idx === index) {
-            this.winIdx += 1;
-          }
-        });
-      },
-      deep: true,
-    },
-    winIdx: {
-      handler(newVal) {
-        if (newVal === 9) {
-          this.isWin = true;
-          this.$emit('get-coupon');
-          this.isOpen = false;
-        }
-      },
-    },
   },
   methods: {
     randomPuzzle() {

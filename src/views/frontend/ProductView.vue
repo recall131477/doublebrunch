@@ -61,7 +61,6 @@
                   :class="{ 'group-hover:bg-white': qty > 1 }"
                 ></span>
               </button>
-              <!-- onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" 讓 input 不能輸入 '-','+','.' -->
               <input
                 type="text"
                 class="text-primary text-center bg-secondary border-primary border-x-2 flex-1 w-full h-[60px]"
@@ -386,16 +385,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
-  data() {
-    return {
-      products: [],
-      product: [],
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      qty: 1,
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
   components: {
     Swiper,
     SwiperSlide,
@@ -427,6 +416,16 @@ export default {
       );
     },
   },
+  data() {
+    return {
+      products: [],
+      product: [],
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      qty: 1,
+      isLoading: false,
+      isLoadingItem: '',
+    };
+  },
   methods: {
     getProducts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
@@ -436,7 +435,13 @@ export default {
           this.products = res.data.products;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     getProduct() {
@@ -450,7 +455,13 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     addToCart(id, qty = 1) {
@@ -509,7 +520,6 @@ export default {
         });
       }
     },
-    // 比對我的最愛產品 id 是否存在
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
     },

@@ -23,9 +23,6 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 // 文字編輯器
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
-// 自定義函式方法(訊息顯示狀態)
-import $messageState from '@/methods/messageState';
-
 import App from './App.vue';
 import router from './router';
 
@@ -50,8 +47,6 @@ app.config.globalProperties.$filters = {
   date,
   currency,
 };
-
-app.config.globalProperties.$messageState = $messageState;
 
 app.use(router);
 app.use(VueAxios, axios);

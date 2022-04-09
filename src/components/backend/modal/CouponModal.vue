@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 
 export default {
@@ -137,32 +138,49 @@ export default {
     dueDate() {
       this.tempCoupon.due_date = Math.floor(new Date(this.dueDate) / 1000);
     },
+    status() {
+      this.tempStatus = this.status;
+    },
   },
   data() {
     return {
       isOpen: false,
       tempCoupon: {},
       dueDate: '',
+      tempStatus: '',
     };
   },
   methods: {
     updateCoupon(id) {
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon`;
       let httpMethod = 'post';
-      let status = '新增優惠券';
-      if (this.status !== 'add') {
+      let status = '新增優惠券成功';
+      if (this.tempStatus !== 'add') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
         httpMethod = 'put';
-        status = '更新優惠券';
+        status = '更新優惠券成功';
       }
       this.$http[httpMethod](url, { data: this.tempCoupon })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-coupon', this.currentPage);
+          this.$emit('cancel-id');
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openModal() {
@@ -174,6 +192,7 @@ export default {
   },
   mounted() {
     emitter.on('update-coupon', (item) => {
+      this.tempStatus = 'edit';
       this.tempCoupon = item;
       this.updateCoupon(item.id);
     });

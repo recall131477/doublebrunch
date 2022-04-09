@@ -290,10 +290,20 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 
 export default {
+  components: {
+    ProgressBar,
+  },
+  computed: {
+    checkFormData() {
+      const formData = ['name', 'email', 'tel', 'address'];
+      return formData.every((item) => this.form.user[item] !== '');
+    },
+  },
   data() {
     return {
       cart: {
@@ -312,16 +322,6 @@ export default {
       isOpen: true,
     };
   },
-  components: {
-    ProgressBar,
-  },
-  //
-  computed: {
-    checkFormData() {
-      const formData = ['name', 'email', 'tel', 'address'];
-      return formData.every((item) => this.form.user[item] !== '');
-    },
-  },
   methods: {
     getCart() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
@@ -331,10 +331,15 @@ export default {
           this.cart = res.data.data;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
-    // 判斷電話是否符合正規表達式
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '請輸入正確的電話號碼';
@@ -345,11 +350,17 @@ export default {
     createOrder() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
-      const status = '建立訂單';
+      const status = '建立訂單成功';
       this.$http
         .post(url, { data: order })
         .then((res) => {
-          this.$messageState(res, status);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$refs.form.resetForm(); // 清空 form 表單內容，套件用法
           this.form.message = '';
           this.$router.push({
@@ -359,7 +370,13 @@ export default {
           emitter.emit('get-cart');
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

@@ -168,8 +168,9 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   props: {
@@ -204,6 +205,9 @@ export default {
     createAt() {
       this.tempArticle.create_at = Math.floor(new Date(this.createAt) / 1000);
     },
+    status() {
+      this.tempStatus = this.status;
+    },
   },
   data() {
     return {
@@ -218,26 +222,39 @@ export default {
       editorConfig: {
         toolbar: ['heading', 'bold', 'italic', '|', 'link'],
       },
+      tempStatus: '',
     };
   },
   methods: {
     updateArticle(id) {
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article`;
       let httpMethod = 'post';
-      let status = '新增文章';
-      if (this.status !== 'add') {
+      let status = '新增文章成功';
+      if (this.tempStatus !== 'add') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
         httpMethod = 'put';
-        status = '更新文章';
+        status = '更新文章成功';
       }
       this.$http[httpMethod](url, { data: this.tempArticle })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-article', this.currentPage);
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openModal() {
@@ -249,6 +266,7 @@ export default {
   },
   mounted() {
     emitter.on('update-article', (item) => {
+      this.tempStatus = 'edit';
       this.tempArticle = item;
       this.updateArticle(item.id);
     });
@@ -257,25 +275,23 @@ export default {
 </script>
 
 <style lang="scss">
-input::placeholder {
-  opacity: 0.5;
-}
-
 .ck-editor__editable_inline {
   min-height: 300px;
 }
 
-.ck.ck-toolbar,.ck.ck-editor__main>.ck-editor__editable {
+.ck.ck-toolbar,
+.ck.ck-editor__main > .ck-editor__editable {
   background: none;
 }
 
-.ck.ck-toolbar,.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
-  border: 2px solid #8CA06E;
+.ck.ck-toolbar,
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  border: 2px solid #8ca06e;
 }
 
 .ck.ck-editor__main {
   p {
-    color: #8CA06E;
+    color: #8ca06e;
   }
 }
 </style>

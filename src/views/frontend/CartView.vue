@@ -1,7 +1,7 @@
 <template>
   <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <ProgressBar step="1"></ProgressBar>
-  <section class="cart">
+  <section>
     <div
       class="text-center p-[15px] md:px-5 md:py-20"
       v-if="cart.carts.length === 0"
@@ -73,7 +73,6 @@
                   :class="{ 'group-hover:bg-white': item.qty > 1 }"
                 ></span>
               </button>
-              <!-- onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" 讓 input 不能輸入 '-','+','.' -->
               <input
                 type="text"
                 class="text-primary text-center bg-secondary border-primary border-x-2 flex-1 w-full"
@@ -224,11 +223,16 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 import CouponModal from '@/components/frontend/modal/CouponModal.vue';
-import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
+  components: {
+    LoadingComponent,
+    ProgressBar,
+    CouponModal,
+  },
   data() {
     return {
       cart: {
@@ -239,11 +243,6 @@ export default {
       status: '',
       isLoading: true,
     };
-  },
-  components: {
-    ProgressBar,
-    CouponModal,
-    LoadingComponent,
   },
   methods: {
     getCart() {

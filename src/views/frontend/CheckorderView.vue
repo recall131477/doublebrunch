@@ -190,9 +190,13 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 
 export default {
+  components: {
+    ProgressBar,
+  },
   data() {
     return {
       order: {},
@@ -201,9 +205,6 @@ export default {
       products: {},
       isOpen: true,
     };
-  },
-  components: {
-    ProgressBar,
   },
   methods: {
     getOrder() {
@@ -217,7 +218,13 @@ export default {
           this.products = res.data.order.products;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     toggleOrderInfo() {
@@ -226,7 +233,7 @@ export default {
     payOrder() {
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/pay/${id}`;
-      const status = '付款';
+      const status = '付款成功';
       this.$http
         .post(url)
         .then((res) => {
@@ -235,13 +242,31 @@ export default {
               name: 'complete', // params 只能用 name 不能用 path
               params: { id: this.orderId },
             });
-            this.$messageState(res, status);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: status,
+              showConfirmButton: false,
+              timer: 1500,
+            });
           } else {
-            this.$messageState(res.data.message, '錯誤訊息');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

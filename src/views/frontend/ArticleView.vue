@@ -59,12 +59,6 @@ import Swal from 'sweetalert2';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
-  data() {
-    return {
-      article: {},
-      isLoading: false,
-    };
-  },
   components: {
     LoadingComponent,
   },
@@ -75,6 +69,12 @@ export default {
         this.routerRefresh();
       },
     },
+  },
+  data() {
+    return {
+      article: {},
+      isLoading: false,
+    };
   },
   methods: {
     getArticle() {

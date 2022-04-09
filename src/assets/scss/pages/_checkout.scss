@@ -1,7 +1,4 @@
 .checkout {
-  ::placeholder {
-    opacity: 0.5;
-  }
   li {
     @include mq($until:md) {
       &:nth-child(2) {

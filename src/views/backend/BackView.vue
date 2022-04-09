@@ -17,7 +17,7 @@
     <div class="w-full h-full border-primary border-2"></div>
   </div>
   <div class="p-5">
-    <NavBar></NavBar>
+    <NavBar />
     <main>
       <router-view v-if="checkSuccess"></router-view>
     </main>
@@ -29,13 +29,13 @@ import Swal from 'sweetalert2';
 import NavBar from '@/components/backend/NavBar.vue';
 
 export default {
+  components: {
+    NavBar,
+  },
   data() {
     return {
       checkSuccess: false,
     };
-  },
-  components: {
-    NavBar,
   },
   methods: {
     // 確認是否登入並儲存 token
@@ -48,15 +48,27 @@ export default {
         // axios 預設值
         this.$http.defaults.headers.common.Authorization = `${token}`;
         const url = `${process.env.VUE_APP_API}/api/user/check`;
-        const status = '登入';
+        const status = '已登入';
         this.$http
           .post(url, { api_token: this.token })
-          .then((res) => {
-            this.$messageState(res, status);
+          .then(() => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: status,
+              showConfirmButton: false,
+              timer: 1500,
+            });
             this.checkSuccess = true;
           })
           .catch((err) => {
-            this.$messageState(err.response, '錯誤訊息');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: err.response.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
             this.$router.push('/login');
           });
       } else {

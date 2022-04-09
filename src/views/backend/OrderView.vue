@@ -31,6 +31,7 @@
               type="checkbox"
               :id="`${item.id}`"
               class="btn-check mr-2"
+              :disabled="tempId === item.id"
               v-model="item.is_paid"
               @change="updatePaid(item)"
             />
@@ -75,6 +76,7 @@
     :order="tempOrder"
     :currentPage="pagination.current_page"
     @update-paid="getOrders"
+    @cancel-id="cancelId"
   ></OrderModal>
   <DeleteModal
     ref="delOrderModal"
@@ -86,12 +88,18 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import OrderModal from '@/components/backend/modal/OrderModal.vue';
 import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
 
 export default {
+  components: {
+    Pagination,
+    OrderModal,
+    DeleteModal,
+  },
   data() {
     return {
       orders: {},
@@ -99,12 +107,8 @@ export default {
       pagination: {},
       tempOrder: {},
       navItem: 'order',
+      tempId: '',
     };
-  },
-  components: {
-    Pagination,
-    OrderModal,
-    DeleteModal,
   },
   methods: {
     getOrders(page = 1) {
@@ -116,11 +120,21 @@ export default {
           this.pagination = res.data.pagination;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     updatePaid(item) {
+      this.tempId = item.id;
       emitter.emit('update-paid', item);
+    },
+    cancelId() {
+      this.tempId = '';
     },
     openModal(status, item) {
       this.status = status;

@@ -90,20 +90,34 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   methods: {
     signOut() {
       const url = `${process.env.VUE_APP_API}/logout`;
-      const status = '登出';
+      const status = '已登出';
       this.$http
         .post(url)
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           document.cookie = 'hexToken=;expires=;'; // 登出並清除 token
           this.$router.push('/login');
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

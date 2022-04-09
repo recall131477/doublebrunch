@@ -156,22 +156,6 @@ import emitter from '@/methods/emitter';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
-  data() {
-    return {
-      products: [],
-      keyword: '',
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
-  computed: {
-    filterProducts() {
-      return this.keyword === ''
-        ? this.products
-        : this.products.filter((item) => item.title.match(this.keyword) || item.category.match(this.keyword));
-    },
-  },
   components: {
     LoadingComponent,
   },
@@ -192,6 +176,22 @@ export default {
       deep: true,
     },
   },
+  computed: {
+    filterProducts() {
+      return this.keyword === ''
+        ? this.products
+        : this.products.filter((item) => item.title.match(this.keyword) || item.category.match(this.keyword));
+    },
+  },
+  data() {
+    return {
+      products: [],
+      keyword: '',
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      isLoading: false,
+      isLoadingItem: '',
+    };
+  },
   methods: {
     getProducts() {
       this.isLoading = true;
@@ -203,7 +203,13 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     addToCart(id, qty = 1) {
@@ -262,7 +268,6 @@ export default {
         });
       }
     },
-    // 比對我的最愛產品 id 是否存在
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
     },

@@ -1,13 +1,19 @@
 <template>
   <div class="flex justify-center items-center h-screen px-[15px] md:px-0">
     <div class="max-w-[480px] mx-auto w-full">
-      <div class="border-primary border-2 p-[15px] md:pt-[50px] md:px-[60px] md:pb-20">
+      <div
+        class="border-primary border-2 p-[15px] md:pt-[50px] md:px-[60px] md:pb-20"
+      >
         <div class="text-center">
           <h1 class="inline-block bg-primary px-5 py-2.5 -mb-[6px]">
             <img src="@/assets/images/logo.svg" alt="logo" />
           </h1>
         </div>
-        <h2 class="text-32px text-primary text-center my-2.5 md:text-40px md:mb-5">登入</h2>
+        <h2
+          class="text-32px text-primary text-center my-2.5 md:text-40px md:mb-5"
+        >
+          登入
+        </h2>
         <VForm ref="form" v-slot="{ errors }" @submit="login">
           <div class="mb-5">
             <label for="email" class="block text-primary w-full mb-1"
@@ -117,6 +123,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   data() {
     return {
@@ -137,7 +145,13 @@ export default {
           this.$router.push('/admin/products');
         })
         .catch((err) => {
-          this.$messageState(err.response, '登入');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

@@ -55,33 +55,34 @@
     </div>
   </router-link>
   <div class="p-[15px] md:p-5">
-    <HeaderLayout></HeaderLayout>
-    <NavBar></NavBar>
+    <HeaderLayout />
+    <NavBar />
     <main class="mt-[60px] md:mt-20 lg:mt-[100px]">
-      <router-view></router-view>
+      <router-view />
     </main>
-    <FooterLayout></FooterLayout>
+    <FooterLayout />
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import HeaderLayout from '@/components/frontend/layout/HeaderLayout.vue';
 import FooterLayout from '@/components/frontend/layout/FooterLayout.vue';
 import NavBar from '@/components/frontend/NavBar.vue';
 
 export default {
+  components: {
+    HeaderLayout,
+    FooterLayout,
+    NavBar,
+  },
   data() {
     return {
       cart: {
         carts: [],
       },
     };
-  },
-  components: {
-    HeaderLayout,
-    FooterLayout,
-    NavBar,
   },
   methods: {
     getCart() {
@@ -92,7 +93,13 @@ export default {
           this.cart = res.data.data;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

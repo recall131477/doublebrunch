@@ -525,7 +525,7 @@
       </div>
     </div>
   </section>
-  <section class="subscribe">
+  <section>
     <div class="flex flex-wrap flex-col-reverse md:flex-row-reverse md:h-20">
       <div class="w-full md:w-[calc(100%-240px)]">
         <div
@@ -533,12 +533,17 @@
         >
           <input
             type="email"
+            name="email"
+            id="email"
             placeholder="訂閱獲得最新好康資訊"
             class="text-primary bg-secondary flex-1 w-full h-full p-5"
+            v-model="subscribeMail"
           />
           <button
             type="button"
-            class="btn-light text-white bg-primary w-[120px] h-full md:w-40"
+            class="btn-light text-white bg-primary w-[120px] h-full opacity-50 pointer-events-none md:w-40"
+            :class="{'opacity-100 pointer-events-auto': subscribeMail}"
+            @click="sendSubscribe"
           >
             訂閱
           </button>
@@ -563,22 +568,10 @@ import { Navigation, Autoplay } from 'swiper';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
-  data() {
-    return {
-      products: [],
-      discountProducts: [],
-      monthMainProducts: [],
-      articles: [],
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
-      modules: [Navigation, Autoplay],
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
   components: {
-    LoadingComponent,
     Swiper,
     SwiperSlide,
+    LoadingComponent,
   },
   watch: {
     // 因為是陣列，需要做深層監聽
@@ -590,6 +583,19 @@ export default {
       },
       deep: true,
     },
+  },
+  data() {
+    return {
+      products: [],
+      discountProducts: [],
+      monthMainProducts: [],
+      subscribeMail: '',
+      articles: [],
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
+      modules: [Navigation, Autoplay],
+      isLoading: false,
+      isLoadingItem: '',
+    };
   },
   methods: {
     getProducts() {
@@ -702,9 +708,19 @@ export default {
         });
       }
     },
-    // 比對我的最愛產品 id 是否存在
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
+    },
+    sendSubscribe() {
+      const status = '已訂閱';
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: status,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.subscribeMail = '';
     },
   },
   mounted() {

@@ -1,5 +1,4 @@
 <template>
-  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <div class="text-right h-[100px] p-5">
     <button
       type="button"
@@ -36,6 +35,7 @@
               class="btn-check mr-2"
               :true-value="1"
               :false-value="0"
+              :disabled="tempId === item.id"
               v-model="item.is_enabled"
               @change="updateProduct(item)"
             />
@@ -81,6 +81,7 @@
     :status="status"
     :currentPage="pagination.current_page"
     @update-product="getProducts"
+    @cancel-id="cancelId"
   ></ProductModal>
   <DeleteModal
     ref="delProductModal"
@@ -92,13 +93,18 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import ProductModal from '@/components/backend/modal/ProductModal.vue';
 import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
-import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
+  components: {
+    Pagination,
+    ProductModal,
+    DeleteModal,
+  },
   data() {
     return {
       products: [],
@@ -108,32 +114,34 @@ export default {
       status: '',
       pagination: {},
       navItem: 'product',
-      isLoading: false,
+      tempId: '',
     };
-  },
-  components: {
-    Pagination,
-    ProductModal,
-    DeleteModal,
-    LoadingComponent,
   },
   methods: {
     getProducts(page = 1) {
-      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
-          this.isLoading = false;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     updateProduct(item) {
+      this.tempId = item.id;
       emitter.emit('update-product', item);
+    },
+    cancelId() {
+      this.tempId = '';
     },
     openModal(status, item) {
       this.status = status;

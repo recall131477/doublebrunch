@@ -36,7 +36,10 @@
                 />
                 <input
                   type="file"
+                  id="file"
                   class="btn-file border-primary border-2 w-full h-[60px]"
+                  ref="fileInput"
+                  @change="uploadFile"
                 />
                 <div>
                   <h3 class="text-primary mb-1">多圖新增</h3>
@@ -213,6 +216,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 
 export default {
@@ -236,6 +240,9 @@ export default {
     product() {
       this.tempProduct = JSON.parse(JSON.stringify(this.product));
     },
+    status() {
+      this.tempStatus = this.status;
+    },
   },
   data() {
     return {
@@ -243,31 +250,89 @@ export default {
       tempProduct: {
         imagesUrl: [],
       },
+      tempStatus: '',
     };
   },
   methods: {
     updateProduct(id) {
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product`;
       let httpMethod = 'post';
-      let status = '新增產品';
-      if (this.status !== 'add') {
+      let status = '新增產品成功';
+      if (this.tempStatus !== 'add') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
         httpMethod = 'put';
-        status = '更新產品';
+        status = '更新產品成功';
       }
       this.$http[httpMethod](url, { data: this.tempProduct })
-        .then((res) => {
-          this.$messageState(res, status);
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: status,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           this.$emit('update-product', this.currentPage);
+          this.$emit('cancel-id');
           this.closeModal();
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     uploadImagesForUrl() {
       this.tempProduct.imagesUrl = [];
       this.tempProduct.imagesUrl.push('');
+    },
+    uploadFile() {
+      const uploadFile = this.$refs.fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file-to-upload', uploadFile);
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload`;
+      const status = '圖片上傳成功';
+      this.$http
+        .post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.tempProduct.imageUrl = res.data.imageUrl;
+            this.$refs.fileInput.value = '';
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: status,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            this.$refs.fileInput.value = '';
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     },
     openModal() {
       this.isOpen = true;
@@ -278,15 +343,10 @@ export default {
   },
   mounted() {
     emitter.on('update-product', (item) => {
+      this.tempStatus = 'edit';
       this.tempProduct = item;
       this.updateProduct(item.id);
     });
   },
 };
 </script>
-
-<style lang="scss">
-input::placeholder {
-  opacity: 0.5;
-}
-</style>

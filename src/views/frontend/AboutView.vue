@@ -113,13 +113,13 @@
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
+  components: {
+    LoadingComponent,
+  },
   data() {
     return {
       isLoading: true,
     };
-  },
-  components: {
-    LoadingComponent,
   },
   mounted() {
     setTimeout(() => {

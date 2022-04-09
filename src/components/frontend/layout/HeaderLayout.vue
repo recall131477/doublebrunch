@@ -106,18 +106,10 @@
 </template>
 
 <script>
-import FavoriteModal from '@/components/frontend/modal/FavoriteModal.vue';
 import emitter from '@/methods/emitter';
+import FavoriteModal from '@/components/frontend/modal/FavoriteModal.vue';
 
 export default {
-  data() {
-    return {
-      favorite: [],
-      keyword: '',
-      isOpenFavorite: false,
-      isOpenMenu: false,
-    };
-  },
   components: {
     FavoriteModal,
   },
@@ -128,6 +120,14 @@ export default {
         this.isOpenFavorite = false;
       },
     },
+  },
+  data() {
+    return {
+      favorite: [],
+      keyword: '',
+      isOpenFavorite: false,
+      isOpenMenu: false,
+    };
   },
   methods: {
     toggleMenu() {

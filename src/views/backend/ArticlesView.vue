@@ -33,6 +33,7 @@
               type="checkbox"
               :id="`${article.id}`"
               class="btn-check mr-2"
+              :disabled="tempId === article.id"
               v-model="article.isPublic"
               @change="updateArticle(article.id)"
             />
@@ -79,16 +80,28 @@
     :currentPage="pagination.current_page"
     @update-article="getArticles"
   ></ArticleModal>
-  <DeleteModal ref="delArticleModal"></DeleteModal>
+  <DeleteModal
+    ref="delArticleModal"
+    :delArticle="tempArticle"
+    :currentPage="pagination.current_page"
+    :navItem="navItem"
+    @update-article="getArticles"
+  ></DeleteModal>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import ArticleModal from '@/components/backend/modal/ArticleModal.vue';
 import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
 
 export default {
+  components: {
+    Pagination,
+    ArticleModal,
+    DeleteModal,
+  },
   data() {
     return {
       articles: {},
@@ -96,12 +109,8 @@ export default {
       status: '',
       pagination: {},
       navItem: 'article',
+      tempId: '',
     };
-  },
-  components: {
-    Pagination,
-    ArticleModal,
-    DeleteModal,
   },
   methods: {
     getArticles(page = 1) {
@@ -114,12 +123,13 @@ export default {
           this.pagination = res.data.pagination;
         })
         .catch((err) => {
-          this.$messageState(
-            err.response,
-            err.request,
-            err.message,
-            '錯誤訊息',
-          );
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     getArticle(article) {
@@ -132,15 +142,17 @@ export default {
           this.openModal('edit', res.data.article);
         })
         .catch((err) => {
-          this.$messageState(
-            err.response,
-            err.request,
-            err.message,
-            '錯誤訊息',
-          );
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     updateArticle(id) {
+      this.tempId = id;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
       this.$http
         .get(url)
@@ -149,14 +161,16 @@ export default {
           const result = res;
           result.data.article.isPublic = !result.data.article.isPublic;
           emitter.emit('update-article', result.data.article);
+          this.tempId = '';
         })
         .catch((err) => {
-          this.$messageState(
-            err.response,
-            err.request,
-            err.message,
-            '錯誤訊息',
-          );
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     openModal(status, item) {

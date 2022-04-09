@@ -63,21 +63,13 @@
 
 <script>
 import Swal from 'sweetalert2';
-import Pagination from '@/components/PaginationComponent.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
-  data() {
-    return {
-      articles: [],
-      keyword: '',
-      pagination: {},
-      isLoading: false,
-    };
-  },
   components: {
-    Pagination,
     LoadingComponent,
+    Pagination,
   },
   computed: {
     filterArticles() {
@@ -85,6 +77,14 @@ export default {
         ? this.articles
         : this.articles.filter((item) => item.title.match(this.keyword) || item.description.match(this.keyword));
     },
+  },
+  data() {
+    return {
+      articles: [],
+      keyword: '',
+      pagination: {},
+      isLoading: false,
+    };
   },
   methods: {
     getArticles(page = 1) {

@@ -201,9 +201,13 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 
 export default {
+  components: {
+    ProgressBar,
+  },
   data() {
     return {
       order: {},
@@ -211,9 +215,6 @@ export default {
       products: {},
       isOpen: true,
     };
-  },
-  components: {
-    ProgressBar,
   },
   methods: {
     getOrder() {
@@ -227,7 +228,13 @@ export default {
           this.products = res.data.order.products;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     toggleOrderInfo() {

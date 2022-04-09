@@ -219,24 +219,13 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
-import Pagination from '@/components/PaginationComponent.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
-  data() {
-    return {
-      products: [],
-      pagination: {},
-      category: 'all',
-      categories: [],
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
   components: {
-    Pagination,
     LoadingComponent,
+    Pagination,
   },
   watch: {
     // 因為是陣列，需要做深層監聽
@@ -248,6 +237,17 @@ export default {
       },
       deep: true,
     },
+  },
+  data() {
+    return {
+      products: [],
+      pagination: {},
+      category: 'all',
+      categories: [],
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      isLoading: false,
+      isLoadingItem: '',
+    };
   },
   methods: {
     changeCategory(category) {
@@ -358,7 +358,6 @@ export default {
         });
       }
     },
-    // 比對我的最愛產品 id 是否存在
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
     },

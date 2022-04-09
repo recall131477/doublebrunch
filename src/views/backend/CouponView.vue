@@ -31,9 +31,10 @@
               type="checkbox"
               :id="`${item.id}`"
               class="btn-check mr-2"
-              v-model="item.is_enabled"
               :true-value="1"
               :false-value="0"
+              :disabled="tempId === item.id"
+              v-model="item.is_enabled"
               @change="updateCoupon(item)"
             />
             <label :for="`${item.id}`">
@@ -78,6 +79,7 @@
     :status="status"
     :currentPage="pagination.current_page"
     @update-coupon="getCoupons"
+    @cancel-id="cancelId"
   ></CouponModal>
   <DeleteModal
     ref="delCouponModal"
@@ -89,12 +91,18 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import Pagination from '@/components/PaginationComponent.vue';
 import CouponModal from '@/components/backend/modal/CouponModal.vue';
 import DeleteModal from '@/components/backend/modal/DeleteModal.vue';
 
 export default {
+  components: {
+    Pagination,
+    CouponModal,
+    DeleteModal,
+  },
   data() {
     return {
       coupons: {},
@@ -107,12 +115,8 @@ export default {
       status: '',
       pagination: {},
       navItem: 'coupon',
+      tempId: '',
     };
-  },
-  components: {
-    Pagination,
-    CouponModal,
-    DeleteModal,
   },
   methods: {
     getCoupons(page = 1) {
@@ -124,11 +128,21 @@ export default {
           this.pagination = res.data.pagination;
         })
         .catch((err) => {
-          this.$messageState(err.response, '錯誤訊息');
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     updateCoupon(item) {
+      this.tempId = item.id;
       emitter.emit('update-coupon', item);
+    },
+    cancelId() {
+      this.tempId = '';
     },
     openModal(status, item) {
       this.status = status;
