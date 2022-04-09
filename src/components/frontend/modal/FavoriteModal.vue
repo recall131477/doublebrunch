@@ -159,6 +159,14 @@ export default {
       localStorage.setItem('favorite', JSON.stringify(this.tempFavorite));
       this.$emit('update-favorite');
       emitter.emit('update-favorite');
+      const status = '已移除我的最愛';
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: status,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   },
 };
