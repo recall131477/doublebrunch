@@ -93,6 +93,9 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('../views/frontend/LoginView.vue'),
+    meta: {
+      title: '登入',
+    },
   },
   // 後台
   {
@@ -104,21 +107,33 @@ const routes = [
         path: 'products',
         name: 'backProducts',
         component: () => import('../views/backend/ProductsView.vue'),
+        meta: {
+          title: '後台商品',
+        },
       },
       {
         path: 'order',
         name: 'backOrder',
         component: () => import('../views/backend/OrderView.vue'),
+        meta: {
+          title: '後台訂單',
+        },
       },
       {
         path: 'coupon',
         name: 'backCoupon',
         component: () => import('../views/backend/CouponView.vue'),
+        meta: {
+          title: '後台優惠券',
+        },
       },
       {
         path: 'articles',
         name: 'backArticles',
         component: () => import('../views/backend/ArticlesView.vue'),
+        meta: {
+          title: '後台文章',
+        },
       },
     ],
   },
