@@ -153,6 +153,7 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
@@ -176,31 +177,32 @@ export default {
       deep: true,
     },
   },
+  data() {
+    return {
+      products: [],
+      keyword: '',
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      isLoadingItem: '',
+    };
+  },
   computed: {
+    ...mapGetters(['isLoading']),
     filterProducts() {
       return this.keyword === ''
         ? this.products
         : this.products.filter((item) => item.title.match(this.keyword) || item.category.match(this.keyword));
     },
   },
-  data() {
-    return {
-      products: [],
-      keyword: '',
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products;
-          this.isLoading = false;
+          this.CHANGE_LOADING(false);
         })
         .catch((err) => {
           Swal.fire({

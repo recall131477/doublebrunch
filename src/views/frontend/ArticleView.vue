@@ -56,6 +56,7 @@
 
 <script>
 import Swal from 'sweetalert2';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
@@ -73,19 +74,22 @@ export default {
   data() {
     return {
       article: {},
-      isLoading: false,
     };
   },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getArticle() {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http
         .get(url)
         .then((res) => {
           this.article = res.data.article;
-          this.isLoading = false;
+          this.CHANGE_LOADING(false);
         })
         .catch((err) => {
           Swal.fire({

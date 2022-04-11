@@ -382,6 +382,7 @@
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
@@ -407,8 +408,17 @@ export default {
       deep: true,
     },
   },
+  data() {
+    return {
+      products: [],
+      product: [],
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      qty: 1,
+      isLoadingItem: '',
+    };
+  },
   computed: {
-    // 過濾產品並顯示該系列相關產品
+    ...mapGetters(['isLoading']),
     filterProducts() {
       const { category, id } = this.product;
       return this.products.filter(
@@ -416,17 +426,8 @@ export default {
       );
     },
   },
-  data() {
-    return {
-      products: [],
-      product: [],
-      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      qty: 1,
-      isLoading: false,
-      isLoadingItem: '',
-    };
-  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
@@ -445,14 +446,14 @@ export default {
         });
     },
     getProduct() {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http
         .get(url)
         .then((res) => {
           this.product = res.data.product;
-          this.isLoading = false;
+          this.CHANGE_LOADING(false);
         })
         .catch((err) => {
           Swal.fire({

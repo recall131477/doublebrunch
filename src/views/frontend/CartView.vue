@@ -223,6 +223,7 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ProgressBar from '@/components/frontend/ProgressBar.vue';
 import CouponModal from '@/components/frontend/modal/CouponModal.vue';
@@ -233,6 +234,9 @@ export default {
     ProgressBar,
     CouponModal,
   },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
   data() {
     return {
       cart: {
@@ -241,10 +245,10 @@ export default {
       couponCode: '',
       isCoupon: false,
       status: '',
-      isLoading: true,
     };
   },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getCart() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http
@@ -389,8 +393,9 @@ export default {
     },
   },
   mounted() {
+    this.CHANGE_LOADING(true);
     setTimeout(() => {
-      this.isLoading = false;
+      this.CHANGE_LOADING(false);
     }, 1000);
     this.getCart();
     // 我的最愛產品直接被新增購物車頁面

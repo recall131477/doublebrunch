@@ -19,7 +19,7 @@
   <div class="p-5">
     <NavBar />
     <main>
-        <router-view v-if="checkSuccess" />
+      <router-view v-if="checkSuccess" />
     </main>
   </div>
 </template>

@@ -17,18 +17,15 @@
 
 .loading__main {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 50px;
-  height: 50px;
-  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   &:before {
     content: '';
     position: absolute;
-    top: 70px;
-    left: 0;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 50px;
     height: 5px;
     background-color: $primary;
@@ -36,18 +33,10 @@
     border-radius: 50%;
     animation: shadow 0.7s linear infinite;
   }
-  &:after {
-    content: '';
-    width: 60px;
-    height: 60px;
-    background-color: $primary;
-    animation: square 0.7s linear infinite;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border-radius: 6px;
-  }
+}
+
+.loading__square {
+  animation: square 0.7s linear infinite;
 }
 
 @keyframes square {
@@ -70,11 +59,10 @@
 }
 
 @keyframes shadow {
-  0%,
   100% {
-    transform: scale(1, 1);
+    transform: translateX(-50%) scale(1, 1);
   }
   50% {
-    transform: scale(1.2, 1);
+    transform: translateX(-50%) scale(1.2, 1);
   }
 }

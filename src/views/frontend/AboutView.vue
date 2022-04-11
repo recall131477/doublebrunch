@@ -110,20 +110,26 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
   components: {
     LoadingComponent,
   },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
   data() {
-    return {
-      isLoading: true,
-    };
+    return {};
+  },
+  methods: {
+    ...mapMutations(['CHANGE_LOADING']),
   },
   mounted() {
+    this.CHANGE_LOADING(true);
     setTimeout(() => {
-      this.isLoading = false;
+      this.CHANGE_LOADING(false);
     }, 1000);
   },
 };

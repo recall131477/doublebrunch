@@ -25,6 +25,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import App from './App.vue';
 import router from './router';
+import store from './store';
 
 // 自定義函式方法
 import { date, currency } from './methods/filters';
@@ -51,6 +52,7 @@ app.config.globalProperties.$filters = {
 app.use(router);
 app.use(VueAxios, axios);
 app.use(CKEditor);
+app.use(store);
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);

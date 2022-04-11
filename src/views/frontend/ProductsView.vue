@@ -219,6 +219,7 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import Pagination from '@/components/PaginationComponent.vue';
 
@@ -245,11 +246,14 @@ export default {
       category: 'all',
       categories: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
-      isLoading: false,
       isLoadingItem: '',
     };
   },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     changeCategory(category) {
       this.category = category;
       this.getProducts();
@@ -277,7 +281,7 @@ export default {
         });
     },
     getProducts(page = 1) {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       if (this.category !== 'all') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${this.category}`;
@@ -290,7 +294,7 @@ export default {
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
-          this.isLoading = false;
+          this.CHANGE_LOADING(false);
         })
         .catch((err) => {
           Swal.fire({

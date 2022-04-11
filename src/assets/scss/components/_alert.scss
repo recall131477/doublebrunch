@@ -1,0 +1,52 @@
+.swal2-popup {
+  background-color: $secondary !important;
+  width: auto !important;
+  min-width: 300px !important;
+  padding: 1.25em 0.625em 0.625em !important;
+  @include mq(md) {
+    padding: 2.5em 1.25em 1.25em !important;
+  }
+}
+
+.swal2-title {
+  font-size: 1.75rem !important;
+  padding: 0 !important;
+  margin-top: 1rem !important;
+}
+
+.swal2-icon {
+  margin: 0 auto !important;
+}
+
+.swal2-icon-success {
+  .swal2-title {
+    color: $primary !important;
+  }
+}
+
+.swal2-success-circular-line-left {
+  background-color: $secondary !important;
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line],.swal2-icon.swal2-success [class^=swal2-success-line] {
+  background-color: $primary !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border: 0.25em solid rgba($primary,0.5) !important;
+}
+
+.swal2-icon-error {
+  .swal2-title {
+    color: $warning !important;
+  }
+}
+
+.swal2-icon.swal2-error {
+  border-color: $warning !important;
+  color: $warning !important;
+}
+
+.swal2-icon.swal2-error [class^=swal2-x-mark-line],.swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+  background-color: $warning !important;
+}

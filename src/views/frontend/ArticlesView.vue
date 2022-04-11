@@ -63,6 +63,7 @@
 
 <script>
 import Swal from 'sweetalert2';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import Pagination from '@/components/PaginationComponent.vue';
 
@@ -71,31 +72,32 @@ export default {
     LoadingComponent,
     Pagination,
   },
+  data() {
+    return {
+      articles: [],
+      keyword: '',
+      pagination: {},
+    };
+  },
   computed: {
+    ...mapGetters(['isLoading']),
     filterArticles() {
       return this.keyword === ''
         ? this.articles
         : this.articles.filter((item) => item.title.match(this.keyword) || item.description.match(this.keyword));
     },
   },
-  data() {
-    return {
-      articles: [],
-      keyword: '',
-      pagination: {},
-      isLoading: false,
-    };
-  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getArticles(page = 1) {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/articles?page=${page}`;
       this.$http
         .get(url)
         .then((res) => {
           this.articles = res.data.articles;
           this.pagination = res.data.pagination;
-          this.isLoading = false;
+          this.CHANGE_LOADING(false);
         })
         .catch((err) => {
           Swal.fire({

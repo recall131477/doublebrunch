@@ -1,6 +1,6 @@
 <template>
+  <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
-    <LoadingComponent :isLoading="isLoading"></LoadingComponent>
     <div class="relative border-primary border-b-2">
       <Swiper
         :modules="modules"
@@ -542,7 +542,7 @@
           <button
             type="button"
             class="btn-light text-white bg-primary w-[120px] h-full opacity-50 pointer-events-none md:w-40"
-            :class="{'opacity-100 pointer-events-auto': subscribeMail}"
+            :class="{ 'opacity-100 pointer-events-auto': subscribeMail }"
             @click="sendSubscribe"
           >
             訂閱
@@ -565,6 +565,7 @@ import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Autoplay } from 'swiper';
+import { mapMutations, mapGetters } from 'vuex';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
@@ -593,13 +594,16 @@ export default {
       articles: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
       modules: [Navigation, Autoplay],
-      isLoading: false,
       isLoadingItem: '',
     };
   },
+  computed: {
+    ...mapGetters(['isLoading']),
+  },
   methods: {
+    ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
-      this.isLoading = true;
+      this.CHANGE_LOADING(true);
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
@@ -621,7 +625,7 @@ export default {
           });
           this.monthMainProducts = monthMainResult;
           setTimeout(() => {
-            this.isLoading = false;
+            this.CHANGE_LOADING(false);
           }, 1000);
         })
         .catch((err) => {
