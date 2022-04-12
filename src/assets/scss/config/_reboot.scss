@@ -17,6 +17,10 @@ input::placeholder {
   opacity: 0.5;
 }
 
+input:-internal-autofill-selected {
+  transition: background-color 6000s ease-in-out 0s;
+}
+
 select {
   -webkit-appearance: none;
   border-radius: 0;
