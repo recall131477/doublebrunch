@@ -603,7 +603,6 @@ export default {
   methods: {
     ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
-      this.CHANGE_LOADING(true);
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
@@ -728,6 +727,7 @@ export default {
     },
   },
   mounted() {
+    this.CHANGE_LOADING(true);
     this.getProducts();
     this.getArticles();
     emitter.on('update-favorite', () => {
