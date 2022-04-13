@@ -144,7 +144,7 @@
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
-                  class="duration-300 stroke-primary group-hover:stroke-white"
+                  class="duration-[400ms] stroke-primary group-hover:stroke-white"
                 >
                   <rect
                     width="16"
