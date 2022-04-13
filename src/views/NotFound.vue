@@ -21,14 +21,14 @@
           <div class="w-1/2 pl-5">
             <router-link
               to="/"
-              class="btn block text-primary text-center border-primary border-2 px-5 py-2.5"
+              class="btn duration-[400ms] block text-primary text-center border-primary border-2 px-5 py-2.5"
               >前往首頁
             </router-link>
           </div>
           <div class="w-1/2 pl-5">
             <router-link
               to="/products"
-              class="btn block border-primary text-center border-2 px-5 py-2.5"
+              class="btn duration-[400ms] block border-primary text-center border-2 px-5 py-2.5"
               >前往商店
             </router-link>
           </div>
