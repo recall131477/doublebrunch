@@ -129,7 +129,7 @@
             <div class="w-1/2">
               <button
                 type="button"
-                class="btn duration-300 flex justify-center items-center text-primary border-primary border-r-2 w-full h-[60px]"
+                class="btn duration-[400ms] flex justify-center items-center text-primary border-primary border-r-2 w-full h-[60px]"
                 @click="deleteAllCarts"
               >
                 清空購物車
@@ -138,7 +138,7 @@
             <div class="w-1/2">
               <router-link
                 to="/products"
-                class="btn duration-300 flex justify-center items-center text-primary border-primary border-r-2 h-[60px] group"
+                class="btn duration-[400ms] flex justify-center items-center text-primary border-primary border-r-2 h-[60px] group"
               >
                 <svg
                   width="20"
