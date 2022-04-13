@@ -202,6 +202,7 @@ export default {
         .get(url)
         .then((res) => {
           this.products = res.data.products;
+          this.products.reverse();
           this.CHANGE_LOADING(false);
         })
         .catch((err) => {

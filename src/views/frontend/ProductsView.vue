@@ -243,6 +243,7 @@ export default {
     return {
       products: [],
       pagination: {},
+      page: 1,
       category: 'all',
       categories: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
@@ -268,7 +269,7 @@ export default {
           products.forEach((item) => {
             result.add(item.category);
           });
-          this.categories = result;
+          this.categories = [...result].reverse();
         })
         .catch((err) => {
           Swal.fire({
@@ -370,8 +371,13 @@ export default {
     if (this.$route.query.category) {
       this.category = this.$route.query.category;
     }
+    if (this.$route.query.page) {
+      this.page = this.$route.query.page;
+      this.getProducts(this.page);
+    } else {
+      this.getProducts();
+    }
     this.getCategories();
-    this.getProducts();
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     });

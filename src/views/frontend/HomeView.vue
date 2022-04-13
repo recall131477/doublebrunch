@@ -616,7 +616,7 @@ export default {
               discountResult.add(item);
             }
           });
-          this.discountProducts = discountResult;
+          this.discountProducts = [...discountResult].reverse();
           products.forEach((item) => {
             if (item.category === '漢堡') {
               monthMainResult.add(item);
