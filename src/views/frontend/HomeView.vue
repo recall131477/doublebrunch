@@ -727,12 +727,14 @@ export default {
     },
   },
   mounted() {
-    this.CHANGE_LOADING(true);
     this.getProducts();
     this.getArticles();
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     });
+  },
+  created() {
+    this.CHANGE_LOADING(true);
   },
 };
 </script>
