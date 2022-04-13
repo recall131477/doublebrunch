@@ -90,7 +90,7 @@
             <div class="relative h-[60px]">
               <button
                 type="button"
-                class="btn duration-300 flex justify-center items-center w-full h-full group"
+                class="btn duration-[400ms] flex justify-center items-center w-full h-full group"
                 :disabled="qty > 30"
                 :class="{
                   'opacity-30 pointer-events-none': qty > 30,
@@ -101,7 +101,7 @@
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
-                  class="duration-300 stroke-primary group-hover:stroke-white"
+                  class="duration-[400ms] stroke-primary group-hover:stroke-white"
                 >
                   <rect
                     width="16"
@@ -301,14 +301,14 @@
                     <div class="relative flex-1">
                       <button
                         type="button"
-                        class="btn duration-300 flex justify-center items-center border-primary border-l-2 w-full h-full group"
+                        class="btn duration-[400ms] flex justify-center items-center border-primary border-l-2 w-full h-full group"
                         @click="addToCart(product.id)"
                       >
                         <svg
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
-                          class="duration-300 stroke-primary group-hover:stroke-white"
+                          class="duration-[400ms] stroke-primary group-hover:stroke-white"
                         >
                           <rect
                             width="16"

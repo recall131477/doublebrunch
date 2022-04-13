@@ -11,15 +11,15 @@
     transform: skewX(-45deg);
     width: 0;
     z-index: -1;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.4s ease-in-out;
   }
   &::before {
     top: 0;
-    left: -20%;
+    left: -30%;
   }
   &::after {
     bottom: 0;
-    right: -20%;
+    right: -30%;
   }
   &:hover {
     color: #fff;

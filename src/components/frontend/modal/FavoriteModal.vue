@@ -50,7 +50,7 @@
         <div class="relative inline-block">
           <button
             type="button"
-            class="btn duration-300 text-primary border-primary border-2 px-4 py-3"
+            class="btn duration-[400ms] text-primary border-primary border-2 px-4 py-3"
             @click="addToCart(product.id)"
           >
             加入購物車
