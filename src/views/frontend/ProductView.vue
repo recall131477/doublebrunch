@@ -382,8 +382,11 @@
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+
+const statusModule = statusStore();
 
 export default {
   components: {
@@ -418,7 +421,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapState(statusStore, ['isLoading']),
     filterProducts() {
       const { category, id } = this.product;
       return this.products.filter(
@@ -427,7 +430,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
@@ -446,14 +448,14 @@ export default {
         });
     },
     getProduct() {
-      this.CHANGE_LOADING(true);
+      statusModule.isLoading = true;
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http
         .get(url)
         .then((res) => {
           this.product = res.data.product;
-          this.CHANGE_LOADING(false);
+          statusModule.isLoading = false;
         })
         .catch((err) => {
           Swal.fire({

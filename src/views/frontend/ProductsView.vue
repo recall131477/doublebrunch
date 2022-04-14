@@ -219,9 +219,12 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import Pagination from '@/components/PaginationComponent.vue';
+
+const statusModule = statusStore();
 
 export default {
   components: {
@@ -251,10 +254,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapState(statusStore, ['isLoading']),
   },
   methods: {
-    ...mapMutations(['CHANGE_LOADING']),
     changeCategory(category) {
       this.category = category;
       this.getProducts();
@@ -282,7 +284,7 @@ export default {
         });
     },
     getProducts(page = 1) {
-      this.CHANGE_LOADING(true);
+      statusModule.isLoading = true;
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       if (this.category !== 'all') {
         url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${this.category}`;
@@ -295,7 +297,7 @@ export default {
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
-          this.CHANGE_LOADING(false);
+          statusModule.isLoading = false;
         })
         .catch((err) => {
           Swal.fire({

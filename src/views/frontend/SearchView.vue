@@ -153,8 +153,11 @@
 <script>
 import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+
+const statusModule = statusStore();
 
 export default {
   components: {
@@ -186,7 +189,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapState(statusStore, ['isLoading']),
     filterProducts() {
       return this.keyword === ''
         ? this.products
@@ -194,16 +197,15 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['CHANGE_LOADING']),
     getProducts() {
-      this.CHANGE_LOADING(true);
+      statusModule.isLoading = true;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products;
           this.products.reverse();
-          this.CHANGE_LOADING(false);
+          statusModule.isLoading = false;
         })
         .catch((err) => {
           Swal.fire({

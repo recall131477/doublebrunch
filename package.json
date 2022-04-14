@@ -15,13 +15,13 @@
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "mitt": "^3.0.0",
+    "pinia": "^2.0.13",
     "sweetalert2": "^11.4.8",
     "swiper": "^8.0.7",
     "vee-validate": "^4.5.10",
     "vue": "^3.2.30",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

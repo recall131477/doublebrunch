@@ -56,8 +56,11 @@
 
 <script>
 import Swal from 'sweetalert2';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+
+const statusModule = statusStore();
 
 export default {
   components: {
@@ -77,19 +80,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapState(statusStore, ['isLoading']),
   },
   methods: {
-    ...mapMutations(['CHANGE_LOADING']),
     getArticle() {
-      this.CHANGE_LOADING(true);
+      statusModule.isLoading = true;
       const { id } = this.$route.params;
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http
         .get(url)
         .then((res) => {
           this.article = res.data.article;
-          this.CHANGE_LOADING(false);
+          statusModule.isLoading = false;
         })
         .catch((err) => {
           Swal.fire({

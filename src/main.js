@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-
+import { createPinia } from 'pinia';
 // scss
 import '@/assets/scss/tailwind.scss';
 import '@/assets/scss/all.scss';
@@ -25,7 +25,6 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import App from './App.vue';
 import router from './router';
-import store from './store';
 
 // 自定義函式方法
 import { date, currency } from './methods/filters';
@@ -48,11 +47,12 @@ app.config.globalProperties.$filters = {
   date,
   currency,
 };
+const pinia = createPinia();
 
 app.use(router);
 app.use(VueAxios, axios);
 app.use(CKEditor);
-app.use(store);
+app.use(pinia);
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);

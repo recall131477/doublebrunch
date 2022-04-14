@@ -110,26 +110,23 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapState } from 'pinia';
+import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+
+const statusModule = statusStore();
 
 export default {
   components: {
     LoadingComponent,
   },
   computed: {
-    ...mapGetters(['isLoading']),
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapMutations(['CHANGE_LOADING']),
+    ...mapState(statusStore, ['isLoading']),
   },
   mounted() {
-    this.CHANGE_LOADING(true);
+    statusModule.isLoading = true;
     setTimeout(() => {
-      this.CHANGE_LOADING(false);
+      statusModule.isLoading = false;
     }, 1000);
   },
 };
