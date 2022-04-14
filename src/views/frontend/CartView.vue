@@ -297,7 +297,7 @@ export default {
         newQty = 30;
       }
       const data = {
-        product_id: item.id,
+        product_id: item.product_id,
         qty: newQty,
       };
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
