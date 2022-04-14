@@ -56,7 +56,7 @@
           </div>
           <div class="w-full md:w-2/6 lg:w-1/4">
             <div
-              class="flex border-primary border-2 my-2.5 md:w-[200px] md:my-0"
+              class="relative flex border-primary border-2 my-2.5 md:w-[200px] md:my-0"
             >
               <button
                 type="button"
@@ -99,6 +99,11 @@
                   :class="{ 'group-hover:bg-white': item.qty < 30 }"
                 ></span>
               </button>
+              <span
+                class="absolute top-[52px] right-0 text-14px text-warning md:top-11 md:left-0"
+                v-if="item.qty === 30"
+                >商品數量不可超過30</span
+              >
             </div>
           </div>
           <div class="w-full md:w-1/6 lg:w-1/4">
@@ -255,6 +260,12 @@ export default {
         .get(url)
         .then((res) => {
           this.cart = res.data.data;
+          this.cart.carts.forEach((item) => {
+            const newItem = item;
+            if (newItem.qty > 30) {
+              newItem.qty = 30;
+            }
+          });
           if (this.cart.final_total !== this.cart.total) {
             this.isCoupon = true;
             this.couponCode = 'double777';

@@ -151,7 +151,7 @@
                 </div>
               </div>
               <span class="block text-warning mt-2" v-if="qty > 30"
-                >數量不可超過30</span
+                >商品數量不可超過30</span
               >
             </div>
           </div>
