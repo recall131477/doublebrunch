@@ -264,6 +264,7 @@ export default {
             const newItem = item;
             if (newItem.qty > 30) {
               newItem.qty = 30;
+              newItem.total = newItem.product.price * 30;
             }
           });
           if (this.cart.final_total !== this.cart.total) {
