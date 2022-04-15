@@ -232,6 +232,15 @@ export default {
     Pagination,
   },
   watch: {
+    $route: {
+      handler() {
+        if (this.$route.query.category && this.$route.query.page) {
+          this.category = this.$route.query.category;
+          this.page = this.$route.query.page;
+          this.getProducts(this.page);
+        }
+      },
+    },
     // 因為是陣列，需要做深層監聽
     favorite: {
       handler() {
@@ -287,10 +296,10 @@ export default {
       statusModule.isLoading = true;
       let url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?page=${page}`;
       if (this.category !== 'all') {
-        url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${this.category}`;
-        this.$router.push(`/products?category=${this.category}`);
+        url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products?category=${this.category}&page=${page}`;
+        this.$router.push(`/products?category=${this.category}&page=${page}`);
       } else {
-        this.$router.push(`/products?page=${page}`);
+        this.$router.push(`/products?category=all&page=${page}`);
       }
       this.$http
         .get(url)
@@ -370,14 +379,10 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.category) {
+    if (this.$route.query.category && this.$route.query.page) {
       this.category = this.$route.query.category;
-    }
-    if (this.$route.query.page) {
       this.page = this.$route.query.page;
       this.getProducts(this.page);
-    } else {
-      this.getProducts();
     }
     this.getCategories();
     emitter.on('update-favorite', () => {

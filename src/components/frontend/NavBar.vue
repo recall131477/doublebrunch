@@ -11,7 +11,7 @@
         <ul class="bg-secondary h-full border-primary border-r-2">
           <li class="h-1/4">
             <router-link
-              to="/products"
+              :to="{ path: '/products', query: { category: 'all', page: 1 } }"
               class="flex items-center h-full border-primary border-b-2 p-5 md:p-10"
             >
               <span class="text-primary w-[60px]">Menu</span>
