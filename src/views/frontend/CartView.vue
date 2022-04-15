@@ -12,7 +12,7 @@
         目前購物車沒有商品哦!
       </p>
       <router-link
-        to="/products"
+        :to="{ path: '/products', query: { category: 'all', page: 1 } }"
         class="btn-pulse inline-block text-white bg-primary px-7 py-2 md:px-12 md:py-[18px]"
         >前往購物</router-link
       >
@@ -142,7 +142,7 @@
             </div>
             <div class="w-1/2">
               <router-link
-                to="/products"
+                :to="{ path: '/products', query: { category: 'all', page: 1 } }"
                 class="btn duration-[400ms] flex justify-center items-center text-primary border-primary border-r-2 h-[60px] group"
               >
                 <svg

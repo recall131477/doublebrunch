@@ -189,7 +189,7 @@
           </div>
           <div class="w-1/2 pl-[15px] md:w-auto">
             <router-link
-              to="/products"
+              :to="{ path: '/products', query: { category: 'all', page: 1 } }"
               class="btn-light duration-300 flex justify-center items-center text-white bg-primary h-[60px] md:w-40"
               >繼續購物
             </router-link>

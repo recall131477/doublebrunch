@@ -27,7 +27,7 @@
           </div>
           <div class="w-1/2 pl-5">
             <router-link
-              to="/products"
+              :to="{ path: '/products', query: { category: 'all', page: 1 } }"
               class="btn duration-[400ms] block border-primary text-center border-2 px-5 py-2.5"
               >前往商店
             </router-link>

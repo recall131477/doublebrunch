@@ -10,7 +10,7 @@
         目前我的最愛沒有商品哦!
       </p>
       <router-link
-        to="/products"
+        :to="{ path: '/products', query: { category: 'all', page: 1 } }"
         class="btn duration-[400ms] inline-block text-primary border-primary border-2 px-5 py-2.5"
         >前往購物
       </router-link>

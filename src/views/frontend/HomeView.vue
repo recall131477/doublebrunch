@@ -38,7 +38,7 @@
           </div>
           <div class="relative">
             <router-link
-              to="/products"
+              :to="{ path: '/products', query: { category: 'all', page: 1 } }"
               class="btn-arrow duration-300 relative flex justify-center items-center text-white bg-primary h-[60px] group hover:text-white md:absolute md:bottom-0 md:left-0 md:z-10 md:text-primary md:bg-secondary md:w-[240px] md:h-20"
               >立即點餐
               <svg
