@@ -50,7 +50,15 @@
         <div class="relative inline-block">
           <button
             type="button"
+            class="text-primary border-primary border-2 pointer-events-none px-4 py-3"
+            v-if="isMaxNum(product)"
+          >
+            商品已達購買上限
+          </button>
+          <button
+            type="button"
             class="btn duration-[400ms] text-primary border-primary border-2 px-4 py-3"
+            v-else
             @click="addToCart(product.id)"
           >
             加入購物車
@@ -106,6 +114,9 @@ export default {
     return {
       isOpen: false,
       tempFavorite: [],
+      cart: {
+        carts: [],
+      },
       isLoadingItem: '',
     };
   },
@@ -120,6 +131,23 @@ export default {
     },
   },
   methods: {
+    getCart() {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.cart = res.data.data;
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
     addToCart(id, qty = 1) {
       this.isLoadingItem = id;
       const data = {
@@ -141,6 +169,7 @@ export default {
           emitter.emit('get-cart');
           // 我的最愛產品直接新增購物車頁面
           emitter.emit('add-cart');
+          this.getCart();
           this.isLoadingItem = '';
         })
         .catch((err) => {
@@ -152,6 +181,15 @@ export default {
             timer: 1500,
           });
         });
+    },
+    isMaxNum(product) {
+      const result = this.cart.carts.filter(
+        (cart) => cart.product_id === product.id,
+      )[0];
+      if (result && result.qty === 30) {
+        return true;
+      }
+      return false;
     },
     deleteFavorite(item) {
       const index = this.tempFavorite.findIndex((obj) => obj.id === item.id);
@@ -168,6 +206,12 @@ export default {
         timer: 1500,
       });
     },
+  },
+  mounted() {
+    emitter.on('update-cart', () => {
+      this.getCart();
+    });
+    this.getCart();
   },
 };
 </script>

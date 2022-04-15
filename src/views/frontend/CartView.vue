@@ -101,7 +101,7 @@
               </button>
               <span
                 class="absolute top-[52px] right-0 text-14px text-warning md:top-11 md:left-0"
-                v-if="item.qty === 30"
+                v-if="item.qty > 30"
                 >商品數量不可超過30</span
               >
             </div>
@@ -262,13 +262,6 @@ export default {
         .get(url)
         .then((res) => {
           this.cart = res.data.data;
-          this.cart.carts.forEach((item) => {
-            const newItem = item;
-            if (newItem.qty > 30) {
-              newItem.qty = 30;
-              newItem.total = newItem.product.price * 30;
-            }
-          });
           if (this.cart.final_total !== this.cart.total) {
             this.isCoupon = true;
             this.couponCode = 'double777';
@@ -314,6 +307,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
+          emitter.emit('update-cart');
           this.getCart();
         })
         .catch((err) => {

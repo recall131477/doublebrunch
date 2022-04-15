@@ -263,7 +263,15 @@
                     <div class="relative flex-1">
                       <button
                         type="button"
+                        class="flex justify-center items-center text-primary border-primary border-l-2 w-full h-full pointer-events-none"
+                        v-if="isMaxNum(product)"
+                      >
+                        商品已達購買上限
+                      </button>
+                      <button
+                        type="button"
                         class="btn duration-[400ms] flex justify-center items-center border-primary border-l-2 w-full h-full group"
+                        v-else
                         @click="addToCart(product.id)"
                       >
                         <svg
@@ -593,6 +601,9 @@ export default {
       products: [],
       discountProducts: [],
       monthMainProducts: [],
+      cart: {
+        carts: [],
+      },
       subscribeMail: '',
       articles: [],
       favorite: JSON.parse(localStorage.getItem('favorite')) || [], // 若陣列沒資料，賦予空陣列
@@ -657,6 +668,23 @@ export default {
           });
         });
     },
+    getCart() {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.cart = res.data.data;
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
     addToCart(id, qty = 1) {
       this.isLoadingItem = id;
       const data = {
@@ -676,6 +704,7 @@ export default {
             timer: 1500,
           });
           emitter.emit('get-cart');
+          this.getCart();
           this.isLoadingItem = '';
         })
         .catch((err) => {
@@ -716,6 +745,15 @@ export default {
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
     },
+    isMaxNum(product) {
+      const result = this.cart.carts.filter(
+        (cart) => cart.product_id === product.id,
+      )[0];
+      if (result && result.qty === 30) {
+        return true;
+      }
+      return false;
+    },
     sendSubscribe() {
       const status = '已訂閱';
       Swal.fire({
@@ -730,6 +768,7 @@ export default {
   },
   mounted() {
     this.getProducts();
+    this.getCart();
     this.getArticles();
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];

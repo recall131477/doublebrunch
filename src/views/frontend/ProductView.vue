@@ -70,20 +70,21 @@
               <button
                 type="button"
                 class="duration-300 relative w-[60px] h-[60px] group"
-                :disabled="qty === 30 || qty > 30"
+                :disabled="qty === maxNum || qty > maxNum"
                 :class="{
-                  'cursor-not-allowed opacity-30': qty === 30 || qty > 30,
-                  'hover:bg-primary': qty < 30,
+                  'cursor-not-allowed opacity-30':
+                    qty === maxNum || qty > maxNum,
+                  'hover:bg-primary': qty < maxNum,
                 }"
                 @click="qty += 1"
               >
                 <span
                   class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-4 h-[2px]"
-                  :class="{ 'group-hover:bg-white': qty < 30 }"
+                  :class="{ 'group-hover:bg-white': qty < maxNum }"
                 ></span>
                 <span
                   class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 bg-primary w-4 h-[2px]"
-                  :class="{ 'group-hover:bg-white': qty < 30 }"
+                  :class="{ 'group-hover:bg-white': qty < maxNum }"
                 ></span>
               </button>
             </div>
@@ -91,9 +92,9 @@
               <button
                 type="button"
                 class="btn duration-[400ms] flex justify-center items-center w-full h-full group"
-                :disabled="qty > 30"
+                :disabled="qty > maxNum"
                 :class="{
-                  'opacity-30 pointer-events-none': qty > 30,
+                  'opacity-30 pointer-events-none': qty > maxNum,
                 }"
                 @click="addToCart(product.id, qty)"
               >
@@ -150,8 +151,8 @@
                   <span class="text-white">加入中...</span>
                 </div>
               </div>
-              <span class="block text-warning mt-2" v-if="qty > 30"
-                >商品數量不可超過30</span
+              <span class="block text-warning mt-2" v-if="qty > maxNum"
+                >商品數量剩餘: {{ maxNum }}個</span
               >
             </div>
           </div>
@@ -301,7 +302,15 @@
                     <div class="relative flex-1">
                       <button
                         type="button"
+                        class="flex justify-center items-center text-primary border-primary border-l-2 w-full h-full pointer-events-none"
+                        v-if="isMaxNum(product)"
+                      >
+                        商品已達購買上限
+                      </button>
+                      <button
+                        type="button"
                         class="btn duration-[400ms] flex justify-center items-center border-primary border-l-2 w-full h-full group"
+                        v-else
                         @click="addToCart(product.id)"
                       >
                         <svg
@@ -414,7 +423,10 @@ export default {
   data() {
     return {
       products: [],
-      product: [],
+      product: {},
+      cart: {
+        carts: [],
+      },
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
       qty: 1,
       isLoadingItem: '',
@@ -427,6 +439,12 @@ export default {
       return this.products.filter(
         (item) => item.category === category && item.id !== id,
       );
+    },
+    maxNum() {
+      const result = this.cart.carts.filter(
+        (item) => item.product_id === this.product.id,
+      )[0];
+      return result ? 30 - result.qty : 30;
     },
   },
   methods: {
@@ -467,6 +485,23 @@ export default {
           });
         });
     },
+    getCart() {
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.cart = res.data.data;
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: err.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+    },
     addToCart(id, qty = 1) {
       this.isLoadingItem = id;
       const data = {
@@ -478,6 +513,7 @@ export default {
       this.$http
         .post(url, { data })
         .then(() => {
+          this.product.stock -= 1;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -486,6 +522,8 @@ export default {
             timer: 1500,
           });
           emitter.emit('get-cart');
+          this.getCart();
+          this.qty = 1;
           this.isLoadingItem = '';
         })
         .catch((err) => {
@@ -526,10 +564,20 @@ export default {
     isFavorite(item) {
       return this.favorite.some((element) => element.id === item.id);
     },
+    isMaxNum(product) {
+      const result = this.cart.carts.filter(
+        (cart) => cart.product_id === product.id,
+      )[0];
+      if (result && result.qty === 30) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
     this.getProduct();
     this.getProducts();
+    this.getCart();
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     });
