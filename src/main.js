@@ -48,6 +48,7 @@ app.config.globalProperties.$filters = {
   date,
   currency,
 };
+
 const pinia = createPinia();
 
 app.use(router);
