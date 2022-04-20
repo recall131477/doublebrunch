@@ -2,9 +2,9 @@
   <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
-      class="flex flex-wrap flex-col-reverse lg:flex-row lg:h-[calc(100vh-140px)]"
+      class="flex flex-wrap flex-col-reverse lg:flex-row lg:min-h-[calc(100vh-140px)]"
     >
-      <div class="w-full h-full lg:w-3/5">
+      <div class="w-full lg:w-3/5">
         <div class="p-[15px] md:p-5 lg:p-10">
           <span class="block text-primary opacity-50 mb-1">{{
             $filters.date(article.create_at)
@@ -41,12 +41,12 @@
           >
         </div>
       </div>
-      <div class="w-full h-full lg:w-2/5">
+      <div class="w-full lg:w-2/5">
         <div class="relative pt-[63%] h-full lg:pt-0">
           <img
             :src="article.imageUrl"
             :alt="article.title"
-            class="absolute top-0 left-0 w-full h-full object-cover lg:relative"
+            class="absolute top-0 left-0 w-full h-full object-cover"
           />
         </div>
       </div>

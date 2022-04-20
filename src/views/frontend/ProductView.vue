@@ -2,9 +2,9 @@
   <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
-      class="flex flex-wrap border-primary border-b-2 lg:h-[calc(100vh-140px)]"
+      class="flex flex-wrap border-primary border-b-2 lg:min-h-[calc(100vh-140px)]"
     >
-      <div class="w-full h-full lg:w-1/2">
+      <div class="w-full lg:w-1/2">
         <div class="relative pt-[100%] h-full lg:pt-0">
           <img
             :src="product.imageUrl"
@@ -13,7 +13,7 @@
           />
         </div>
       </div>
-      <div class="w-full h-full lg:w-1/2">
+      <div class="w-full lg:w-1/2">
         <div class="p-[15px] md:p-10 lg:p-[60px]">
           <span class="text-primary opacity-50">{{ product.category }}</span>
           <h2

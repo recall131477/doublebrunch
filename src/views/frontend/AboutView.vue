@@ -2,9 +2,9 @@
   <LoadingComponent :isLoading="isLoading"></LoadingComponent>
   <section>
     <div
-      class="relative h-[calc(100vh-90px)] border-primary border-b-2 md:h-[calc(100vh-120px)] lg:h-[calc(100vh-140px)]"
+      class="relative flex flex-col min-h-[calc(100vh-90px)] border-primary border-b-2 md:min-h-[calc(100vh-120px)] lg:min-h-[calc(100vh-140px)]"
     >
-      <div class="flex h-[calc(100%-60px)] md:h-[calc(100%-80px)]">
+      <div class="flex flex-1">
         <div class="hidden w-[240px] md:block">
           <div class="relative h-full">
             <h4 class="absolute bottom-5 left-5 text-20px text-primary">
@@ -14,16 +14,16 @@
         </div>
         <div class="relative w-full md:w-[calc(100%-240px)]">
           <div class="border-primary border-l-2 h-full">
+            <img
+              src="@/assets/images/bg-about.png"
+              alt="關於我們"
+              class="absolute top-0 left-0 w-full h-full object-cover"
+            />
             <h2
               class="absolute bottom-[15px] left-[15px] text-48px text-white md:bottom-10 md:left-10 md:text-64px lg:bottom-[60px] lg:left-[60px] lg:text-80px"
             >
               關於午分之食
             </h2>
-            <img
-              src="@/assets/images/bg-about.png"
-              alt="關於我們"
-              class="w-full h-full object-cover"
-            />
           </div>
         </div>
       </div>
