@@ -6,11 +6,17 @@
         :modules="modules"
         :slides-per-view="1"
         :speed="1000"
-
+        :autoplay="{
+          delay: 3000,
+          pauseOnMouseEnter: true,
+          disableOnInteraction: false,
+        }"
         :loop="true"
       >
         <SwiperSlide v-for="product in monthMainProducts" :key="product.id">
-          <div class="flex flex-wrap flex-col-reverse md:flex-row md:min-h-[calc(100vh-140px)]">
+          <div
+            class="flex flex-wrap flex-col-reverse md:flex-row md:min-h-[calc(100vh-140px)]"
+          >
             <div class="w-full md:w-[240px]">
               <div
                 class="flex justify-between items-center p-[15px] md:justify-center md:flex-col md:h-[calc(100%-5rem)] md:border-primary md:border-b-2 md:p-0"
