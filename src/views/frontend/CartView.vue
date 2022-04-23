@@ -334,6 +334,7 @@ export default {
             timer: 1500,
           });
           emitter.emit('get-cart');
+          emitter.emit('update-cart');
           this.getCart();
         })
         .catch((err) => {
@@ -360,6 +361,7 @@ export default {
             timer: 1500,
           });
           emitter.emit('get-cart');
+          emitter.emit('update-cart');
           this.getCart();
         })
         .catch((err) => {

@@ -751,10 +751,7 @@ export default {
       const result = this.cart.carts.filter(
         (cart) => cart.product_id === product.id,
       )[0];
-      if (result && result.qty === 30) {
-        return true;
-      }
-      return false;
+      return result && result.qty === 30;
     },
     sendSubscribe() {
       const status = '已訂閱';
