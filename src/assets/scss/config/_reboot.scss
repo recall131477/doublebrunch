@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'creamfont';
+  src: url('~@/assets/font/creamfont.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
 body{
   font-family: 'creamfont',sans-serif;
   overflow-x: hidden;
