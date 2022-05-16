@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-icon-search">
+      <rect width="20" height="20"/>
+    </clipPath>
+  </defs>
+  <g id="icon-search" clip-path="url(#clip-icon-search)">
+    <g id="Group_248" data-name="Group 248" transform="translate(-1198 -45)">
+      <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(1199 46)" fill="none" stroke="#8ca06e" stroke-linejoin="round" stroke-width="2">
+        <circle cx="8" cy="8" r="8" stroke="none"/>
+        <circle cx="8" cy="8" r="7" fill="none"/>
+      </g>
+      <line id="Line_5" data-name="Line 5" x2="5" y2="5" transform="translate(1212 59)" fill="none" stroke="#8ca06e" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
