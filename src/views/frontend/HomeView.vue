@@ -575,11 +575,9 @@ import Swal from 'sweetalert2';
 import emitter from '@/methods/emitter';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Autoplay } from 'swiper';
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import statusStore from '@/stores/statusStore';
 import LoadingComponent from '@/components/LoadingComponent.vue';
-
-const statusModule = statusStore();
 
 export default {
   components: {
@@ -617,7 +615,9 @@ export default {
     ...mapState(statusStore, ['isLoading']),
   },
   methods: {
+    ...mapActions(statusStore, ['changeLoading']),
     getProducts() {
+      this.changeLoading();
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http
         .get(url)
@@ -639,7 +639,7 @@ export default {
           });
           this.monthMainProducts = monthMainResult;
           setTimeout(() => {
-            statusModule.isLoading = false;
+            this.changeLoading();
           }, 1000);
         })
         .catch((err) => {
@@ -772,9 +772,6 @@ export default {
     emitter.on('update-favorite', () => {
       this.favorite = JSON.parse(localStorage.getItem('favorite')) || [];
     });
-  },
-  created() {
-    statusModule.isLoading = true;
   },
 };
 </script>
